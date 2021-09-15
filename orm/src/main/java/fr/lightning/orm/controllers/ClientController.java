@@ -23,7 +23,7 @@ public class ClientController {
 
     @GetMapping(value = "client/{id}")
     public Client getClientById(@PathVariable int id) {
-        return clientDao.findClientsById(id);
+        return clientDao.findClientById(id);
     }
 
     @PostMapping(value = "client")
@@ -40,5 +40,9 @@ public class ClientController {
                 .toUri();
 
         return ResponseEntity.status(200).body("Objet créer et ajouté a la BDD");
+    }
+
+    public List<Client> getClientForTest() {
+        return clientDao.findAll();
     }
 }
