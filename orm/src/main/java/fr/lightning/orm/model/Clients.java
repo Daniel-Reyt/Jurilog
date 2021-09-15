@@ -2,8 +2,8 @@ package fr.lightning.orm.model;
 
 import javax.persistence.*;
 
-@Entity(name = "CLIENTS")
-public class Clients extends Rdv {
+@Entity
+public class Clients {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

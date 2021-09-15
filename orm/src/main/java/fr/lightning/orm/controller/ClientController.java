@@ -3,7 +3,6 @@ package fr.lightning.orm.controller;
 import fr.lightning.orm.dao.ClientDao;
 import fr.lightning.orm.model.Clients;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 

@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Factures extends Rdv {
+public class Factures {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idFacture;

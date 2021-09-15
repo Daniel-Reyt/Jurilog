@@ -13,8 +13,6 @@ import java.util.List;
 @Repository
 @Transactional
 public interface RdvDao extends JpaRepository<Rdv, Integer> {
-    Rdv findRdvByDate_rdvEquals(String date);
-
     Rdv findRdvByRdvId(int id_rdv);
     List<Rdv> findByAvocat_AvocatIdAndClient_IdClient(int avocat_id, int client_id);
     List<Rdv> findRdvByAvocat_AvocatId(int avocat_id);
