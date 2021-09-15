@@ -1,0 +1,1 @@
+INSERT INTO CLIENT (1, 'Reyt', 'Daniel', '11 rue de la gare 68550', '0609336279', 'test', 'test')
