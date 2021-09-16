@@ -11,7 +11,7 @@ services:
       - ./front:/app
       - /app/node_modules
     ports:
-      - 4200:4200
+      - 80:80
 
   spring-orm:
     container_name: spring-boot-swagger-docker
@@ -19,4 +19,4 @@ services:
       context: ./orm
       dockerfile: Dockerfile
     ports:
-      - 8080:8080
+      - 8888:8888
