@@ -1,6 +1,6 @@
-#Projet Juri'Log
+<h1>Projet Juri'Log</h1>
 
-##Comment démarrer le projet ?
+<h2>Comment démarrer le projet ?</h2>
 
 tout d'abord commencez par cloner le projet via votre clef ssh :
 
