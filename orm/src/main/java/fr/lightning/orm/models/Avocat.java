@@ -15,10 +15,8 @@ public class Avocat {
     private String adress;
     private String phone;
     private String username;
-    private String type;
-
-    //a ne pas afficher
     private String password;
+    private String type = "Avocat";
 
     public Avocat() {
     }
@@ -30,27 +28,9 @@ public class Avocat {
         this.setPhone(phone);
         this.setUsername(username);
         this.setPassword(password);
-        this.setType("Avocat");
-    }
-
-    @Override
-    public String toString() {
-        return "ClientApp{" +
-                "id=" + id +
-                ", nom='" + nom + '\'' +
-                ", prenom='" + prenom + '\'' +
-                ", adress='" + adress + '\'' +
-                ", phone=" + phone +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                '}';
     }
 
     //setters
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public void setNom(String nom) {
         this.nom = nom;
     }
@@ -104,11 +84,21 @@ public class Avocat {
         return username;
     }
 
-    public String getType() {
-        return type;
-    }
-
     public String getPassword() {
         return password;
+    }
+
+    //ToString
+    @Override
+    public String toString() {
+        return "Avocat{" +
+                "id=" + id +
+                ", nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", adress='" + adress + '\'' +
+                ", phone=" + phone +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }

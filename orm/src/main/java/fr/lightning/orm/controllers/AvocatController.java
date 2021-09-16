@@ -2,7 +2,6 @@ package fr.lightning.orm.controllers;
 
 import fr.lightning.orm.daos.AvocatDao;
 import fr.lightning.orm.models.Avocat;
-import fr.lightning.orm.models.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

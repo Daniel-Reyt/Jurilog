@@ -10,9 +10,10 @@ public class Client {
     private String nom;
     private String prenom;
     private String adresse;
-    private String telephone;
+    private String phone;
     private String username;
     private String password;
+    private String type = "Client";
 
     //Ctor
     public Client() {
@@ -22,7 +23,7 @@ public class Client {
         this.setNom(nom);
         this.setPrenom(prenom);
         this.setAdresse(adresse);
-        this.setTelephone(telephone);
+        this.setPhone(telephone);
         this.setUsername(username);
         this.setPassword(password);
     }
@@ -60,12 +61,12 @@ public class Client {
         this.adresse = adresse;
     }
 
-    public String getTelephone() {
-        return telephone;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
+    public void setPhone(String telephone) {
+        this.phone = telephone;
     }
 
     public String getUsername() {
@@ -84,13 +85,14 @@ public class Client {
         this.password = password;
     }
 
+    //ToString
     @Override
     public String toString() {
         return "Client{" +
                 "nom='" + nom + '\'' +
                 ", prenom='" + prenom + '\'' +
                 ", adresse='" + adresse + '\'' +
-                ", telephone='" + telephone + '\'' +
+                ", telephone='" + phone + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 '}';
