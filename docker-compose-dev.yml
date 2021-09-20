@@ -28,7 +28,6 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./BDD/data:/var/lib/mysql:z
-      - ./dump.sql:/docker-entrypoint-initdb.d/dump.sql
     env_file:
       - ./.env
     expose:

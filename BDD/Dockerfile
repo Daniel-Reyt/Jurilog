@@ -1,5 +1,5 @@
 FROM mariadb:10.4
-ADD ./init.d /docker-entrypoint-initdb.d
+ADD ./init /docker-entrypoint-initdb.d
 COPY ./utf8.cnf /etc/mysql/mariadb.conf.d/
 
 ENV MYSQL_ROOT_PASSWORD root
