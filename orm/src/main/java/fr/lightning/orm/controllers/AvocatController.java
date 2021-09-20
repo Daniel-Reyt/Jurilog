@@ -11,6 +11,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class AvocatController {
     @Autowired
     private AvocatDao avocatDao;
@@ -26,10 +27,10 @@ public class AvocatController {
     }
 
     @PostMapping(value = "avocat")
-    public ResponseEntity<String> createAvocat(@RequestBody Avocat avocat) {
+    public String createAvocat(@RequestBody Avocat avocat) {
         Avocat avocat1 = avocatDao.save(avocat);
         if (avocat == null) {
-            return ResponseEntity.status(500).body("Ajout impossible le body est null");
+            return "500";
         }
 
         URI uri = ServletUriComponentsBuilder
@@ -38,6 +39,6 @@ public class AvocatController {
                 .buildAndExpand(avocat1.getId())
                 .toUri();
 
-        return ResponseEntity.status(200).body("Objet créer et ajouté a la BDD");
+        return "201";
     }
 }

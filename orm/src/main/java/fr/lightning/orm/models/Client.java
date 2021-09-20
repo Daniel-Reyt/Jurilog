@@ -85,6 +85,14 @@ public class Client {
         this.password = password;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     //ToString
     @Override
     public String toString() {

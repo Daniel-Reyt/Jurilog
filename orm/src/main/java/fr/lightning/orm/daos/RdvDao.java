@@ -13,4 +13,6 @@ public interface RdvDao extends JpaRepository<Rdv, Integer> {
     List<Rdv> findRdvsByAvocat_IdAndClient_Id(int id_avocat, int id_client);
     List<Rdv> findRdvsByAvocat_Id(int id_avocat);
     List<Rdv> findRdvsByClient_Id(int id_client);
+
+    List<Rdv> findRdvsByDate(String date_rdv);
 }

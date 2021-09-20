@@ -1,1 +1,69 @@
-<p>rdv works!</p>
+<nav class="navbar-expand-lg navbar-light bordered" style="background-color: lightgray;" [hidden]="this.width < 992">
+  <div class="container">
+    <ul class="navbar-nav">
+      <li class="nav-item col-lg-4">
+        <select [(ngModel)]="selectedOption" class="form-select" style="margin-top: 10px; margin-bottom: 10px" id="select">
+          <option value="Id">
+            par Id
+          </option>
+          <option value="Date">
+            par Date
+          </option>
+        </select>
+      </li>
+      <li class="nav-item col-lg-4" [hidden]="selectedOption === 'Date'">
+        <input type="number" class="form-control" style="margin-top: 10px; margin-bottom: 10px" id="inputId" [(ngModel)]="filtreByIdRdv" placeholder="Id_Rdv" (change)="getRdvById()">
+      </li>
+      <li class="nav-item col-lg-4" [hidden]="selectedOption === 'Id'">
+        <input type="date" class="form-control" style="margin-top: 10px; margin-bottom: 10px" id="inputDate" [(ngModel)]="filtreByDate" (change)="getRdvByDate()">
+      </li>
+    </ul>
+  </div>
+</nav>
+<nav class="navbar-expand-lg navbar-light text-center bordered" style="background-color: lightgray;" [hidden]="this.width > 992">
+  <div>
+    <button class="btn" (click)="setCollapseNavBarSmall()">
+      Filtre Rdv <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+  <div [hidden]="this.collapseNavBarSmall == true">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <select [(ngModel)]="selectedOption" class="form-select" style="margin-top: 10px; margin-bottom: 10px" id="select">
+          <option value="Id">
+            par Id
+          </option>
+          <option value="Date">
+            par Date
+          </option>
+        </select>
+      </li>
+      <li class="nav-item" [hidden]="selectedOption === 'Date'">
+        <input type="number" class="form-control" style="margin-top: 10px; margin-bottom: 10px" id="inputId" [(ngModel)]="filtreByIdRdv" placeholder="Id_Rdv" (change)="getRdvById()">
+      </li>
+      <li class="nav-item" [hidden]="selectedOption === 'Id'">
+        <input type="date" class="form-control" style="margin-top: 10px; margin-bottom: 10px" id="inputDate" [(ngModel)]="filtreByDate" (change)="getRdvByDate()">
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div>
+  <div class="row">
+    <div class="card col-lg-3" *ngFor="let rdv of rdvs; let i = index">
+      <div class="card-header">
+        rendez vous le : {{rdv.date_rdv}}
+        <br>
+        a : {{rdv.heure_rdv}}
+      </div>
+      <div class="card-body">
+        avocat : {{rdv.avocat.nom}}, {{rdv.avocat.prenom}}
+        <br>
+        client : {{rdv.client.nom}}, {{rdv.client.prenom}}
+      </div>
+      <div class="card-footer">
+        status du rendez-vous : {{rdv.status}}
+      </div>
+    </div>
+  </div>
+</div>

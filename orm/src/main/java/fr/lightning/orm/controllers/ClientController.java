@@ -27,10 +27,10 @@ public class ClientController {
     }
 
     @PostMapping(value = "client")
-    public ResponseEntity<String> createClient(@RequestBody Client client) {
+    public String createClient(@RequestBody Client client) {
         Client client1 = clientDao.save(client);
         if (client == null) {
-            return ResponseEntity.status(500).body("Ajout impossible le body est null");
+            return "500";
         }
 
         URI uri = ServletUriComponentsBuilder
@@ -39,7 +39,7 @@ public class ClientController {
                 .buildAndExpand(client1.getId())
                 .toUri();
 
-        return ResponseEntity.status(200).body("Objet créer et ajouté a la BDD");
+        return "201";
     }
 
     public List<Client> getClientForTest() {

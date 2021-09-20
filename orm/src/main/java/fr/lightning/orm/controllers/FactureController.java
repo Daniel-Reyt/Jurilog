@@ -11,6 +11,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class FactureController {
     @Autowired
     private FactureDao factureDao;
@@ -31,10 +32,10 @@ public class FactureController {
     }
 
     @PostMapping(value = "facture")
-    public ResponseEntity<String> createFacture(@RequestBody Facture facture) {
+    public String createFacture(@RequestBody Facture facture) {
         Facture facture1 = factureDao.save(facture);
         if (facture == null) {
-            return ResponseEntity.status(500).body("Ajout impossible le body est null");
+            return "500";
         }
 
         URI uri = ServletUriComponentsBuilder
@@ -43,6 +44,6 @@ public class FactureController {
                 .buildAndExpand(facture1.getId())
                 .toUri();
 
-        return ResponseEntity.status(200).body("Objet créer et ajouté a la BDD");
+        return "201";
     }
 }

@@ -13,6 +13,7 @@ import { FactureComponent } from './facture/facture.component';
 import { RegisterAvocatComponent } from './register/register-avocat/register-avocat.component';
 import { RegisterClientComponent } from './register/register-client/register-client.component';
 import { HttpClientModule } from '@angular/common/http';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -30,7 +31,9 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

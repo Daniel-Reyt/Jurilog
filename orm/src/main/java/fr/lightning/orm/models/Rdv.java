@@ -8,7 +8,7 @@ public class Rdv {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String date_rdv;
+    private String date;
     private String heure_rdv;
     @OneToOne(targetEntity = Client.class, fetch = FetchType.LAZY)
     private Client client;
@@ -21,7 +21,7 @@ public class Rdv {
     }
 
     public Rdv(String date_rdv, String heure_rdv, int status, Client client, Avocat avocat) {
-        this.setDate_rdv(date_rdv);
+        this.setDate(date_rdv);
         this.setHeure_rdv(heure_rdv);
         this.setStatus(status);
         this.setClient(client);
@@ -37,8 +37,8 @@ public class Rdv {
         this.id = id;
     }
 
-    public void setDate_rdv(String date_rdv) {
-        this.date_rdv = date_rdv;
+    public void setDate(String date_rdv) {
+        this.date = date_rdv;
     }
 
     public void setHeure_rdv(String heure_rdv) {
@@ -58,8 +58,8 @@ public class Rdv {
     }
 
     //getters
-    public String getDate_rdv() {
-        return date_rdv;
+    public String getDate() {
+        return date;
     }
 
     public String getHeure_rdv() {
@@ -84,7 +84,7 @@ public class Rdv {
     public String toString() {
         return "Rdv{" +
                 "id=" + id +
-                ", date_rdv='" + date_rdv + '\'' +
+                ", date_rdv='" + date + '\'' +
                 ", heure_rdv='" + heure_rdv + '\'' +
                 ", client=" + client.getId() +
                 ", avocat=" + avocat.getId() +

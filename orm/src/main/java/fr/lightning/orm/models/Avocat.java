@@ -59,6 +59,10 @@ public class Avocat {
         this.id = id;
     }
 
+    public void setType(String type) {
+        this.type = type;
+    }
+
     //getters
     public int getId() {
         return id;
@@ -86,6 +90,10 @@ public class Avocat {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getType() {
+        return type;
     }
 
     //ToString

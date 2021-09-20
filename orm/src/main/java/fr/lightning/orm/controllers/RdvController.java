@@ -13,6 +13,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class RdvController {
     @Autowired
     private RdvDao rdvDao;
@@ -31,19 +32,27 @@ public class RdvController {
     public List<Rdv> getRdvByIdAvocat_IdClient(@PathVariable int id_avocat, int id_client) {
         return rdvDao.findRdvsByAvocat_IdAndClient_Id(id_avocat, id_client);
     }
+
+    @GetMapping(value = "rdvByDate/{date_rdv}")
+    public List<Rdv> getRdvByDateRdv(@PathVariable String date_rdv) {
+        return rdvDao.findRdvsByDate(date_rdv);
+    }
+
     @GetMapping(value = "rdvByIdAvocat/{id_avocat}")
     public List<Rdv> getRdvByIdAvocat(@PathVariable int id_avocat) {
         return rdvDao.findRdvsByAvocat_Id(id_avocat);
     }
+
     @GetMapping(value = "rdvByIdClient/{id_client}")
     public List<Rdv> getRdvByIdClient(@PathVariable int id_client) {
         return rdvDao.findRdvsByClient_Id(id_client);
     }
+
     @PostMapping(value = "rdv")
-    public ResponseEntity<String> createRdv(@RequestBody Rdv rdv) {
+    public String createRdv(@RequestBody Rdv rdv) {
         Rdv rdv1 = rdvDao.save(rdv);
         if (rdv == null) {
-            return ResponseEntity.status(500).body("Ajout impossible le body est null");
+            return "500";
         }
 
         URI uri = ServletUriComponentsBuilder
@@ -52,6 +61,6 @@ public class RdvController {
                 .buildAndExpand(rdv1.getId())
                 .toUri();
 
-        return ResponseEntity.status(200).body("Objet créer et ajouté a la BDD");
+        return "201";
     }
 }
