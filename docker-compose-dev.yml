@@ -1,0 +1,42 @@
+version: '3.1'
+
+services:
+
+  angular-front:
+    container_name: jurilog-angular
+    build:
+      context: ./front
+      dockerfile: Dockerfile
+    volumes:
+      - ./front:/app
+      - /app/node_modules
+    ports:
+      - 4200:4200
+
+  spring-orm:
+    container_name: jurilog-spring
+    build:
+      context: ./orm
+      dockerfile: Dockerfile
+    ports:
+      - 8888:8888
+
+  mariadb:
+    container_name: jurilog-bdd
+    build:
+      context: BDD
+      dockerfile: Dockerfile
+    volumes:
+      - ./BDD/data:/var/lib/mysql:z
+    env_file:
+      - ./.env
+    expose:
+      - 3306
+
+  adminer:
+    container_name: jurilog-adminer
+    image: adminer
+    depends_on:
+      - mariadb
+    ports:
+      - 8080:8080
