@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
+import {GetService} from "../../service/get.service";
 
 @Component({
   selector: 'app-login-avocat',
@@ -12,9 +13,11 @@ export class LoginAvocatComponent implements OnInit {
 
   LoginForm!: FormGroup;
 
+
   constructor(private fb: FormBuilder,
               private http: HttpClient,
-              private router: Router) { }
+              private router: Router,
+              private getService: GetService) { }
 
   ngOnInit(): void {
     this.LoginForm = this.fb.group({
@@ -24,17 +27,19 @@ export class LoginAvocatComponent implements OnInit {
   }
 
   login() {
-    this.http.get('http://localhost:8888/avocats').toPromise().then((res: any) => {
-      for (let i = 0; i < res.length; i++) {
-        if (this.LoginForm.controls.username.value === res[i].username) {
-          if (this.LoginForm.controls.password.value === res[i].password) {
-            localStorage.setItem("id_avocat", res[i].id);
+    this.getService.getAllAvocats().subscribe((value: any) => {
+      for (let i = 0; i < value.length; i++) {
+        if (this.LoginForm.controls.username.value === value[i].username){
+          if (this.LoginForm.controls.password.value === value[i].username) {
+            localStorage.setItem("id_avocat", value[i].id);
             localStorage.setItem("id_client", "");
-            localStorage.setItem("type", res[i].type);
-            this.router.navigate(['/home'])
+            localStorage.setItem("type", value[i].type);
+            localStorage.setItem("isLogin", String(true))
+            this.router.navigate(['/home']);
           }
         }
       }
     })
   }
+
 }
