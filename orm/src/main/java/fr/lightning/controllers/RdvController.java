@@ -29,8 +29,28 @@ public class RdvController {
     }
 
     @GetMapping(value = "rdvByIdAvocatIdClient/{id_avocat}/{id_client}")
-    public List<Rdv> getRdvByIdAvocat_IdClient(@PathVariable int id_avocat, int id_client) {
+    public List<Rdv> getRdvByIdAvocat_IdClient(@PathVariable int id_avocat, @PathVariable int id_client) {
         return rdvDao.findRdvsByAvocat_IdAndClient_Id(id_avocat, id_client);
+    }
+
+    @GetMapping(value = "rdvByIdRdvIdClient/{id_rdv}/{id_client}")
+    public List<Rdv> getRdvByIdRdv_IdClient(@PathVariable int id_rdv, @PathVariable int id_client) {
+        return rdvDao.findRdvsByIdAndClientId(id_rdv, id_client);
+    }
+
+    @GetMapping(value = "rdvByIdRdvIdAvocat/{id_rdv}/{id_avocat}")
+    public List<Rdv> getRdvByIdRdv_IdAvocat(@PathVariable int id_rdv, @PathVariable int id_avocat) {
+        return rdvDao.findRdvsByIdAndAvocatId(id_rdv, id_avocat);
+    }
+
+    @GetMapping(value = "rdvByDateRdvIdClient/{date}/{id_client}")
+    public List<Rdv> getRdvByDateRdv_IdClient(@PathVariable String date, @PathVariable int id_client) {
+        return rdvDao.findRdvsByDateAndClientId(date, id_client);
+    }
+
+    @GetMapping(value = "rdvByDateRdvIdAvocat/{date}/{id_avocat}")
+    public List<Rdv> getRdvByDateRdv_IdAvocat(@PathVariable String date, @PathVariable int id_avocat) {
+        return rdvDao.findRdvsByDateAndAvocatId(date, id_avocat);
     }
 
     @GetMapping(value = "rdvByDate/{date_rdv}")
