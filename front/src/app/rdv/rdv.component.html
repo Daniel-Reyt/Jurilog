@@ -48,7 +48,7 @@
         <button class="btn btn-primary col-lg-3" (click)="redirectFacture(rdv)" [hidden]="rdv.status_facture != 'pas de facture' || rdv.status == 'en attente' || rdv.status == 'refusé'">
           créer une facture
         </button>
-        <button class="btn btn-primary col-lg-3" (click)="redirectFacture(rdv)" [hidden]="rdv.status_facture == 'pas de facture'">
+        <button class="btn btn-primary col-lg-3" (click)="redirectFacture(rdv)" [hidden]="rdv.status_facture == 'pas de facture' || rdv.status == 'en attente' || rdv.status == 'refusé'">
           voir la facture
         </button>
       </div>
