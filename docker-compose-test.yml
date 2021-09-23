@@ -1,0 +1,22 @@
+version: '3.1'
+
+services:
+
+  spring-orm-test:
+    container_name: jurilog-spring-test
+    build:
+      context: ./orm
+      dockerfile: prod.Dockerfile
+    ports:
+      - 8888:8888
+
+  angular-front-test:
+    container_name: jurilog-angular-test
+    build:
+      context: ./front
+      dockerfile: test.Dockerfile
+    volumes:
+      - ./front:/app
+      - /app/node_modules
+    ports:
+      - 9999

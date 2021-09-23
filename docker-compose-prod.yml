@@ -3,10 +3,10 @@ version: '3.1'
 services:
 
   angular-front:
-    container_name: jurilog-angular
+    container_name: jurilog-angular-prod
     build:
       context: ./front
-      dockerfile: Dockerfile
+      dockerfile: prod.Dockerfile
     volumes:
       - ./front:/app
       - /app/node_modules
@@ -14,9 +14,11 @@ services:
       - 80:80
 
   spring-orm:
-    container_name: jurilog-spring
+    container_name: jurilog-spring-prod
     build:
       context: ./orm
-      dockerfile: Dockerfile
+      dockerfile: prod.Dockerfile
     ports:
       - 8888:8888
+
+

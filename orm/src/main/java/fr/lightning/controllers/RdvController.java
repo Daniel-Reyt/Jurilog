@@ -1,11 +1,8 @@
 package fr.lightning.controllers;
 
-import fr.lightning.daos.AvocatDao;
 import fr.lightning.daos.RdvDao;
-import fr.lightning.models.Avocat;
 import fr.lightning.models.Rdv;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
