@@ -8,10 +8,10 @@
 		<version>2.5.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>fr.light.ning</groupId>
+	<groupId>fr.lightning</groupId>
 	<artifactId>Orm_JuriLog</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>Orm_JuriLog</name>
+	<version>1</version>
+	<name>Orm</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>1.8</java.version>
@@ -94,6 +94,17 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>fr.lightning.Orm_JuriLog</mainClass>
+				</configuration>
+
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

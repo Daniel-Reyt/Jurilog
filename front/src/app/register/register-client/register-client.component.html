@@ -1,1 +1,30 @@
-<p>register-client works!</p>
+<div class="container">
+  <div class="card">
+  <div class="card-header">
+    <p>Créer un compte Client</p>
+  </div>
+  <div class="card-body">
+    <form class="form-group" [formGroup]="RegisterForm">
+      <label class="form-label">Nom :</label>
+      <input type="text" formControlName="nom" class="form-control" placeholder="Merci de rentrer votre nom">
+      <br>
+      <label class="form-label">Prénom :</label>
+      <input type="text" formControlName="prenom" class="form-control" placeholder="Merci de rentrer votre prénom">
+      <br>
+      <label class="form-label">Adresse :</label>
+      <input type="text" formControlName="adresse" class="form-control" placeholder="Merci de rentrer votre adresse">
+      <br>
+      <label class="form-label">Téléphone :</label>
+      <input type="text" formControlName="phone" class="form-control" placeholder="Merci de rentrer votre numéro de téléphone">
+      <br>
+      <label class="form-label">Username :</label>
+      <input type="text" formControlName="username" class="form-control" placeholder="Merci de rentrer votre username">
+      <br>
+      <label class="form-label">Password :</label>
+      <input type="password" formControlName="password" class="form-control" placeholder="Merci de rentrer votre password">
+      <br>
+      <button class="btn bg-lightGrey col-lg-12" (click)="register()">Register</button>
+    </form>
+  </div>
+</div>
+</div>

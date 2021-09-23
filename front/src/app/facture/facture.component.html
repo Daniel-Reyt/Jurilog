@@ -1,1 +1,59 @@
-<p>facture works!</p>
+<div class="container">
+  <div style="margin-top: 10px" class="card" [hidden]="isCreate === true">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-lg-5">
+        client :
+        <br>
+        nom : {{nom_client}}
+        <br>
+        prenom : {{prenom_client}}
+        <br>
+        adresse : {{adresse_client}}
+        <br>
+        téléphone : {{telephone_client}}
+      </div>
+      <div class="col-lg-2"></div>
+      <div class="col-lg-5">
+        avocat :
+        <br>
+        nom : {{nom_avocat}}
+        <br>
+        prenom : {{prenom_avocat}}
+        <br>
+        adresse : {{adresse_avocat}}
+        <br>
+        téléphone : {{telephone_avocat}}
+      </div>
+    </div>
+  </div>
+  <div class="body">
+    <p style="margin-left: 10px; margin-top: 10px">Nombre d'heure passée pendant le rendez-vous : {{nb_heure}} heure(s)</p>
+    <br>
+    <div class="col-12 row">
+      <div class="col-lg-8">
+        <p style="margin-left: 10px">Montant honoraire TTC : {{taux_honoraire}} € / heure</p>
+      </div>
+      <div class="col-lg-4 bg-lightGrey">
+        <p>Montant total a payer : {{taux_honoraire * nb_heure}} €</p>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer">
+    <button class="btn btn-secondary col-12">imprimer</button>
+  </div>
+</div>
+
+<div [hidden]="isCreate === false">
+  <h4 class="text-center">Créer une facture</h4>
+  <form class="card" [formGroup]="createFacture" style="padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px">
+    <label class="form-label">nombre d'heure de rendez-vous :</label>
+    <input type="number" class="form-control" placeholder="merci de renseigner le nombre d'heure" formControlName="nb_heure">
+    <br>
+    <label class="form-label">taux honoraire du rendez-vous :</label>
+    <input type="number" class="form-control" placeholder="merci de renseigner le taux honoraire" formControlName="taux_honoraire">
+    <br>
+    <button class="btn btn-primary" (click)="addFacture()">créer la facture</button>
+  </form>
+</div>
+</div>
