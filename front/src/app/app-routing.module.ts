@@ -8,20 +8,24 @@ import { LoginClientComponent } from './login/login-client/login-client.componen
 import { RdvComponent } from './rdv/rdv.component';
 import { RegisterAvocatComponent } from './register/register-avocat/register-avocat.component';
 import { RegisterClientComponent } from './register/register-client/register-client.component';
+import {AuthGuard} from "./auth.guard";
 
 const routes: Routes = [
   {path: '', component: ChooseLoginComponent},
-  
+
   {path: 'login-avocat', component: LoginAvocatComponent},
   {path: 'login-client', component: LoginClientComponent},
 
   {path: 'register-avocat', component: RegisterAvocatComponent},
   {path: 'register-client', component: RegisterClientComponent},
 
-  {path: 'home', component: HomeComponent},
+  {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
 
-  {path: 'facture', component: FactureComponent},
-  {path: 'rdv', component: RdvComponent}
+  {path: 'facture', component: FactureComponent, canActivate: [AuthGuard]},
+  {path: 'facture/:id_rdv', component: FactureComponent, canActivate: [AuthGuard]},
+
+  {path: 'rdv', component: RdvComponent, canActivate: [AuthGuard]},
+
 ];
 
 @NgModule({

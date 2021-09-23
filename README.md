@@ -13,7 +13,9 @@
 
 ```
 1. dans votre cli : "cd fil_rouge_4.0.3_daniel/"
-2. toujours dans votre cli tapez ensuite : "docker-compose -f docker-compose-dev.yml up --build"
+2. toujours dans votre cli tapez ensuite : "docker-compose -f docker-compose-dev.yml up --build" pour le dev,
+3. toujours dans votre cli tapez ensuite : "docker-compose -f docker-compose-prod.yml up --build" pour le prod,
+4. toujours dans votre cli tapez ensuite : "docker-compose -f docker-compose-test.yml up --build" pour le test,
 ```
 
 <h4>pour ensuite vous rendre sur le front taper dans votre navigateur : 

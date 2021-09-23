@@ -1,1 +1,90 @@
-<p>rdv works!</p>
+<nav class="navbar navbar-dark bg-dark contained">
+  <div style="margin-right: auto; margin-left: auto; position: relative">
+    <span style="color: white; font-size: 30px; margin-right: 60px">Filtre Rdv</span>
+    <button class="navbar-toggler btn-toogler" type="button" data-toggle="collapse" data-target="#filtreRdv" aria-controls="filtreRdv" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+</nav>
+<div class="collapse bg-dark text-center" id="filtreRdv">
+  <ul class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+    <li class="nav-item" style="margin-right: 10px; ">
+      <select [(ngModel)]="selectedOption" class="form-select" style="margin-top: 10px; margin-bottom: 10px" id="select">
+        <option value="Id">
+          par Id
+        </option>
+        <option value="Date">
+          par Date
+        </option>
+      </select>
+    </li>
+    <li class="nav-item"  style="margin-right: 10px; " [hidden]="selectedOption === 'Date'">
+      <input type="number" class="form-control" style="margin-top: 10px; margin-bottom: 10px" id="inputId" [(ngModel)]="filtreByIdRdv" placeholder="Id_Rdv" (change)="getRdvById()">
+    </li>
+    <li class="nav-item"  style="margin-right: 10px; " [hidden]="selectedOption === 'Id'">
+      <input type="text" class="form-control" style="margin-top: 10px; margin-bottom: 10px" id="inputDate" [(ngModel)]="filtreByDate" (change)="getRdvByDate()">
+    </li>
+    <li class="nav-item">
+      <button class="btn btn-secondary" (click)="resetFilters()">reset</button>
+    </li>
+  </ul>
+</div>
+
+<div class="container">
+<div style="margin-top: 10px">
+  <div class="row">
+    <div class="card col-lg-6" *ngFor="let rdv of rdvs; let i = index">
+      <div class="row card-header">
+        rendez vous le : {{rdv.date}}
+        <br>
+        a : {{rdv.heure_rdv}}
+      </div>
+      <div class="card-body">
+        avocat : {{rdv.avocat.nom}}, {{rdv.avocat.prenom}}
+        <br>
+        client : {{rdv.client.nom}}, {{rdv.client.prenom}}
+        <br>
+        statut facture : {{rdv.status_facture}}
+        <button class="btn btn-primary col-lg-3" (click)="redirectFacture(rdv)" [hidden]="rdv.status_facture != 'pas de facture' || rdv.status == 'en attente' || rdv.status == 'refusé'">
+          créer une facture
+        </button>
+        <button class="btn btn-primary col-lg-3" (click)="redirectFacture(rdv)" [hidden]="rdv.status_facture == 'pas de facture' || rdv.status == 'en attente' || rdv.status == 'refusé'">
+          voir la facture
+        </button>
+      </div>
+      <div class="row card-footer">
+        <p class="col-lg-4">statut : {{rdv.status}}</p>
+        <div class="col-lg-8" id="actions" [hidden]="id_client !='' || rdv.status != 'en attente'">
+          <button class="btn btn-primary col-lg-3" (click)="validerRdv(rdv)">
+            valider
+          </button>
+          <button class="btn btn-danger col-lg-3" (click)="refuserRdv(rdv)">
+            Refuser
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" style="margin-top: 10px" [hidden]="id_client === ''">
+  <div class="col-lg-12 bordered">
+    <form class="form-group" [formGroup]="purposeRdvForm">
+      <h4 class="text-center">Proposer un rendez-vous</h4>
+      <label class="form-label">Date du rendez-vous</label>
+      <input type="date" formControlName="dateRdv" class="form-control">
+      <br>
+      <label class="form-label">Heure du rendez-vous</label>
+      <input type="time" formControlName="heureRdv" class="form-control">
+      <br>
+      <label class="form-label">Avocat :</label>
+      <select formControlName="avocatRdv" id="selectAvocat" class="form-select">
+        <option value="{{avocat.id}}" *ngFor="let avocat of avocats">{{avocat.nom}}, {{avocat.prenom}}</option>
+      </select>
+      <br>
+      <button class="btn btn-primary col-lg-12" (click)="submitRdv()">proposer le rendez vous</button>
+    </form>
+  </div>
+</div>
+
+</div>
