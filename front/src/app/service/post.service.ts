@@ -92,4 +92,52 @@ export class PostService {
       }
     })
   }
+
+  postDatas() {
+    this.http.post(url + 'client', {
+      nom: 'reyt',
+      prenom: 'daniel',
+      adresse: '11 rue de la gare',
+      phone: '0609336279',
+      username: 'dada',
+      password: 'dada',
+    })
+
+    this.http.post(url + 'avocat', {
+      nom: 'hofman',
+      prenom: 'louise',
+      adresse: '24 rue de la houblonnière',
+      phone: '0101010101',
+      username: 'louise',
+      password: 'hofman',
+    })
+
+    this.http.post<any>(url + 'rdv', {
+      date: '10-01-2001',
+      heure_rdv: '10:30',
+      status: 0,
+      client: {
+        id: 1
+      },
+      avocat: {
+        id: 1
+      }
+    })
+
+    this.http.post<any>(url + 'facture', {
+      nb_heure: 10,
+      taux_honoraire: 150,
+      status_facture: 0,
+      rdv: {
+        id: 1,
+        client: {
+          id: 1
+        },
+        avocat: {
+          id: 1
+        }
+      }
+    })
+  }
+
 }

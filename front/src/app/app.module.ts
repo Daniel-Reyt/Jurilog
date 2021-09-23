@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -19,6 +19,7 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatNativeDateModule} from '@angular/material/core';
 import {AuthService} from "./service/auth.service";
+import {AuthGuard} from "./auth.guard";
 
 @NgModule({
   declarations: [
@@ -45,8 +46,8 @@ import {AuthService} from "./service/auth.service";
     MatNativeDateModule
   ],
   providers: [
-    AuthService
   ],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
