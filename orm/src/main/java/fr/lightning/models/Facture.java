@@ -12,7 +12,8 @@ public class Facture {
     private Rdv rdv;
     private int nb_heure;
     private double taux_honoraire;
-    // 1 = payé // 0 = a payé
+    // 1 = payé // 0 = a payé // null = pas de facture
+    @Column(nullable = true)
     private int status_facture;
 
     public Facture() {
