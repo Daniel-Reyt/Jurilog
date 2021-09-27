@@ -14,15 +14,21 @@
       "severity": "warning",
       "options": ["debug", "info", "log", "time", "timeEnd", "trace"]
     },
-    "indent": true,
+    "indent": [true, "tabs", 2],
+    "indent": [true, "spaces", 4],
     "newline-before-return": true,
     "align": [true],
     "linebreak-style": true,
-    "no-duplicate-imports": true
+    "no-duplicate-imports": true,
+    "curly": [true, "as-needed"],
+    "no-invalid-template-strings": true,
+    "no-boolean-literal-compare": true
   },
   "jsRules": {
     "max-line-length": {
       "options": [120]
-    }
+    },
+    "indent": [true, "tabs", 2],
+    "indent": [true, "spaces", 4]
   }
 }

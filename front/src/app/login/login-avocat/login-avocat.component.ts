@@ -29,14 +29,12 @@ export class LoginAvocatComponent implements OnInit {
   login() {
     this.getService.getAllAvocats().subscribe((value: any) => {
       for (let i = 0; i < value.length; i++) {
-        if (this.LoginForm.controls.username.value === value[i].username){
-          if (this.LoginForm.controls.password.value === value[i].password) {
-            localStorage.setItem("isLogin", String(true))
-            localStorage.setItem("id_avocat", value[i].id);
-            localStorage.setItem("id_client", "");
-            localStorage.setItem("type", value[i].type);
-            this.router.navigate(['/home']);
-          }
+        if (this.LoginForm.controls.username.value === value[i].username && this.LoginForm.controls.password.value === value[i].password) {
+          localStorage.setItem("isLogin", String(true))
+          localStorage.setItem("id_avocat", value[i].id);
+          localStorage.setItem("id_client", "");
+          localStorage.setItem("type", value[i].type);
+          this.router.navigate(['/home']);
         }
       }
     })

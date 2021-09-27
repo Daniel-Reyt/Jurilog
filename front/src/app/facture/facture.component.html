@@ -1,5 +1,5 @@
 <div class="container">
-  <div style="margin-top: 10px" class="card" [hidden]="isCreate === true">
+  <div style="margin-top: 10px" class="card" [hidden]="isCreate">
   <div class="card-header">
     <div class="row">
       <div class="col-lg-5">
@@ -44,7 +44,7 @@
   </div>
 </div>
 
-<div [hidden]="isCreate === false">
+<div [hidden]="!isCreate">
   <h4 class="text-center">Créer une facture</h4>
   <form class="card" [formGroup]="createFacture" style="padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px">
     <label class="form-label">nombre d'heure de rendez-vous :</label>

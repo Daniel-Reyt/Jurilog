@@ -10,7 +10,7 @@ import {PostService} from "../service/post.service";
   styleUrls: ['./rdv.component.css']
 })
 export class RdvComponent implements OnInit {
-  selectedOption: any = "Id";
+  selectedOption: any = "Date";
 
   filtreByDate: any;
   filtreByIdRdv: any;
@@ -32,8 +32,8 @@ export class RdvComponent implements OnInit {
 
   ngOnInit(): void {
     this.getService.getAllAvocats().toPromise().then((res: any) => {
-      this.avocats = res
-    });
+    this.avocats = res
+  });
 
     this.purposeRdvForm = this.fb.group({
       dateRdv: '',
@@ -42,9 +42,7 @@ export class RdvComponent implements OnInit {
     })
 
     this.id_client = localStorage.getItem('id_client');
-    console.log("client " + this.id_client)
     this.id_avocat = localStorage.getItem('id_avocat');
-    console.log("avocat " + this.id_avocat)
 
     if (this.id_client != "") {
       this.getRdvByIdClient()
@@ -75,7 +73,6 @@ export class RdvComponent implements OnInit {
       })
     } else {
       this.getService.getRdvByDateAndByIdAvocat(this.filtreByDate, this.id_avocat).toPromise().then((res: any) => {
-        console.log(res)
         if (res.length == 0) {
           this.getRdvByIdAvocat();
         } else {
@@ -100,7 +97,6 @@ export class RdvComponent implements OnInit {
     if (this.filtreByIdRdv != null) {
       if (this.id_client != "") {
         this.getService.getRdvByIdAndByIdClient(this.filtreByIdRdv, this.id_client).toPromise().then((res: any) => {
-          console.log(res)
           if (res.length == 0) {
             this.getRdvByIdClient();
           } else {
@@ -164,7 +160,6 @@ export class RdvComponent implements OnInit {
       if (res == null) {
         this.rdvs = [];
       } else {
-        console.log(res)
         if (res.status == 0) {
           res.status = "en attente"
         }
