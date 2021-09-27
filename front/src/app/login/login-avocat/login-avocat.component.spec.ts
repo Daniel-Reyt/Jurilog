@@ -1,8 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { LoginAvocatComponent } from './login-avocat.component';
-import {PostService} from "../../service/post.service";
-import {GetService} from "../../service/get.service";
 import {RouterTestingModule} from "@angular/router/testing";
 import {BrowserModule} from "@angular/platform-browser";
 import {HttpClientModule} from "@angular/common/http";
@@ -19,15 +16,7 @@ describe('LoginAvocatComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule,
-        BrowserModule,
-        HttpClientModule,
-        ReactiveFormsModule,
-        FormsModule,
-        BrowserAnimationsModule,
-        MatFormFieldModule,
-        MatDatepickerModule,
-        MatNativeDateModule
+        RouterTestingModule
       ],
       declarations: [ LoginAvocatComponent ]
     })

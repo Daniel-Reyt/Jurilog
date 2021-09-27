@@ -1,8 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FactureComponent } from './facture.component';
 import {RouterTestingModule} from "@angular/router/testing";
-import {GetService} from "../service/get.service";
-import {PostService} from "../service/post.service";
 
 describe('FactureComponent', () => {
   let fixture: ComponentFixture<FactureComponent>;
@@ -11,9 +9,7 @@ describe('FactureComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule,
-        GetService,
-        PostService
+        RouterTestingModule
       ],
       declarations: [ FactureComponent ]
     })

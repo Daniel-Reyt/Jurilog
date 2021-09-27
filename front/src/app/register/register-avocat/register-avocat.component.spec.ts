@@ -17,15 +17,7 @@ describe('RegisterAvocatComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule,
-        BrowserModule,
-        HttpClientModule,
-        ReactiveFormsModule,
-        FormsModule,
-        BrowserAnimationsModule,
-        MatFormFieldModule,
-        MatDatepickerModule,
-        MatNativeDateModule
+        RouterTestingModule
       ],
       declarations: [ RegisterAvocatComponent ]
     })

@@ -16,44 +16,12 @@ describe('RdvComponent', () => {
   let component: RdvComponent;
   let fixture: ComponentFixture<RdvComponent>;
 
-  const ActivatedRouteSpy = {
-    snapshot: {
-      paramMap: convertToParamMap({
-        some: 'some',
-        else: 'else',
-      })
-    },
-    queryParamMap: of(
-      convertToParamMap({
-        some: 'some',
-        else: 'else',
-      })
-    )
-  };
-
-  const RouterSpy = jasmine.createSpyObj(
-    'Router',
-    ['navigate']
-  );
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule,
-        BrowserModule,
-        HttpClientModule,
-        ReactiveFormsModule,
-        FormsModule,
-        BrowserAnimationsModule,
-        MatFormFieldModule,
-        MatDatepickerModule,
-        MatNativeDateModule
+        RouterTestingModule
       ],
-      declarations: [ RdvComponent ],
-      providers: [
-        { provide: ActivatedRoute,   useValue: ActivatedRouteSpy    },
-        { provide: Router,           useValue: RouterSpy            }
-      ]
+      declarations: [ RdvComponent ]
     })
     .compileComponents();
   });

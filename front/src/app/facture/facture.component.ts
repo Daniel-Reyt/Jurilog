@@ -13,9 +13,9 @@ export class FactureComponent implements OnInit {
 
   createFacture!: FormGroup;
 
-  id_rdv: any;
-  id_client: any;
-  id_avocat: any;
+  id_rdv: any = "";
+  id_client: any = "";
+  id_avocat: any = "";
 
   isCreate: boolean = true;
 
@@ -31,6 +31,7 @@ export class FactureComponent implements OnInit {
   prenom_avocat: any;
   adresse_avocat: any;
   telephone_avocat: any;
+  private test: any;
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
               private fb: FormBuilder,
@@ -52,6 +53,7 @@ export class FactureComponent implements OnInit {
       this.router.navigate(['/rdv'])
     } else {
       this.getService.getFactureByRdv(this.id_rdv).toPromise().then((res: any) => {
+        // this.test = res;
           if (res == null) {
             this.isCreate = true
           } else {
