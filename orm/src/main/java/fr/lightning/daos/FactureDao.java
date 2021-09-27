@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface FactureDao extends JpaRepository<Facture, Integer> {
     Facture findFacturesById(int id);
-    Facture findFactureByRdv_Id(int id_rdv);
+    Facture findFactureByRdv_Id(int idRdv);
 }

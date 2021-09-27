@@ -3,11 +3,8 @@ package fr.lightning.controllers;
 import fr.lightning.daos.FactureDao;
 import fr.lightning.models.Facture;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -27,22 +24,16 @@ public class FactureController {
     }
 
     @GetMapping(value = "factureByRdv/{id_rdv}")
-    public Facture getFactureByIdRdv(@PathVariable int id_rdv) {
-        return factureDao.findFactureByRdv_Id(id_rdv);
+    public Facture getFactureByIdRdv(@PathVariable int idRdv) {
+        return factureDao.findFactureByRdv_Id(idRdv);
     }
 
     @PostMapping(value = "facture")
     public String createFacture(@RequestBody Facture facture) {
-        Facture facture1 = factureDao.save(facture);
+        factureDao.save(facture);
         if (facture == null) {
             return "500";
         }
-
-        URI uri = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(facture1.getId())
-                .toUri();
 
         return "201";
     }

@@ -1,6 +1,4 @@
 import {Component, HostListener, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {DatePipe} from "@angular/common";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Router} from "@angular/router";
 import {GetService} from "../service/get.service";
@@ -225,4 +223,5 @@ export class RdvComponent implements OnInit {
       this.getRdvByIdAvocat()
     }
   }
+
 }

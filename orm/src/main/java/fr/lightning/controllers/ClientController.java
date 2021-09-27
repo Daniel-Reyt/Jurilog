@@ -3,11 +3,8 @@ package fr.lightning.controllers;
 import fr.lightning.daos.ClientDao;
 import fr.lightning.models.Client;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -28,16 +25,10 @@ public class ClientController {
 
     @PostMapping(value = "client")
     public String createClient(@RequestBody Client client) {
-        Client client1 = clientDao.save(client);
+        clientDao.save(client);
         if (client == null) {
             return "500";
         }
-
-        URI uri = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(client1.getId())
-                .toUri();
 
         return "201";
     }

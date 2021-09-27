@@ -3,11 +3,8 @@ package fr.lightning.controllers;
 import fr.lightning.daos.AvocatDao;
 import fr.lightning.models.Avocat;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -28,17 +25,10 @@ public class AvocatController {
 
     @PostMapping(value = "avocat")
     public String createAvocat(@RequestBody Avocat avocat) {
-        Avocat avocat1 = avocatDao.save(avocat);
+        avocatDao.save(avocat);
         if (avocat == null) {
             return "500";
         }
-
-        URI uri = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(avocat1.getId())
-                .toUri();
-
         return "201";
     }
 }
