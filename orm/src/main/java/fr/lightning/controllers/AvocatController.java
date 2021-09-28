@@ -1,7 +1,7 @@
 package fr.lightning.controllers;
 
 import fr.lightning.daos.AvocatDao;
-import fr.lightning.models.Avocat;
+import fr.lightning.entity.Avocat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

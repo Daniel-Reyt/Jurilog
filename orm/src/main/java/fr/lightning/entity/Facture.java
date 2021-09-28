@@ -1,4 +1,6 @@
-package fr.lightning.models;
+package fr.lightning.entity;
+
+import fr.lightning.job.FactureJob;
 
 import javax.persistence.*;
 
@@ -11,19 +13,20 @@ public class Facture {
     @OneToOne(targetEntity = Rdv.class, fetch = FetchType.LAZY)
     private Rdv rdv;
     private int nb_heure;
+    @Column(nullable = true)
     private double taux_honoraire;
     // 1 = payé // 0 = a payé // null = pas de facture
     @Column(nullable = true)
-    private int status_facture;
+    private String status_facture;
 
     public Facture() {
     }
 
-    public Facture(int nb_heure, double taux_honoraire, int status_facture, Rdv rdv) {
-        this.setNb_heure(nb_heure);
-        this.setTaux_honoraire(taux_honoraire);
-        this.setStatus_facture(status_facture);
-        this.setRdv(rdv);
+    public Facture(FactureJob factureJob) {
+        this.setNb_heure(factureJob.getNb_heure());
+        this.setTaux_honoraire(factureJob.getTaux_honoraire());
+        this.setStatus_facture(factureJob.getStatus_facture());
+        this.setRdv(factureJob.getRdv());
     }
 
     //setters
@@ -43,7 +46,7 @@ public class Facture {
         this.taux_honoraire = taux_honoraire;
     }
 
-    public void setStatus_facture(int status_facture) {
+    public void setStatus_facture(String status_facture) {
         this.status_facture = status_facture;
     }
 
@@ -64,7 +67,7 @@ public class Facture {
         return taux_honoraire;
     }
 
-    public int getStatus_facture() {
+    public String getStatus_facture() {
         return status_facture;
     }
 

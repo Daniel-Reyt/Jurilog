@@ -1,6 +1,6 @@
 package fr.lightning.daos;
 
-import fr.lightning.models.Rdv;
+import fr.lightning.entity.Rdv;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

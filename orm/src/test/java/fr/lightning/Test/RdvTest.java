@@ -1,8 +1,9 @@
 package fr.lightning.Test;
 
-import fr.lightning.models.Avocat;
-import fr.lightning.models.Client;
-import fr.lightning.models.Rdv;
+import fr.lightning.entity.Avocat;
+import fr.lightning.entity.Client;
+import fr.lightning.entity.Rdv;
+import fr.lightning.job.RdvJob;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -47,9 +48,9 @@ public class RdvTest {
         avocatRdv.setId(2);
 
         Client clientRdv = new Client();
-        clientRdv.setId(2);
+        clientRdv.setId(1);
 
-        Rdv rdvToAdd = new Rdv("20/02/2022", "20:20", 1, clientRdv, avocatRdv);
+        Rdv rdvToAdd = new Rdv(new RdvJob("20/02/2022", "20:20", 1, clientRdv, avocatRdv));
         rdvToAdd.setId(2);
 
         rdvList.add(rdvToAdd);
@@ -89,7 +90,7 @@ public class RdvTest {
         Client clientRdv = new Client();
         clientRdv.setId(1);
 
-        Rdv rdv1 = new Rdv("10/01/2021", "10:10", 1, clientRdv, avocatRdv);
+        Rdv rdv1 = new Rdv(new RdvJob("10/01/2021", "10:10", 1, clientRdv, avocatRdv));
         rdv1.setId(1);
 
         result.add(rdv1);

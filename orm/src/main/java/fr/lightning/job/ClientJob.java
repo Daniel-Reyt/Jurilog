@@ -1,11 +1,6 @@
-package fr.lightning.models;
+package fr.lightning.job;
 
-import javax.persistence.*;
-
-@Entity
-public class Client {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ClientJob {
     private int id;
     private String nom;
     private String prenom;
@@ -16,10 +11,10 @@ public class Client {
     private String type = "Client";
 
     //Ctor
-    public Client() {
+    public ClientJob() {
     }
 
-    public Client(String nom, String prenom, String adresse, String telephone, String username, String password) {
+    public ClientJob(String nom, String prenom, String adresse, String telephone, String username, String password) {
         this.setNom(nom);
         this.setPrenom(prenom);
         this.setAdresse(adresse);

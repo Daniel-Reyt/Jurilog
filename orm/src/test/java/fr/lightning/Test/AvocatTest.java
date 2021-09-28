@@ -1,6 +1,7 @@
 package fr.lightning.Test;
 
-import fr.lightning.models.Avocat;
+import fr.lightning.entity.Avocat;
+import fr.lightning.job.AvocatJob;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -42,7 +43,7 @@ public class AvocatTest {
     void createAvocat() {
         List<Avocat> avocatList = this.CreateAvocatListe();
 
-        Avocat avocatToAdd = new Avocat("new client", "new client", "new client", "new client", "new client", "new client");
+        Avocat avocatToAdd = new Avocat(new AvocatJob("new client", "new client", "new client", "new client", "new client", "new client"));
         avocatList.add(avocatToAdd);
 
         if (avocatList.size() == 4) {
@@ -74,9 +75,9 @@ public class AvocatTest {
     private List<Avocat> CreateAvocatListe() {
         List<Avocat> result = new ArrayList<>();
 
-        Avocat avocat1 = new Avocat("test 1", "test 1", "test 1", "test 1", "test 1", "test 1");
-        Avocat avocat2 = new Avocat("test 2", "test 2", "test 2", "test 2", "test 2", "test 2");
-        Avocat avocat3 = new Avocat("test 3", "test 3", "test 3", "test 3", "test 3", "test 3");
+        Avocat avocat1 = new Avocat(new AvocatJob("test 1", "test 1", "test 1", "test 1", "test 1", "test 1"));
+        Avocat avocat2 = new Avocat(new AvocatJob("test 2", "test 2", "test 2", "test 2", "test 2", "test 2"));
+        Avocat avocat3 = new Avocat(new AvocatJob("test 3", "test 3", "test 3", "test 3", "test 3", "test 3"));
 
         result.add(avocat1);
         result.add(avocat2);

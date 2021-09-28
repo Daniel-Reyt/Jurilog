@@ -1,7 +1,7 @@
 package fr.lightning.controllers;
 
 import fr.lightning.daos.ClientDao;
-import fr.lightning.models.Client;
+import fr.lightning.entity.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

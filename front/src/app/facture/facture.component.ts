@@ -70,21 +70,25 @@ export class FactureComponent implements OnInit {
             this.adresse_avocat = res.rdv.avocat.adress;
             this.telephone_avocat = res.rdv.avocat.phone;
           }
+      }).catch(() => {
       })
     }
   }
 
-  addFacture() {
+  editFacture() {
     this.getService.getRdvById(this.id_rdv).toPromise().then((res: any) => {
-        this.id_avocat = res.avocat.id
-        this.id_client = res.client.id
+      this.id_client = res.client.id;
+      this.id_avocat = res.avocat.id;
+      console.log(this.id_client);
+      console.log(this.id_avocat);
     })
-    this.postService.postFacture(
-      this.createFacture.controls.nb_heure.value,
-      this.createFacture.controls.taux_honoraire.value,
-      this.id_rdv, this.id_client, this.id_avocat).toPromise().then((res: any) => {
+
+    this.postService.postFacture(this.createFacture.controls.taux_honoraire.value, this.id_rdv, this.id_client, this.id_avocat).toPromise().then((res: any) => {
+      if (res === "201") {
         this.checkIfRdvHadFacture()
-        this.isCreate = false
+      } else {
+        console.log(res)
+      }
     })
   }
 }

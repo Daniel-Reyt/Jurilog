@@ -67,18 +67,16 @@ export class PostService {
   }
 
   validerRdv(rdv: any) {
-    rdv.status = 1
-    return this.http.post<any>(`${url}rdv`, rdv)
+    return this.http.post<any>(`${url}rdvValider`, rdv)
   }
 
   refuserRdv(rdv: any) {
-    rdv.status = 2
-    return this.http.post<any>(`${url}rdv`, rdv)
+    return this.http.post<any>(`${url}rdvRefuser`, rdv)
   }
 
-  postFacture(nb_heure: any, taux_honoraire: any, id_rdv: any, id_client: any, id_avocat: any) {
+  postFacture(taux_honoraire: any, id_rdv: any, id_client: any, id_avocat: any) {
     return this.http.post<any>(`${url}facture`, {
-      nb_heure: nb_heure,
+      nb_heure: 1,
       taux_honoraire: taux_honoraire,
       status_facture: 0,
       rdv: {

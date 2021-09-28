@@ -1,26 +1,21 @@
-package fr.lightning.models;
+package fr.lightning.job;
 
-import javax.persistence.*;
+import fr.lightning.entity.Avocat;
+import fr.lightning.entity.Client;
 
-@Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-public class Rdv {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class RdvJob {
     private int id;
     private String date;
     private String heure_rdv;
-    @OneToOne(targetEntity = Client.class, fetch = FetchType.LAZY)
     private Client client;
-    @OneToOne(targetEntity = Avocat.class, fetch = FetchType.LAZY)
     private Avocat avocat;
     //1 = approved // 0 = en attente // 2 = refusé
     private int status;
 
-    public Rdv() {
+    public RdvJob() {
     }
 
-    public Rdv(String date_rdv, String heure_rdv, int status, Client client, Avocat avocat) {
+    public RdvJob(String date_rdv, String heure_rdv, int status, Client client, Avocat avocat) {
         this.setDate(date_rdv);
         this.setHeure_rdv(heure_rdv);
         this.setStatus(status);

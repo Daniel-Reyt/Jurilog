@@ -40,9 +40,9 @@
         a : {{rdv.heure_rdv}}
       </div>
       <div class="card-body">
-        avocat : {{rdv.avocat.nom}}, {{rdv.avocat.prenom}}
+        avocat : {{rdv.avocat_nom}}, {{rdv.avocat_prenom}}
         <br>
-        client : {{rdv.client.nom}}, {{rdv.client.prenom}}
+        client : {{rdv.client_nom}}, {{rdv.client_prenom}}
         <br>
         statut facture : {{rdv.status_facture}}
         <button class="btn btn-primary col-lg-3" (click)="redirectFacture(rdv)" [hidden]="rdv.status_facture != 'pas de facture' || rdv.status == 'en attente' || rdv.status == 'refusé'">

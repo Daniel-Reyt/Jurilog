@@ -58,15 +58,6 @@ export class RdvComponent implements OnInit {
         if (res == null) {
           this.getRdvByIdClient();
         } else {
-          if (res.status == 0) {
-            res.status = "en attente"
-          }
-          if (res.status == 1) {
-            res.status = "approuvé"
-          }
-          if (res.status == 2) {
-            res.status = "refusé"
-          }
           this.rdvs = [];
           this.rdvs = res;
         }
@@ -76,15 +67,6 @@ export class RdvComponent implements OnInit {
         if (res.length == 0) {
           this.getRdvByIdAvocat();
         } else {
-          if (res.status == 0) {
-            res.status = "en attente"
-          }
-          if (res.status == 1) {
-            res.status = "approuvé"
-          }
-          if (res.status == 2) {
-            res.status = "refusé"
-          }
           this.rdvs = [];
           this.rdvs = res
         }
@@ -100,15 +82,6 @@ export class RdvComponent implements OnInit {
           if (res.length == 0) {
             this.getRdvByIdClient();
           } else {
-            if (res.status == 0) {
-              res.status = "en attente"
-            }
-            if (res.status == 1) {
-              res.status = "approuvé"
-            }
-            if (res.status == 2) {
-              res.status = "refusé"
-            }
             this.rdvs = [];
             this.rdvs = res
           }
@@ -118,15 +91,6 @@ export class RdvComponent implements OnInit {
           if (res.length == 0) {
             this.getRdvByIdAvocat();
           } else {
-            if (res.status == 0) {
-              res.status = "en attente"
-            }
-            if (res.status == 1) {
-              res.status = "approuvé"
-            }
-            if (res.status == 2) {
-              res.status = "refusé"
-            }
             this.rdvs = [];
             this.rdvs = res
           }
@@ -137,21 +101,14 @@ export class RdvComponent implements OnInit {
 
   getRdvByIdClient() {
       this.getService.getRdvByIdClient(this.id_client).toPromise().then((res: any) => {
+        console.log(res)
         if (res == null) {
           this.rdvs = [];
         } else {
-          if (res.status == 0) {
-            res.status = "en attente"
-          }
-          if (res.status == 1) {
-            res.status = "approuvé"
-          }
-          if (res.status == 2) {
-            res.status = "refusé"
-          }
           this.rdvs = [];
           this.rdvs = res
         }
+        console.log(this.rdvs)
       })
   }
 
@@ -160,15 +117,6 @@ export class RdvComponent implements OnInit {
       if (res == null) {
         this.rdvs = [];
       } else {
-        if (res.status == 0) {
-          res.status = "en attente"
-        }
-        if (res.status == 1) {
-          res.status = "approuvé"
-        }
-        if (res.status == 2) {
-          res.status = "refusé"
-        }
         this.rdvs = [];
         this.rdvs = res
       }

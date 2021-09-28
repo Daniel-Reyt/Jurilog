@@ -1,6 +1,7 @@
 package fr.lightning.Test;
 
-import fr.lightning.models.Client;
+import fr.lightning.entity.Client;
+import fr.lightning.job.ClientJob;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -42,7 +43,7 @@ public class ClientTest {
     void createUser() {
         List<Client> clientList = this.CreateClientListe();
 
-        Client clientToAdd = new Client("new client", "new client", "new client", "new client", "new client", "new client");
+        Client clientToAdd = new Client(new ClientJob("new client","new client", "new client", "new client", "new client", "new client"));
         clientList.add(clientToAdd);
 
         if (clientList.size() == 4) {
@@ -72,9 +73,9 @@ public class ClientTest {
     }
 
     private List<Client> CreateClientListe() {
-        Client client1 = new Client("test 1", "test 1", "test 1", "test 1", "test 1", "test 1");
-        Client client2 = new Client("test 2", "test 2", "test 2", "test 2", "test 2", "test 2");
-        Client client3 = new Client("test 3", "test 3", "test 3", "test 3", "test 3", "test 3");
+        Client client1 = new Client(new ClientJob("test 1", "test 1", "test 1", "test 1", "test 1", "test 1"));
+        Client client2 = new Client(new ClientJob("test 2", "test 2", "test 2", "test 2", "test 2", "test 2"));
+        Client client3 = new Client(new ClientJob("test 3", "test 3", "test 3", "test 3", "test 3", "test 3"));
 
         List<Client> result = new ArrayList<>();
         result.add(client1);

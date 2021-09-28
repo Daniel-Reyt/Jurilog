@@ -1,9 +1,11 @@
 package fr.lightning.Test;
 
-import fr.lightning.models.Avocat;
-import fr.lightning.models.Client;
-import fr.lightning.models.Facture;
-import fr.lightning.models.Rdv;
+import fr.lightning.entity.Avocat;
+import fr.lightning.entity.Client;
+import fr.lightning.entity.Facture;
+import fr.lightning.entity.Rdv;
+import fr.lightning.job.FactureJob;
+import fr.lightning.job.RdvJob;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -50,10 +52,10 @@ public class FactureTest {
         Client clientRdv = new Client();
         clientRdv.setId(2);
 
-        Rdv rdvFacture = new Rdv("", "", 1, clientRdv, avocatRdv);
+        Rdv rdvFacture = new Rdv(new RdvJob("", "", 1, clientRdv, avocatRdv));
         rdvFacture.setId(2);
 
-        Facture factureToAdd = new Facture(3, 10.5, 0, rdvFacture);
+        Facture factureToAdd = new Facture(new FactureJob(3, 10.5, "0", rdvFacture));
         factureToAdd.setId(2);
 
         factureList.add(factureToAdd);
@@ -90,10 +92,10 @@ public class FactureTest {
         Client clientRdv = new Client();
         clientRdv.setId(1);
 
-        Rdv rdvFacture = new Rdv("", "", 1, clientRdv, avocatRdv);
+        Rdv rdvFacture = new Rdv(new RdvJob("", "", 1, clientRdv, avocatRdv));
         rdvFacture.setId(1);
 
-        Facture facture1 = new Facture(3, 10.5, 0, rdvFacture);
+        Facture facture1 = new Facture(new FactureJob(3, 10.5, "0", rdvFacture));
         facture1.setId(1);
 
         result.add(facture1);

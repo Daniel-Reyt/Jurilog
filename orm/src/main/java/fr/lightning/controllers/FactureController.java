@@ -1,7 +1,7 @@
 package fr.lightning.controllers;
 
 import fr.lightning.daos.FactureDao;
-import fr.lightning.models.Facture;
+import fr.lightning.entity.Facture;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +23,7 @@ public class FactureController {
         return factureDao.findFacturesById(id);
     }
 
-    @GetMapping(value = "factureByRdv/{id_rdv}")
+    @GetMapping(value = "factureByRdv/{idRdv}")
     public Facture getFactureByIdRdv(@PathVariable int idRdv) {
         return factureDao.findFactureByRdv_Id(idRdv);
     }

@@ -1,14 +1,6 @@
-package fr.lightning.models;
+package fr.lightning.job;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-@Entity
-public class Avocat {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class AvocatJob {
     private int id;
     private String nom;
     private String prenom;
@@ -18,10 +10,10 @@ public class Avocat {
     private String password;
     private String type = "Avocat";
 
-    public Avocat() {
+    public AvocatJob() {
     }
 
-    public Avocat(String nom, String prenom, String adress, String phone, String username, String password) {
+    public AvocatJob(String nom, String prenom, String adress, String phone, String username, String password) {
         this.setNom(nom);
         this.setPrenom(prenom);
         this.setAdress(adress);
