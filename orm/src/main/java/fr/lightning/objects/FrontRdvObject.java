@@ -21,7 +21,7 @@ public class FrontRdvObject {
         this.setId(rdv.getId());
 
         this.setDate(rdv.getDate());
-        this.setHeure_rdv(rdv.getHeure_rdv());
+        this.setHeure_rdv(rdv.getHeure());
 
         this.setClient_nom(rdv.getClient().getNom());
         this.setClient_prenom(rdv.getClient().getPrenom());

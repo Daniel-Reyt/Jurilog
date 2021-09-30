@@ -8,6 +8,7 @@ import fr.lightning.objects.FrontRdvObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -208,7 +209,33 @@ public class RdvController {
         }
         return result;
     }
-
+    //
+    @GetMapping(value = "rdvByIdAvocatAndDateAndHour/{idAvocat}/{date}/{heure}")
+    public List<FrontRdvObject> getRdvByIdAvocatAndDateAndHour(@PathVariable int idAvocat, @PathVariable String date, @PathVariable String heure) {
+        System.out.println(idAvocat);
+        System.out.println(date);
+        System.out.println(heure);
+        List<Rdv> rdvList = rdvDao.findRdvsByAvocatIdAndDateEqualsAndHeureEquals(idAvocat, date, heure);
+        List<FrontRdvObject> result = new ArrayList<>();
+        for (Rdv rdv: rdvList) {
+            Facture factures = factureDao.findFactureByRdv_Id(rdv.getId());
+            FrontRdvObject frontRdvObject = new FrontRdvObject(rdv);
+            if(factures == null) {
+                frontRdvObject.setStatus_facture("pas de facture");
+            } else {
+                if (factures.getStatus_facture() == "") {
+                    frontRdvObject.setStatus_facture("pas de facture");
+                } else if (factures.getStatus_facture() == "1") {
+                    frontRdvObject.setStatus_facture("payé");
+                } else if (factures.getStatus_facture() == "2") {
+                    frontRdvObject.setStatus_facture("a payé");
+                }
+            }
+            result.add(frontRdvObject);
+        }
+        System.out.println(result.size());
+        return result;
+    }
     @GetMapping(value = "rdvByIdClient/{idClient}")
     public List<FrontRdvObject> getRdvByIdClient(@PathVariable int idClient) {
         List<Rdv> rdvList = rdvDao.findRdvsByClient_Id(idClient);
@@ -229,7 +256,6 @@ public class RdvController {
             }
             result.add(frontRdvObject);
         }
-        System.out.println(result);
         return result;
     }
 

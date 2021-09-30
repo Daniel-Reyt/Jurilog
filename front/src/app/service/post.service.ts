@@ -55,7 +55,7 @@ export class PostService {
   postRdv(date: String, heure: String, id_client: String, id_avocat: String,) {
     return this.http.post<any>(`${url}rdv`, {
       date: date,
-      heure_rdv: heure,
+      heure: heure,
       status: 0,
       client: {
         'id': id_client

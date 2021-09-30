@@ -54,7 +54,9 @@ export class GetService {
   getRdvByIdAvocat(id: String) {
     return this.http.get<any>( `${url}rdvByIdAvocat/${id}`)
   }
-
+  getRdvByIdAvocatAndDateAndHour(id: String, date: String, heure: String) {
+    return this.http.get<any>( `${url}rdvByIdAvocatAndDateAndHour/${id}/${date}/${heure}`)
+  }
   // gets of factures
   getFactureByRdv(id_rdv: String):any {
     return this.http.get<any>( `${url}factureByRdv/${id_rdv}`)
