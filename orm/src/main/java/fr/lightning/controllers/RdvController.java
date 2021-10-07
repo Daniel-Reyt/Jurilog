@@ -160,6 +160,7 @@ public class RdvController {
     @PostMapping(value = "rdv")
     public String createRdv(@RequestBody Rdv rdv) {
         rdvDao.save(rdv);
+        factureDao.save(new Facture(1, 0, "-1", rdv));
         if (rdv != null) {
             return "201";
         } else {
@@ -186,7 +187,7 @@ public class RdvController {
     private String checkFactures(Facture factures) {
         String statusFacture ="";
         if (factures != null) {
-            if (factures.getStatusFacture() == "") {
+            if (factures.getStatusFacture().equals("-1")) {
                 statusFacture = pasDeFacture;
             } else if (factures.getStatusFacture() == "1") {
                 statusFacture = payer;

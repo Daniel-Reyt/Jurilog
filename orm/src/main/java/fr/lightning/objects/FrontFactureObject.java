@@ -12,6 +12,8 @@ public class FrontFactureObject {
     private String clientPrenom;
     private String avocatNom;
     private String avocatPrenom;
+    private String statusFacture;
+    private int facture_id;
 
     public FrontFactureObject() {
     }
@@ -26,6 +28,24 @@ public class FrontFactureObject {
         this.setClientPrenom(facture.getRdv().getClient().getPrenom());
         this.setAvocatNom(facture.getRdv().getAvocat().getNom());
         this.setAvocatPrenom(facture.getRdv().getAvocat().getPrenom());
+        this.setStatusFacture(facture.getStatusFacture());
+        this.setFacture_id(facture.getId());
+    }
+
+    public int getFacture_id() {
+        return facture_id;
+    }
+
+    public void setFacture_id(int facture_id) {
+        this.facture_id = facture_id;
+    }
+
+    public String getStatusFacture() {
+        return statusFacture;
+    }
+
+    public void setStatusFacture(String statusFacture) {
+        this.statusFacture = statusFacture;
     }
 
     public String getDateRdv() {

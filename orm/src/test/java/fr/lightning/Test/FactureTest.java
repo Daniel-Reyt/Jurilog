@@ -1,9 +1,6 @@
 package fr.lightning.Test;
 
-import fr.lightning.entity.Avocat;
-import fr.lightning.entity.Client;
-import fr.lightning.entity.Facture;
-import fr.lightning.entity.Rdv;
+import fr.lightning.entity.*;
 import junit.framework.TestCase;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -43,7 +40,9 @@ public class FactureTest extends TestCase {
         Client clientRdv = new Client();
         clientRdv.setId(2);
 
-        Rdv rdvFacture = new Rdv("", "", 1, clientRdv, avocatRdv);
+        TypeRdv typeRdv = new TypeRdv("administration", 20.00);
+
+        Rdv rdvFacture = new Rdv("", "", 1, clientRdv, avocatRdv, typeRdv);
         rdvFacture.setId(2);
 
         Facture factureToAdd = new Facture(3, 10.5, "0", rdvFacture);
@@ -63,7 +62,9 @@ public class FactureTest extends TestCase {
         Client clientRdv = new Client();
         clientRdv.setId(1);
 
-        Rdv rdvFacture = new Rdv("", "", 1, clientRdv, avocatRdv);
+        TypeRdv typeRdv = new TypeRdv("administration", 20.00);
+
+        Rdv rdvFacture = new Rdv("", "", 1, clientRdv, avocatRdv, typeRdv);
         rdvFacture.setId(1);
 
         Facture facture1 = new Facture(3, 10.5, "0", rdvFacture);

@@ -13,8 +13,7 @@ public class Facture {
     private int nbHeure;
     @Column(nullable = true)
     private double tauxHonoraire;
-    // 1 = payé // 0 = a payé // null = pas de facture
-    @Column(nullable = true)
+    // 1 = payé // 0 = a payé // -1 = pas de facture
     private String statusFacture;
     private double totalFacture;
 
@@ -26,7 +25,7 @@ public class Facture {
         this.setTauxHonoraire(tauxHonoraire);
         this.setStatusFacture(statusFacture);
         this.setRdv(rdv);
-        this.calculTotal(nbHeure, tauxHonoraire);
+        this.calculTotal(nbHeure, tauxHonoraire, rdv.getType().getPercentAugmentation());
     }
 
 
@@ -76,8 +75,8 @@ public class Facture {
         return totalFacture;
     }
 
-    public void calculTotal(int nbHeure, double tauxHonoraire) {
-        this.totalFacture = nbHeure * tauxHonoraire;
+    public void calculTotal(int nbHeure, double tauxHonoraire, double percentAugmentation) {
+        this.totalFacture = (nbHeure * tauxHonoraire) * percentAugmentation;
     }
 
     @Override

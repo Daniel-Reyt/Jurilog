@@ -106,6 +106,7 @@ export class RdvComponent implements OnInit {
 
   getRdvByIdClient() {
       this.getService.getRdvByIdClient(this.id_client).toPromise().then((res: any) => {
+        console.log(res)
         if (res == null) {
           this.rdvs = [];
         } else {
@@ -117,6 +118,7 @@ export class RdvComponent implements OnInit {
 
   getRdvByIdAvocat() {
     this.getService.getRdvByIdAvocat(this.id_avocat).toPromise().then((res: any) => {
+      console.log(res)
       if (res == null) {
         this.rdvs = [];
       } else {

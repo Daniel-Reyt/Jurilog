@@ -24,6 +24,7 @@ export class FactureComponent implements OnInit {
   facture: any;
   dateRdv = new Date();
 
+  facture_id: any;
 
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
@@ -43,12 +44,14 @@ export class FactureComponent implements OnInit {
   }
 
   checkIfRdvHadFacture() {
+    console.log("check")
     if (this.id_rdv == null) {
       this.router.navigate(['/rdv'])
     } else {
       this.getService.getFactureByRdv(this.id_rdv).toPromise().then((res: any) => {
         console.log(res)
-          if (res == null) {
+        this.facture_id = res.facture_id
+          if (res.status_facture.equals("-1")) {
             this.isCreate = true
           } else {
             this.isCreate = false;
@@ -64,15 +67,13 @@ export class FactureComponent implements OnInit {
     this.getService.getRdvById(this.id_rdv).toPromise().then((res: any) => {
       this.id_client = res.client.id;
       this.id_avocat = res.avocat.id;
-      console.log(this.id_client);
-      console.log(this.id_avocat);
     })
-
-    this.postService.postFacture(this.createFacture.controls.taux_honoraire.value, this.id_rdv, this.id_client, this.id_avocat).toPromise().then((res: any) => {
-      if (res === "201") {
+    this.postService.postFacture(this.createFacture.controls.taux_honoraire.value, this.id_rdv, this.id_client, this.id_avocat, this.facture_id).toPromise().then((res: any) => {
+      console.log(res)
+      if (res.equals("201")) {
         this.checkIfRdvHadFacture()
       } else {
-        console.log(res)
+
       }
     })
   }

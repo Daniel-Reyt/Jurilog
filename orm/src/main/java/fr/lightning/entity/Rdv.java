@@ -14,18 +14,21 @@ public class Rdv {
     private Client client;
     @OneToOne(targetEntity = Avocat.class, fetch = FetchType.LAZY)
     private Avocat avocat;
+    @OneToOne(targetEntity = TypeRdv.class, fetch = FetchType.LAZY)
+    private TypeRdv type;
     //1 = approved // 0 = en attente // 2 = refusé
     private int status;
 
     public Rdv() {
     }
 
-    public Rdv(String dateRdv, String heureRdv, int status, Client client, Avocat avocat) {
+    public Rdv(String dateRdv, String heureRdv, int status, Client client, Avocat avocat, TypeRdv typeRdv) {
         this.setDate(dateRdv);
         this.setHeure(heureRdv);
         this.setStatus(status);
         this.setClient(client);
         this.setAvocat(avocat);
+        this.setType(typeRdv);
     }
 
 
@@ -58,6 +61,10 @@ public class Rdv {
         this.status = status;
     }
 
+    public void setType(TypeRdv typeRdv) {
+        this.type = typeRdv;
+    }
+
     //getters
     public String getDate() {
         return date;
@@ -79,8 +86,11 @@ public class Rdv {
         return status;
     }
 
-    //ToString
+    public TypeRdv getType() {
+        return type;
+    }
 
+    //ToString / a update a chaque nouveau champs
     @Override
     public String toString() {
         return "Rdv{" +

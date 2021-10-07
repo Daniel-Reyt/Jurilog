@@ -29,22 +29,35 @@ public class FactureController {
     }
 
     @GetMapping(value = "facture/{id}")
-    public FrontFactureObject getFactureById(@PathVariable int id) {
-        return new FrontFactureObject(factureDao.findFacturesById(id));
+    public Facture getFactureById(@PathVariable int id) {
+        //new FrontFactureObject()
+        return factureDao.findFacturesById(id);
     }
 
     @GetMapping(value = "factureByRdv/{idRdv}")
-    public FrontFactureObject getFactureByIdRdv(@PathVariable int idRdv) {
-        return new FrontFactureObject(factureDao.findFactureByRdv_Id(idRdv));
+    public Facture getFactureByIdRdv(@PathVariable int idRdv) {
+        //new FrontFactureObject()
+        return factureDao.findFactureByRdv_Id(idRdv);
     }
 
     @PostMapping(value = "facture")
     public String createFacture(@RequestBody Facture facture) {
-        factureDao.save(facture);
+        Facture facture_to_update = factureDao.getById(facture.getId());
+        if (facture_to_update.getStatusFacture().equals("-1")) {
+            facture_to_update.setStatusFacture("0");
+            facture_to_update.setNbHeure(facture.getNbHeure());
+            facture_to_update.setTauxHonoraire(facture.getTauxHonoraire());
+            System.out.println("facture to update : " + facture_to_update.toString());
+            factureDao.deleteById(facture.getId());
+            factureDao.save(facture_to_update);
+        } else {
+            factureDao.save(facture);
+        }
         if (facture == null) {
             return "500";
         }
 
         return "201";
     }
+
 }
