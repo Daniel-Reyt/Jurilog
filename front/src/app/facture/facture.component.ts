@@ -3,6 +3,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {GetService} from "../service/get.service";
 import {PostService} from "../service/post.service";
+import localeFr from "@angular/common/locales/fr";
+import { registerLocaleData } from "@angular/common";
 
 @Component({
   selector: 'app-facture',
@@ -19,18 +21,9 @@ export class FactureComponent implements OnInit {
 
   isCreate: boolean = true;
 
-  nb_heure: any;
-  taux_honoraire: any;
+  facture: any;
+  dateRdv = new Date();
 
-  nom_client: any;
-  prenom_client: any;
-  adresse_client: any;
-  telephone_client: any;
-
-  nom_avocat: any;
-  prenom_avocat: any;
-  adresse_avocat: any;
-  telephone_avocat: any;
 
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
@@ -46,6 +39,7 @@ export class FactureComponent implements OnInit {
       nb_heure: '',
       taux_honoraire: ''
     })
+    registerLocaleData(localeFr, "fr");
   }
 
   checkIfRdvHadFacture() {
@@ -53,22 +47,13 @@ export class FactureComponent implements OnInit {
       this.router.navigate(['/rdv'])
     } else {
       this.getService.getFactureByRdv(this.id_rdv).toPromise().then((res: any) => {
+        console.log(res)
           if (res == null) {
             this.isCreate = true
           } else {
             this.isCreate = false;
-            this.nb_heure = res.nb_heure;
-            this.taux_honoraire = res.taux_honoraire;
-
-            this.nom_client = res.rdv.client.nom;
-            this.prenom_client = res.rdv.client.prenom;
-            this.adresse_client = res.rdv.client.adress;
-            this.telephone_client = res.rdv.client.phone;
-
-            this.nom_avocat = res.rdv.avocat.nom;
-            this.prenom_avocat = res.rdv.avocat.prenom;
-            this.adresse_avocat = res.rdv.avocat.adress;
-            this.telephone_avocat = res.rdv.avocat.phone;
+            this.facture = res
+            this.dateRdv = this.facture.dateRdv
           }
       }).catch(() => {
       })

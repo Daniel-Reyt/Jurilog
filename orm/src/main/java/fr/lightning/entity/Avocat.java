@@ -1,7 +1,5 @@
 package fr.lightning.entity;
 
-import fr.lightning.job.AvocatJob;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,18 +16,19 @@ public class Avocat {
     private String phone;
     private String username;
     private String password;
-    private String type = "Avocat";
+    private String type;
 
     public Avocat() {
     }
 
-    public Avocat(AvocatJob avocatJob) {
-        this.setNom(avocatJob.getNom());
-        this.setPrenom(avocatJob.getPrenom());
-        this.setAdress(avocatJob.getAdress());
-        this.setPhone(avocatJob.getPhone());
-        this.setUsername(avocatJob.getUsername());
-        this.setPassword(avocatJob.getPassword());
+    public Avocat(String nom, String prenom, String adress, String phone, String username, String password) {
+        this.setNom(nom);
+        this.setPrenom(prenom);
+        this.setAdress(adress);
+        this.setPhone(phone);
+        this.setUsername(username);
+        this.setPassword(password);
+        this.setType("Avocat");
     }
 
     //setters

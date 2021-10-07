@@ -8,7 +8,6 @@ import fr.lightning.objects.FrontRdvObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +19,10 @@ public class RdvController {
     @Autowired
     private FactureDao factureDao;
 
+    private String aPayer = "a payé";
+    private String payer = "payé";
+    private String pasDeFacture = "pas de facture";
+
     @GetMapping(value = "rdvs")
     public List<FrontRdvObject> getAllRdvs() {
         List<Rdv> rdvList = rdvDao.findAll();
@@ -27,17 +30,7 @@ public class RdvController {
         for (Rdv rdv: rdvList) {
             Facture factures = factureDao.findFactureByRdv_Id(rdv.getId());
             FrontRdvObject frontRdvObject = new FrontRdvObject(rdv);
-            if(factures == null) {
-                frontRdvObject.setStatus_facture("pas de facture");
-            } else {
-                if (factures.getStatus_facture() == "") {
-                    frontRdvObject.setStatus_facture("pas de facture");
-                } else if (factures.getStatus_facture() == "1") {
-                    frontRdvObject.setStatus_facture("payé");
-                } else if (factures.getStatus_facture() == "2") {
-                    frontRdvObject.setStatus_facture("a payé");
-                }
-            }
+            frontRdvObject.setStatusFacture(checkFactures(factures));
             result.add(frontRdvObject);
         }
         return result;
@@ -45,8 +38,7 @@ public class RdvController {
 
     @GetMapping(value = "rdv/{id}")
     public Rdv getRdvById(@PathVariable int id) {
-        Rdv rdv = rdvDao.findRdvById(id);
-        return rdv;
+        return rdvDao.findRdvById(id);
     }
 
     @GetMapping(value = "rdvByIdAvocatIdClient/{idAvocat}/{idClient}")
@@ -56,17 +48,7 @@ public class RdvController {
         for (Rdv rdv: rdvList) {
             Facture factures = factureDao.findFactureByRdv_Id(rdv.getId());
             FrontRdvObject frontRdvObject = new FrontRdvObject(rdv);
-            if(factures == null) {
-                frontRdvObject.setStatus_facture("pas de facture");
-            } else {
-                if (factures.getStatus_facture() == "") {
-                    frontRdvObject.setStatus_facture("pas de facture");
-                } else if (factures.getStatus_facture() == "1") {
-                    frontRdvObject.setStatus_facture("payé");
-                } else if (factures.getStatus_facture() == "2") {
-                    frontRdvObject.setStatus_facture("a payé");
-                }
-            }
+            frontRdvObject.setStatusFacture(checkFactures(factures));
             result.add(frontRdvObject);
         }
         return result;
@@ -79,17 +61,7 @@ public class RdvController {
         for (Rdv rdv: rdvList) {
             Facture factures = factureDao.findFactureByRdv_Id(rdv.getId());
             FrontRdvObject frontRdvObject = new FrontRdvObject(rdv);
-            if(factures == null) {
-                frontRdvObject.setStatus_facture("pas de facture");
-            } else {
-                if (factures.getStatus_facture() == "") {
-                    frontRdvObject.setStatus_facture("pas de facture");
-                } else if (factures.getStatus_facture() == "1") {
-                    frontRdvObject.setStatus_facture("payé");
-                } else if (factures.getStatus_facture() == "2") {
-                    frontRdvObject.setStatus_facture("a payé");
-                }
-            }
+            frontRdvObject.setStatusFacture(checkFactures(factures));
             result.add(frontRdvObject);
         }
         return result;
@@ -102,17 +74,7 @@ public class RdvController {
         for (Rdv rdv: rdvList) {
             Facture factures = factureDao.findFactureByRdv_Id(rdv.getId());
             FrontRdvObject frontRdvObject = new FrontRdvObject(rdv);
-            if(factures == null) {
-                frontRdvObject.setStatus_facture("pas de facture");
-            } else {
-                if (factures.getStatus_facture() == "") {
-                    frontRdvObject.setStatus_facture("pas de facture");
-                } else if (factures.getStatus_facture() == "1") {
-                    frontRdvObject.setStatus_facture("payé");
-                } else if (factures.getStatus_facture() == "2") {
-                    frontRdvObject.setStatus_facture("a payé");
-                }
-            }
+            frontRdvObject.setStatusFacture(checkFactures(factures));
             result.add(frontRdvObject);
         }
         return result;
@@ -125,17 +87,7 @@ public class RdvController {
         for (Rdv rdv: rdvList) {
             Facture factures = factureDao.findFactureByRdv_Id(rdv.getId());
             FrontRdvObject frontRdvObject = new FrontRdvObject(rdv);
-            if(factures == null) {
-                frontRdvObject.setStatus_facture("pas de facture");
-            } else {
-                if (factures.getStatus_facture() == "") {
-                    frontRdvObject.setStatus_facture("pas de facture");
-                } else if (factures.getStatus_facture() == "1") {
-                    frontRdvObject.setStatus_facture("payé");
-                } else if (factures.getStatus_facture() == "2") {
-                    frontRdvObject.setStatus_facture("a payé");
-                }
-            }
+            frontRdvObject.setStatusFacture(checkFactures(factures));
             result.add(frontRdvObject);
         }
         return result;
@@ -148,17 +100,7 @@ public class RdvController {
         for (Rdv rdv: rdvList) {
             Facture factures = factureDao.findFactureByRdv_Id(rdv.getId());
             FrontRdvObject frontRdvObject = new FrontRdvObject(rdv);
-            if(factures == null) {
-                frontRdvObject.setStatus_facture("pas de facture");
-            } else {
-                if (factures.getStatus_facture() == "") {
-                    frontRdvObject.setStatus_facture("pas de facture");
-                } else if (factures.getStatus_facture() == "1") {
-                    frontRdvObject.setStatus_facture("payé");
-                } else if (factures.getStatus_facture() == "2") {
-                    frontRdvObject.setStatus_facture("a payé");
-                }
-            }
+            frontRdvObject.setStatusFacture(checkFactures(factures));
             result.add(frontRdvObject);
         }
         return result;
@@ -171,17 +113,7 @@ public class RdvController {
         for (Rdv rdv: rdvList) {
             Facture factures = factureDao.findFactureByRdv_Id(rdv.getId());
             FrontRdvObject frontRdvObject = new FrontRdvObject(rdv);
-            if(factures == null) {
-                frontRdvObject.setStatus_facture("pas de facture");
-            } else {
-                if (factures.getStatus_facture() == "") {
-                    frontRdvObject.setStatus_facture("pas de facture");
-                } else if (factures.getStatus_facture() == "1") {
-                    frontRdvObject.setStatus_facture("payé");
-                } else if (factures.getStatus_facture() == "2") {
-                    frontRdvObject.setStatus_facture("a payé");
-                }
-            }
+            frontRdvObject.setStatusFacture(checkFactures(factures));
             result.add(frontRdvObject);
         }
         return result;
@@ -194,17 +126,7 @@ public class RdvController {
         for (Rdv rdv: rdvList) {
             Facture factures = factureDao.findFactureByRdv_Id(rdv.getId());
             FrontRdvObject frontRdvObject = new FrontRdvObject(rdv);
-            if(factures == null) {
-                frontRdvObject.setStatus_facture("pas de facture");
-            } else {
-                if (factures.getStatus_facture() == "") {
-                    frontRdvObject.setStatus_facture("pas de facture");
-                } else if (factures.getStatus_facture() == "1") {
-                    frontRdvObject.setStatus_facture("payé");
-                } else if (factures.getStatus_facture() == "2") {
-                    frontRdvObject.setStatus_facture("a payé");
-                }
-            }
+            frontRdvObject.setStatusFacture(checkFactures(factures));
             result.add(frontRdvObject);
         }
         return result;
@@ -212,28 +134,14 @@ public class RdvController {
     //
     @GetMapping(value = "rdvByIdAvocatAndDateAndHour/{idAvocat}/{date}/{heure}")
     public List<FrontRdvObject> getRdvByIdAvocatAndDateAndHour(@PathVariable int idAvocat, @PathVariable String date, @PathVariable String heure) {
-        System.out.println(idAvocat);
-        System.out.println(date);
-        System.out.println(heure);
         List<Rdv> rdvList = rdvDao.findRdvsByAvocatIdAndDateEqualsAndHeureEquals(idAvocat, date, heure);
         List<FrontRdvObject> result = new ArrayList<>();
         for (Rdv rdv: rdvList) {
             Facture factures = factureDao.findFactureByRdv_Id(rdv.getId());
             FrontRdvObject frontRdvObject = new FrontRdvObject(rdv);
-            if(factures == null) {
-                frontRdvObject.setStatus_facture("pas de facture");
-            } else {
-                if (factures.getStatus_facture() == "") {
-                    frontRdvObject.setStatus_facture("pas de facture");
-                } else if (factures.getStatus_facture() == "1") {
-                    frontRdvObject.setStatus_facture("payé");
-                } else if (factures.getStatus_facture() == "2") {
-                    frontRdvObject.setStatus_facture("a payé");
-                }
-            }
+            frontRdvObject.setStatusFacture(checkFactures(factures));
             result.add(frontRdvObject);
         }
-        System.out.println(result.size());
         return result;
     }
     @GetMapping(value = "rdvByIdClient/{idClient}")
@@ -243,17 +151,7 @@ public class RdvController {
         for (Rdv rdv: rdvList) {
             Facture factures = factureDao.findFactureByRdv_Id(rdv.getId());
             FrontRdvObject frontRdvObject = new FrontRdvObject(rdv);
-            if(factures == null) {
-                frontRdvObject.setStatus_facture("pas de facture");
-            } else {
-                if (factures.getStatus_facture() == "") {
-                    frontRdvObject.setStatus_facture("pas de facture");
-                } else if (factures.getStatus_facture() == "1") {
-                    frontRdvObject.setStatus_facture("payé");
-                } else if (factures.getStatus_facture() == "2") {
-                    frontRdvObject.setStatus_facture("a payé");
-                }
-            }
+            frontRdvObject.setStatusFacture(checkFactures(factures));
             result.add(frontRdvObject);
         }
         return result;
@@ -262,36 +160,42 @@ public class RdvController {
     @PostMapping(value = "rdv")
     public String createRdv(@RequestBody Rdv rdv) {
         rdvDao.save(rdv);
-        if (rdv == null) {
+        if (rdv != null) {
+            return "201";
+        } else {
             return "500";
         }
-
-        return "201";
     }
 
     @PostMapping(value = "rdvValider")
     public String validerRdv(@RequestBody FrontRdvObject frontRdvObject) {
-        System.out.println(frontRdvObject);
         Rdv rdv = rdvDao.getById(frontRdvObject.getId());
         rdv.setStatus(1);
         rdvDao.save(rdv);
-        if (rdv == null) {
-            return "500";
-        }
-
         return "201";
     }
 
     @PostMapping(value = "rdvRefuser")
     public String refuserRdv(@RequestBody FrontRdvObject frontRdvObject) {
-        System.out.println(frontRdvObject);
         Rdv rdv = rdvDao.getById(frontRdvObject.getId());
         rdv.setStatus(2);
         rdvDao.save(rdv);
-        if (rdv == null) {
-            return "500";
-        }
-
         return "201";
+    }
+
+    private String checkFactures(Facture factures) {
+        String statusFacture ="";
+        if (factures != null) {
+            if (factures.getStatusFacture() == "") {
+                statusFacture = pasDeFacture;
+            } else if (factures.getStatusFacture() == "1") {
+                statusFacture = payer;
+            } else if (factures.getStatusFacture() == "2") {
+                statusFacture = aPayer;
+            }
+        } else {
+            statusFacture = pasDeFacture;
+        }
+        return statusFacture;
     }
 }

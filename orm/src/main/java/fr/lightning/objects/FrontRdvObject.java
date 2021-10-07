@@ -1,18 +1,17 @@
 package fr.lightning.objects;
 
-import fr.lightning.entity.Facture;
 import fr.lightning.entity.Rdv;
 
 public class FrontRdvObject {
     private int id;
     private String date;
-    private String heure_rdv;
-    private String client_nom;
-    private String client_prenom;
-    private String avocat_nom;
-    private String avocat_prenom;
+    private String heureRdv;
+    private String clientNom;
+    private String clientPrenom;
+    private String avocatNom;
+    private String avocatPrenom;
     private String status;
-    private String status_facture;
+    private String statusFacture;
 
     public FrontRdvObject() {
     }
@@ -21,13 +20,13 @@ public class FrontRdvObject {
         this.setId(rdv.getId());
 
         this.setDate(rdv.getDate());
-        this.setHeure_rdv(rdv.getHeure());
+        this.setHeureRdv(rdv.getHeure());
 
-        this.setClient_nom(rdv.getClient().getNom());
-        this.setClient_prenom(rdv.getClient().getPrenom());
+        this.setClientNom(rdv.getClient().getNom());
+        this.setClientPrenom(rdv.getClient().getPrenom());
 
-        this.setAvocat_nom(rdv.getAvocat().getNom());
-        this.setAvocat_prenom(rdv.getAvocat().getPrenom());
+        this.setAvocatNom(rdv.getAvocat().getNom());
+        this.setAvocatPrenom(rdv.getAvocat().getPrenom());
 
         switch (rdv.getStatus()) {
             case 0:
@@ -38,6 +37,8 @@ public class FrontRdvObject {
                 break;
             case 2:
                 this.setStatus("refusé");
+                break;
+            default:
                 break;
         }
     }
@@ -58,71 +59,71 @@ public class FrontRdvObject {
         this.date = date;
     }
 
-    public void setHeure_rdv(String heure_rdv) {
-        this.heure_rdv = heure_rdv;
+    public void setHeureRdv(String heureRdv) {
+        this.heureRdv = heureRdv;
     }
 
-    public void setClient_nom(String client_nom) {
-        this.client_nom = client_nom;
+    public void setClientNom(String clientNom) {
+        this.clientNom = clientNom;
     }
 
-    public void setClient_prenom(String client_prenom) {
-        this.client_prenom = client_prenom;
+    public void setClientPrenom(String clientPrenom) {
+        this.clientPrenom = clientPrenom;
     }
 
-    public void setAvocat_nom(String avocat_nom) {
-        this.avocat_nom = avocat_nom;
+    public void setAvocatNom(String avocatNom) {
+        this.avocatNom = avocatNom;
     }
 
-    public void setAvocat_prenom(String avocat_prenom) {
-        this.avocat_prenom = avocat_prenom;
+    public void setAvocatPrenom(String avocatPrenom) {
+        this.avocatPrenom = avocatPrenom;
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public void setStatus_facture(String status_facture) {
-        this.status_facture = status_facture;
+    public void setStatusFacture(String statusFacture) {
+        this.statusFacture = statusFacture;
     }
 
-    public String getStatus_facture() {
-        return status_facture;
+    public String getStatusFacture() {
+        return statusFacture;
     }
 
     public String getDate() {
         return date;
     }
 
-    public String getHeure_rdv() {
-        return heure_rdv;
+    public String getHeureRdv() {
+        return heureRdv;
     }
 
-    public String getClient_nom() {
-        return client_nom;
+    public String getClientNom() {
+        return clientNom;
     }
 
-    public String getClient_prenom() {
-        return client_prenom;
+    public String getClientPrenom() {
+        return clientPrenom;
     }
 
-    public String getAvocat_nom() {
-        return avocat_nom;
+    public String getAvocatNom() {
+        return avocatNom;
     }
 
-    public String getAvocat_prenom() {
-        return avocat_prenom;
+    public String getAvocatPrenom() {
+        return avocatPrenom;
     }
 
     @Override
     public String toString() {
         return "FrontRdvObject{" +
                 "date='" + date + '\'' +
-                ", heure_rdv='" + heure_rdv + '\'' +
-                ", client_nom='" + client_nom + '\'' +
-                ", client_prenom='" + client_prenom + '\'' +
-                ", avocat_nom='" + avocat_nom + '\'' +
-                ", avocat_prenom='" + avocat_prenom + '\'' +
+                ", heure_rdv='" + heureRdv + '\'' +
+                ", client_nom='" + clientNom + '\'' +
+                ", client_prenom='" + clientPrenom + '\'' +
+                ", avocat_nom='" + avocatNom + '\'' +
+                ", avocat_prenom='" + avocatPrenom + '\'' +
                 '}';
     }
 

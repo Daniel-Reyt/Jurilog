@@ -7,7 +7,7 @@ import {GetService} from "../../service/get.service";
 @Component({
   selector: 'app-login-avocat',
   templateUrl: './login-avocat.component.html',
-  styleUrls: ['./login-avocat.component.css']
+  styleUrls: ['./login-avocat.component.css'],
 })
 
 export class LoginAvocatComponent implements OnInit {
@@ -27,13 +27,8 @@ export class LoginAvocatComponent implements OnInit {
   }
 
   login() {
-    let passwordEnter = this.LoginForm.controls.password.value;
-    let passwordCyrypted;
-
     this.getService.getAllAvocats().subscribe((value: any) => {
       for (let i = 0; i < value.length; i++) {
-        passwordCyrypted = value[i].password;
-        var passwordDecrypted = this.DecryptePassword(passwordCyrypted)
         if (this.LoginForm.controls.username.value === value[i].username && this.LoginForm.controls.password.value === value[i].password) {
           localStorage.setItem("isLogin", String(true))
           localStorage.setItem("id_avocat", value[i].id);
@@ -43,11 +38,6 @@ export class LoginAvocatComponent implements OnInit {
         }
       }
     })
-  }
-
-  DecryptePassword(password: string):string {
-
-    return ""
   }
 
 

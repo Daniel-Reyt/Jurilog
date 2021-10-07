@@ -1,9 +1,10 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {Router} from "@angular/router";
 import {GetService} from "../service/get.service";
 import {PostService} from "../service/post.service";
-import Swal from "sweetalert2";
+import localeFr from "@angular/common/locales/fr";
+import { registerLocaleData } from "@angular/common";
 
 @Component({
   selector: 'app-rdv',
@@ -43,6 +44,7 @@ export class RdvComponent implements OnInit {
       heureRdv: '',
       avocatRdv: ''
     })
+    registerLocaleData(localeFr, "fr");
 
     this.id_client = localStorage.getItem('id_client');
     this.id_avocat = localStorage.getItem('id_avocat');

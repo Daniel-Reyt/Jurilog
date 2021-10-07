@@ -1,7 +1,5 @@
 package fr.lightning.entity;
 
-import fr.lightning.job.RdvJob;
-
 import javax.persistence.*;
 
 @Entity
@@ -22,13 +20,14 @@ public class Rdv {
     public Rdv() {
     }
 
-    public Rdv(RdvJob rdvJob) {
-        this.setDate(rdvJob.getDate());
-        this.setHeure(rdvJob.getHeure_rdv());
-        this.setStatus(rdvJob.getStatus());
-        this.setClient(rdvJob.getClient());
-        this.setAvocat(rdvJob.getAvocat());
+    public Rdv(String dateRdv, String heureRdv, int status, Client client, Avocat avocat) {
+        this.setDate(dateRdv);
+        this.setHeure(heureRdv);
+        this.setStatus(status);
+        this.setClient(client);
+        this.setAvocat(avocat);
     }
+
 
     //setters
     public int getId() {
@@ -39,12 +38,12 @@ public class Rdv {
         this.id = id;
     }
 
-    public void setDate(String date_rdv) {
-        this.date = date_rdv;
+    public void setDate(String dateRdv) {
+        this.date = dateRdv;
     }
 
-    public void setHeure(String heure_rdv) {
-        this.heure = heure_rdv;
+    public void setHeure(String heureRdv) {
+        this.heure = heureRdv;
     }
 
     public void setClient(Client client) {

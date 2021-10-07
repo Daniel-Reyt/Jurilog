@@ -17,10 +17,6 @@ public class ClientController {
 
     @GetMapping(value = "clients")
     public List<Client> getAllClients() {
-//        List<Client> clientList = clientDao.findAll();
-//        for (int i = 0; i < clientList.size(); i++) {
-//            String PasswordDecoded =
-//        }
         return clientDao.findAll();
     }
 
@@ -31,15 +27,12 @@ public class ClientController {
 
     @PostMapping(value = "client")
     public String createClient(@RequestBody Client client) {
-        String password = client.getPassword();
-        String MotDePasseCrypte = passwordEncoder.encode(password);
-        client.setPassword(MotDePasseCrypte);
         clientDao.save(client);
-        if (client == null) {
+        if (client != null) {
+            return "201";
+        } else {
             return "500";
         }
-
-        return "201";
     }
 
     public List<Client> getClientForTest() {

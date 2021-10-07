@@ -93,6 +93,11 @@
 			<artifactId>spring-security-crypto</artifactId>
 			<version>5.5.2</version>
 		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
@@ -101,13 +106,31 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<version>2.5.5</version>
 				<configuration>
-					<mainClass>fr.lightning.Orm_JuriLog</mainClass>
+					<mainClass>fr.lightning.OrmJurilog</mainClass>
 				</configuration>
 
 				<executions>
 					<execution>
 						<goals>
 							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>findbugs-maven-plugin</artifactId>
+				<version>3.0.4</version>
+				<configuration>
+					<effort>Max</effort>
+					<onlyAnalyze>fr.lightning.*</onlyAnalyze>
+					<omitVisitors>FindNullDeref</omitVisitors>
+					<visitors>FindReturnRef</visitors>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>check</goal>
 						</goals>
 					</execution>
 				</executions>

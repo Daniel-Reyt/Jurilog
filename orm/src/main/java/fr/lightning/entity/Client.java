@@ -1,7 +1,5 @@
 package fr.lightning.entity;
 
-import fr.lightning.job.ClientJob;
-
 import javax.persistence.*;
 
 @Entity
@@ -15,21 +13,21 @@ public class Client {
     private String phone;
     private String username;
     private String password;
-    private String type = "Client";
+    private String type;
 
     //Ctor
     public Client() {
     }
 
-    public Client(ClientJob clientJob) {
-        this.setNom(clientJob.getNom());
-        this.setPrenom(clientJob.getPrenom());
-        this.setAdresse(clientJob.getAdresse());
-        this.setPhone(clientJob.getPhone());
-        this.setUsername(clientJob.getUsername());
-        this.setPassword(clientJob.getPassword());
+    public Client(String nom, String prenom, String adresse, String telephone, String username, String password) {
+        this.setNom(nom);
+        this.setPrenom(prenom);
+        this.setAdresse(adresse);
+        this.setPhone(telephone);
+        this.setUsername(username);
+        this.setPassword(password);
+        this.setType("Client");
     }
-
     //setters / getters
     public int getId() {
         return id;

@@ -2,9 +2,11 @@ package fr.lightning.controllers;
 
 import fr.lightning.daos.FactureDao;
 import fr.lightning.entity.Facture;
+import fr.lightning.objects.FrontFactureObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -14,18 +16,26 @@ public class FactureController {
     private FactureDao factureDao;
 
     @GetMapping(value = "factures")
-    public List<Facture> getAllFactures() {
-        return factureDao.findAll();
+    public List<FrontFactureObject> getAllFactures() {
+        List<FrontFactureObject> resultList = new ArrayList<>();
+        List<Facture> facturesList = factureDao.findAll();
+
+        for (int i = 0; i < facturesList.size(); i++) {
+            FrontFactureObject factureObject = new FrontFactureObject(facturesList.get(i));
+            resultList.add(factureObject);
+        }
+
+        return resultList;
     }
 
     @GetMapping(value = "facture/{id}")
-    public Facture getFactureById(@PathVariable int id) {
-        return factureDao.findFacturesById(id);
+    public FrontFactureObject getFactureById(@PathVariable int id) {
+        return new FrontFactureObject(factureDao.findFacturesById(id));
     }
 
     @GetMapping(value = "factureByRdv/{idRdv}")
-    public Facture getFactureByIdRdv(@PathVariable int idRdv) {
-        return factureDao.findFactureByRdv_Id(idRdv);
+    public FrontFactureObject getFactureByIdRdv(@PathVariable int idRdv) {
+        return new FrontFactureObject(factureDao.findFactureByRdv_Id(idRdv));
     }
 
     @PostMapping(value = "facture")

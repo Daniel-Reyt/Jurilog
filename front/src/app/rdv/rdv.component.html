@@ -35,20 +35,20 @@
   <div class="row">
     <div class="card col-lg-6" *ngFor="let rdv of rdvs; let i = index">
       <div class="row card-header">
-        rendez vous le : {{rdv.date}}
+        rendez vous le : {{rdv.date | date:'fullDate'}}
         <br>
-        a : {{rdv.heure_rdv}}:00
+        a : {{rdv.heureRdv}}:00 heure
       </div>
       <div class="card-body">
-        avocat : {{rdv.avocat_nom}}, {{rdv.avocat_prenom}}
+        avocat : {{rdv.avocatNom}}, {{rdv.avocatPrenom}}
         <br>
-        client : {{rdv.client_nom}}, {{rdv.client_prenom}}
+        client : {{rdv.clientNom}}, {{rdv.clientPrenom}}
         <br>
-        statut facture : {{rdv.status_facture}}
-        <button class="btn btn-primary col-lg-3" (click)="redirectFacture(rdv)" [hidden]="rdv.status_facture != 'pas de facture' || rdv.status == 'en attente' || rdv.status == 'refusé'">
+        statut facture : {{rdv.statusFacture}}
+        <button class="btn btn-primary col-lg-3" (click)="redirectFacture(rdv)" [hidden]="rdv.statusFacture != 'pas de facture' || rdv.status == 'en attente' || rdv.status == 'refusé'">
           créer une facture
         </button>
-        <button class="btn btn-primary col-lg-3" (click)="redirectFacture(rdv)" [hidden]="rdv.status_facture == 'pas de facture' || rdv.status == 'en attente' || rdv.status == 'refusé'">
+        <button class="btn btn-primary col-lg-3" (click)="redirectFacture(rdv)" [hidden]="rdv.statusFacture == 'pas de facture' || rdv.status == 'en attente' || rdv.status == 'refusé'">
           voir la facture
         </button>
       </div>
