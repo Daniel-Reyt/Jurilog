@@ -17,3 +17,12 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   overflow: scroll;
 }
+.bg-lightYellow {
+  background-color: yellow;
+}
+.error {
+  color: red;
+  text-align: center;
+  font-style: italic;
+  text-decoration: black overline dashed;
+}

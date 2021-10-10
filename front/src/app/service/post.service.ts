@@ -13,7 +13,7 @@ export class PostService {
               private router: Router) { }
 
   postAvocat(nom: String, prenom: String, adresse: String, phone: String, username: String, password: String) {
-    this.http.post(url + 'avocat', {
+    this.http.post(`${url}avocat`, {
       nom: nom,
       prenom: prenom,
       adress: adresse,
@@ -33,7 +33,7 @@ export class PostService {
   }
 
   postClient(nom: String, prenom: String, adresse: String, phone: String, username: String, password: String) {
-    this.http.post(url + 'client', {
+    this.http.post(`${url}client`, {
       nom: nom,
       prenom: prenom,
       adresse: adresse,
@@ -52,92 +52,37 @@ export class PostService {
     })
   }
 
-  postRdv(date: String, heure: String, id_client: String, id_avocat: String,) {
-    return this.http.post<any>(url + 'rdv', {
+  postRdv(date: String, heure: String, id_client: String, id_avocat: String, rdv_type: string) {
+    return this.http.post<any>(`${url}rdv`, {
       date: date,
-      heure_rdv: heure,
+      heure: heure,
       status: 0,
       client: {
         'id': id_client
       },
       avocat: {
         'id': id_avocat
+      },
+      type: {
+        id: rdv_type
       }
     })
   }
 
   validerRdv(rdv: any) {
-    rdv.status = 1
-    return this.http.post<any>(url + 'rdv', rdv)
+    return this.http.post<any>(`${url}rdvValider`, rdv)
   }
 
   refuserRdv(rdv: any) {
-    rdv.status = 2
-    return this.http.post<any>(url + 'rdv', rdv)
+    return this.http.post<any>(`${url}rdvRefuser`, rdv)
   }
 
-  postFacture(nb_heure: any, taux_honoraire: any, id_rdv: any, id_client: any, id_avocat: any) {
-    return this.http.post<any>(url + 'facture', {
-      nb_heure: nb_heure,
-      taux_honoraire: taux_honoraire,
-      status_facture: 0,
-      rdv: {
-        id: id_rdv,
-        client: {
-           id: id_client
-          },
-        avocat: {
-          id: id_avocat
-        }
-      }
+  postFacture(taux_honoraire: any, rdv: any, id_facture: any) {
+    return this.http.post<any>(`${url}facture`, {
+      id: id_facture,
+      nbHeure: 1,
+      tauxHonoraire: taux_honoraire,
+      rdv: rdv
     })
   }
-
-  postDatas() {
-    this.http.post(url + 'client', {
-      nom: 'reyt',
-      prenom: 'daniel',
-      adresse: '11 rue de la gare',
-      phone: '0609336279',
-      username: 'dada',
-      password: 'dada',
-    })
-
-    this.http.post(url + 'avocat', {
-      nom: 'hofman',
-      prenom: 'louise',
-      adresse: '24 rue de la houblonnière',
-      phone: '0101010101',
-      username: 'louise',
-      password: 'hofman',
-    })
-
-    this.http.post<any>(url + 'rdv', {
-      date: '10-01-2001',
-      heure_rdv: '10:30',
-      status: 0,
-      client: {
-        id: 1
-      },
-      avocat: {
-        id: 1
-      }
-    })
-
-    this.http.post<any>(url + 'facture', {
-      nb_heure: 10,
-      taux_honoraire: 150,
-      status_facture: 0,
-      rdv: {
-        id: 1,
-        client: {
-          id: 1
-        },
-        avocat: {
-          id: 1
-        }
-      }
-    })
-  }
-
 }

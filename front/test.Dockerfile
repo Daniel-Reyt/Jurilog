@@ -1,14 +1,17 @@
-FROM node as builder
+FROM node:12.14-alpine
 
-RUN mkdir -p /app
-RUN chmod -R 777 /app
+RUN apk update && apk upgrade && \
+    echo @edge http://nl.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories && \
+    echo @edge http://nl.alpinelinux.org/alpine/edge/main >> /etc/apk/repositories && \
+    apk add --no-cache bash chromium nss@edge
 
 WORKDIR /app
 
-ENV PATH /app/node_modules/.bin:$PATH
+ENV CHROME_BIN /usr/bin/chromium-browser
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
 
 COPY . .
 RUN npm install
-
 COPY . .
-CMD ["ng","test"]
+
+CMD ["npm", "run", "test"]

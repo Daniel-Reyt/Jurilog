@@ -1,6 +1,6 @@
 package fr.lightning.daos;
 
-import fr.lightning.models.Client;
+import fr.lightning.entity.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
