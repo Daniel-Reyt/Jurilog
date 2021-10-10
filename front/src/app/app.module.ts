@@ -18,8 +18,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatNativeDateModule} from '@angular/material/core';
-import {AuthService} from "./service/auth.service";
-import {AuthGuard} from "./auth.guard";
+import { LOCALE_ID } from "@angular/core";
 
 @NgModule({
   declarations: [
@@ -32,7 +31,7 @@ import {AuthGuard} from "./auth.guard";
     ChooseLoginComponent,
     FactureComponent,
     RegisterAvocatComponent,
-    RegisterClientComponent
+    RegisterClientComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,6 +45,7 @@ import {AuthGuard} from "./auth.guard";
     MatNativeDateModule
   ],
   providers: [
+    { provide: LOCALE_ID, useValue: "fr-FR" }
   ],
   bootstrap: [AppComponent]
 })

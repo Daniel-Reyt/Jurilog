@@ -2,7 +2,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "emitDecoratorMetadata": false,
+    "emitDecoratorMetadata": true,
     "outDir": "./out-tsc/spec",
     "types": [
       "jasmine"

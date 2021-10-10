@@ -1,13 +1,12 @@
 package fr.lightning.controllers;
 
 import fr.lightning.daos.FactureDao;
-import fr.lightning.models.Facture;
+import fr.lightning.entity.Facture;
+import fr.lightning.objects.FrontFactureObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -17,33 +16,49 @@ public class FactureController {
     private FactureDao factureDao;
 
     @GetMapping(value = "factures")
-    public List<Facture> getAllFactures() {
-        return factureDao.findAll();
+    public List<FrontFactureObject> getAllFactures() {
+        List<FrontFactureObject> resultList = new ArrayList<>();
+        List<Facture> facturesList = factureDao.findAll();
+
+        for (int i = 0; i < facturesList.size(); i++) {
+            FrontFactureObject factureObject = new FrontFactureObject(facturesList.get(i));
+            resultList.add(factureObject);
+        }
+
+        return resultList;
     }
 
     @GetMapping(value = "facture/{id}")
     public Facture getFactureById(@PathVariable int id) {
+        //new FrontFactureObject()
         return factureDao.findFacturesById(id);
     }
 
-    @GetMapping(value = "factureByRdv/{id_rdv}")
-    public Facture getFactureByIdRdv(@PathVariable int id_rdv) {
-        return factureDao.findFactureByRdv_Id(id_rdv);
+    @GetMapping(value = "factureByRdv/{idRdv}")
+    public Facture getFactureByIdRdv(@PathVariable int idRdv) {
+        //new FrontFactureObject()
+        return factureDao.findFactureByRdv_Id(idRdv);
     }
 
     @PostMapping(value = "facture")
     public String createFacture(@RequestBody Facture facture) {
-        Facture facture1 = factureDao.save(facture);
+        System.out.println(facture.getRdv());
+        Facture facture_to_update = factureDao.getById(facture.getId());
+        if (facture_to_update.getStatusFacture().equals("-1")) {
+            facture_to_update.setStatusFacture("0");
+            facture_to_update.setNbHeure(facture.getNbHeure());
+            facture_to_update.setTauxHonoraire(facture.getTauxHonoraire());
+            facture_to_update.calculTotal(facture.getNbHeure(), facture.getTauxHonoraire(), facture.getRdv().getType().getPercentAugmentation());
+            factureDao.deleteById(facture.getId());
+            factureDao.save(facture_to_update);
+        } else {
+            factureDao.save(facture);
+        }
         if (facture == null) {
             return "500";
         }
 
-        URI uri = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(facture1.getId())
-                .toUri();
-
         return "201";
     }
+
 }

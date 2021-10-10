@@ -1,10 +1,11 @@
-import {Component, HostListener, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {DatePipe} from "@angular/common";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {Router} from "@angular/router";
 import {GetService} from "../service/get.service";
 import {PostService} from "../service/post.service";
+import localeFr from "@angular/common/locales/fr";
+import { registerLocaleData } from "@angular/common";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-rdv',
@@ -12,7 +13,7 @@ import {PostService} from "../service/post.service";
   styleUrls: ['./rdv.component.css']
 })
 export class RdvComponent implements OnInit {
-  selectedOption: any = "Id";
+  selectedOption: any = "Date";
 
   filtreByDate: any;
   filtreByIdRdv: any;
@@ -23,9 +24,12 @@ export class RdvComponent implements OnInit {
   purposeRdvForm!: FormGroup;
   avocat: any;
   avocats: any;
+  rdvsType: any;
 
   id_client: any;
   id_avocat: any;
+  listeheures: number[]= [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
+  error_heure: any;
 
   constructor(private fb: FormBuilder,
               private router: Router,
@@ -36,17 +40,21 @@ export class RdvComponent implements OnInit {
     this.getService.getAllAvocats().toPromise().then((res: any) => {
       this.avocats = res
     });
+    this.getService.getAllTypeOfRdv().toPromise().then((res: any) => {
+      console.log(res)
+      this.rdvsType = res
+    });
 
     this.purposeRdvForm = this.fb.group({
       dateRdv: '',
       heureRdv: '',
-      avocatRdv: ''
+      avocatRdv: '',
+      rdvTypeSelected: ''
     })
+    registerLocaleData(localeFr, "fr");
 
     this.id_client = localStorage.getItem('id_client');
-    console.log("client " + this.id_client)
     this.id_avocat = localStorage.getItem('id_avocat');
-    console.log("avocat " + this.id_avocat)
 
     if (this.id_client != "") {
       this.getRdvByIdClient()
@@ -62,34 +70,15 @@ export class RdvComponent implements OnInit {
         if (res == null) {
           this.getRdvByIdClient();
         } else {
-          if (res.status == 0) {
-            res.status = "en attente"
-          }
-          if (res.status == 1) {
-            res.status = "approuvé"
-          }
-          if (res.status == 2) {
-            res.status = "refusé"
-          }
           this.rdvs = [];
           this.rdvs = res;
         }
       })
     } else {
       this.getService.getRdvByDateAndByIdAvocat(this.filtreByDate, this.id_avocat).toPromise().then((res: any) => {
-        console.log(res)
         if (res.length == 0) {
           this.getRdvByIdAvocat();
         } else {
-          if (res.status == 0) {
-            res.status = "en attente"
-          }
-          if (res.status == 1) {
-            res.status = "approuvé"
-          }
-          if (res.status == 2) {
-            res.status = "refusé"
-          }
           this.rdvs = [];
           this.rdvs = res
         }
@@ -102,19 +91,9 @@ export class RdvComponent implements OnInit {
     if (this.filtreByIdRdv != null) {
       if (this.id_client != "") {
         this.getService.getRdvByIdAndByIdClient(this.filtreByIdRdv, this.id_client).toPromise().then((res: any) => {
-          console.log(res)
           if (res.length == 0) {
             this.getRdvByIdClient();
           } else {
-            if (res.status == 0) {
-              res.status = "en attente"
-            }
-            if (res.status == 1) {
-              res.status = "approuvé"
-            }
-            if (res.status == 2) {
-              res.status = "refusé"
-            }
             this.rdvs = [];
             this.rdvs = res
           }
@@ -124,15 +103,6 @@ export class RdvComponent implements OnInit {
           if (res.length == 0) {
             this.getRdvByIdAvocat();
           } else {
-            if (res.status == 0) {
-              res.status = "en attente"
-            }
-            if (res.status == 1) {
-              res.status = "approuvé"
-            }
-            if (res.status == 2) {
-              res.status = "refusé"
-            }
             this.rdvs = [];
             this.rdvs = res
           }
@@ -143,18 +113,10 @@ export class RdvComponent implements OnInit {
 
   getRdvByIdClient() {
       this.getService.getRdvByIdClient(this.id_client).toPromise().then((res: any) => {
+        console.log(res)
         if (res == null) {
           this.rdvs = [];
         } else {
-          if (res.status == 0) {
-            res.status = "en attente"
-          }
-          if (res.status == 1) {
-            res.status = "approuvé"
-          }
-          if (res.status == 2) {
-            res.status = "refusé"
-          }
           this.rdvs = [];
           this.rdvs = res
         }
@@ -163,36 +125,51 @@ export class RdvComponent implements OnInit {
 
   getRdvByIdAvocat() {
     this.getService.getRdvByIdAvocat(this.id_avocat).toPromise().then((res: any) => {
+      console.log(res)
       if (res == null) {
         this.rdvs = [];
       } else {
-        console.log(res)
-        if (res.status == 0) {
-          res.status = "en attente"
-        }
-        if (res.status == 1) {
-          res.status = "approuvé"
-        }
-        if (res.status == 2) {
-          res.status = "refusé"
-        }
         this.rdvs = [];
         this.rdvs = res
       }
     })
   }
   submitRdv() {
-    this.postService.postRdv(
+    console.log(this.purposeRdvForm.controls.avocatRdv.value);
+    console.log(this.purposeRdvForm.controls.dateRdv.value);
+    console.log(this.purposeRdvForm.controls.heureRdv.value);
+
+    this.getService.getRdvByIdAvocatAndDateAndHour(
+      this.purposeRdvForm.controls.avocatRdv.value,
       this.purposeRdvForm.controls.dateRdv.value,
       this.purposeRdvForm.controls.heureRdv.value,
-      this.id_client,
-      this.purposeRdvForm.controls.avocatRdv.value).toPromise().then((res) => {
-        if (this.id_client != "") {
-          this.getRdvByIdClient()
-        } else {
-          this.getRdvByIdAvocat()
+      ).toPromise().then((res: any) => {
+        console.log(res)
+        if (res.length === 0) {
+          this.postService.postRdv(
+            this.purposeRdvForm.controls.dateRdv.value,
+            this.purposeRdvForm.controls.heureRdv.value,
+            this.id_client,
+            this.purposeRdvForm.controls.avocatRdv.value,
+            this.purposeRdvForm.controls.rdvTypeSelected.value,
+            ).toPromise().then((res) => {
+            if (this.id_client != "") {
+              this.getRdvByIdClient()
+            } else {
+              this.getRdvByIdAvocat()
+            }
+          })
+          this.error_heure = ""
         }
-    })
+        if (res.length > 0) {
+          Swal.fire({
+            'text': "erreur : votre avocat as déja un rendez-vous cette heure ci",
+            'icon': "error"
+          })
+        }
+      }).catch((err) => {
+        console.log(err)
+    });
   }
 
   validerRdv(rdv: any) {
@@ -225,4 +202,5 @@ export class RdvComponent implements OnInit {
       this.getRdvByIdAvocat()
     }
   }
+
 }

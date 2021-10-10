@@ -1,13 +1,11 @@
 package fr.lightning.controllers;
 
 import fr.lightning.daos.ClientDao;
-import fr.lightning.models.Client;
+import fr.lightning.entity.Client;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -15,6 +13,7 @@ import java.util.List;
 public class ClientController {
     @Autowired
     private ClientDao clientDao;
+    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @GetMapping(value = "clients")
     public List<Client> getAllClients() {
@@ -28,18 +27,12 @@ public class ClientController {
 
     @PostMapping(value = "client")
     public String createClient(@RequestBody Client client) {
-        Client client1 = clientDao.save(client);
-        if (client == null) {
+        clientDao.save(client);
+        if (client != null) {
+            return "201";
+        } else {
             return "500";
         }
-
-        URI uri = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(client1.getId())
-                .toUri();
-
-        return "201";
     }
 
     public List<Client> getClientForTest() {

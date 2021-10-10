@@ -26,7 +26,7 @@ export class NavbarComponent implements OnInit {
   }
 
   setCollapseNavBarSmall() {
-    if (this.collapseNavBarSmall == true) {
+    if (this.collapseNavBarSmall) {
       this.collapseNavBarSmall = false
       console.log(this.collapseNavBarSmall)
     } else {
@@ -37,6 +37,6 @@ export class NavbarComponent implements OnInit {
 
   Logout() {
     localStorage.clear()
-    this.router.navigate([''])
+    this.router.navigate(['']).then(r => {})
   }
 }
