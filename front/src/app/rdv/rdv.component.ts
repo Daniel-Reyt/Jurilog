@@ -5,6 +5,7 @@ import {GetService} from "../service/get.service";
 import {PostService} from "../service/post.service";
 import localeFr from "@angular/common/locales/fr";
 import { registerLocaleData } from "@angular/common";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-rdv',
@@ -23,6 +24,7 @@ export class RdvComponent implements OnInit {
   purposeRdvForm!: FormGroup;
   avocat: any;
   avocats: any;
+  rdvsType: any;
 
   id_client: any;
   id_avocat: any;
@@ -36,13 +38,18 @@ export class RdvComponent implements OnInit {
 
   ngOnInit(): void {
     this.getService.getAllAvocats().toPromise().then((res: any) => {
-    this.avocats = res
-  });
+      this.avocats = res
+    });
+    this.getService.getAllTypeOfRdv().toPromise().then((res: any) => {
+      console.log(res)
+      this.rdvsType = res
+    });
 
     this.purposeRdvForm = this.fb.group({
       dateRdv: '',
       heureRdv: '',
-      avocatRdv: ''
+      avocatRdv: '',
+      rdvTypeSelected: ''
     })
     registerLocaleData(localeFr, "fr");
 
@@ -135,14 +142,17 @@ export class RdvComponent implements OnInit {
     this.getService.getRdvByIdAvocatAndDateAndHour(
       this.purposeRdvForm.controls.avocatRdv.value,
       this.purposeRdvForm.controls.dateRdv.value,
-      this.purposeRdvForm.controls.heureRdv.value).toPromise().then((res: any) => {
+      this.purposeRdvForm.controls.heureRdv.value,
+      ).toPromise().then((res: any) => {
         console.log(res)
         if (res.length === 0) {
           this.postService.postRdv(
             this.purposeRdvForm.controls.dateRdv.value,
             this.purposeRdvForm.controls.heureRdv.value,
             this.id_client,
-            this.purposeRdvForm.controls.avocatRdv.value).toPromise().then((res) => {
+            this.purposeRdvForm.controls.avocatRdv.value,
+            this.purposeRdvForm.controls.rdvTypeSelected.value,
+            ).toPromise().then((res) => {
             if (this.id_client != "") {
               this.getRdvByIdClient()
             } else {
@@ -152,7 +162,10 @@ export class RdvComponent implements OnInit {
           this.error_heure = ""
         }
         if (res.length > 0) {
-          this.error_heure = "merci de choisir une autre horaire car votre avocat as déja un rendez-vous"
+          Swal.fire({
+            'text': "erreur : votre avocat as déja un rendez-vous cette heure ci",
+            'icon': "error"
+          })
         }
       }).catch((err) => {
         console.log(err)

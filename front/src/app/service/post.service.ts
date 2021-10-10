@@ -52,7 +52,7 @@ export class PostService {
     })
   }
 
-  postRdv(date: String, heure: String, id_client: String, id_avocat: String,) {
+  postRdv(date: String, heure: String, id_client: String, id_avocat: String, rdv_type: string) {
     return this.http.post<any>(`${url}rdv`, {
       date: date,
       heure: heure,
@@ -62,6 +62,9 @@ export class PostService {
       },
       avocat: {
         'id': id_avocat
+      },
+      type: {
+        id: rdv_type
       }
     })
   }
@@ -74,20 +77,12 @@ export class PostService {
     return this.http.post<any>(`${url}rdvRefuser`, rdv)
   }
 
-  postFacture(taux_honoraire: any, id_rdv: any, id_client: any, id_avocat: any, id_facture: any) {
+  postFacture(taux_honoraire: any, rdv: any, id_facture: any) {
     return this.http.post<any>(`${url}facture`, {
       id: id_facture,
       nbHeure: 1,
       tauxHonoraire: taux_honoraire,
-      rdv: {
-        id: id_rdv,
-        client: {
-           id: id_client
-          },
-        avocat: {
-          id: id_avocat
-        }
-      }
+      rdv: rdv
     })
   }
 }

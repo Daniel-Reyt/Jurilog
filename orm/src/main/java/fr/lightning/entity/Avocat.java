@@ -28,7 +28,6 @@ public class Avocat {
         this.setPhone(phone);
         this.setUsername(username);
         this.setPassword(password);
-        this.setType("Avocat");
     }
 
     //setters

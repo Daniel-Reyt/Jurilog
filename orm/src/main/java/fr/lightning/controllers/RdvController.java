@@ -185,13 +185,16 @@ public class RdvController {
     }
 
     private String checkFactures(Facture factures) {
+        System.out.println(factures.toString());
         String statusFacture ="";
         if (factures != null) {
             if (factures.getStatusFacture().equals("-1")) {
                 statusFacture = pasDeFacture;
-            } else if (factures.getStatusFacture() == "1") {
+            }
+            if (factures.getStatusFacture().equals("1")) {
                 statusFacture = payer;
-            } else if (factures.getStatusFacture() == "2") {
+            }
+            if (factures.getStatusFacture().equals("0")) {
                 statusFacture = aPayer;
             }
         } else {

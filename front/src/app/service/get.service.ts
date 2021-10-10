@@ -61,4 +61,9 @@ export class GetService {
   getFactureByRdv(id_rdv: String):any {
     return this.http.get<any>( `${url}factureByRdv/${id_rdv}`)
   }
+
+  //get type of rdv
+  getAllTypeOfRdv():any {
+    return this.http.get<any>( `${url}typeRdvs`)
+  }
 }

@@ -29,6 +29,11 @@
       <div class="col-lg-8">
         <p style="margin-left: 10px">Montant honoraire TTC : {{facture.tauxHonoraire}} € / heure</p>
       </div>
+      <div class="col-lg-8">
+        <p style="margin-left: 10px">
+          Type de Rdv : {{facture.rdv.type.typeRdvName}},
+          avec une augmentation de {{facture.rdv.type.percentAugmentation}} %</p>
+      </div>
       <div class="col-lg-4 bg-lightGrey">
         <p>Montant total a payer : {{facture.totalFacture}} €</p>
       </div>
@@ -41,14 +46,11 @@
 
 <div [hidden]="!isCreate">
   <h4 class="text-center">Créer une facture</h4>
-  <form class="card" [formGroup]="createFacture" style="padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px">
-    <!--<label class="form-label">nombre d'heure de rendez-vous :</label>
-    <input type="number" class="form-control" placeholder="merci de renseigner le nombre d'heure" formControlName="nb_heure">
-    <br>-->
+  <form class="card" style="padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px">
     <label class="form-label">taux honoraire du rendez-vous :</label>
-    <input type="number" class="form-control" placeholder="merci de renseigner le taux honoraire" formControlName="taux_honoraire">
+    <input type="number" id="taux" class="form-control" placeholder="merci de renseigner le taux honoraire">
     <br>
-    <button class="btn btn-primary" (click)="editFacture()">créer la facture</button>
+    <button class="btn btn-primary" (click)="submitFacture()">Submit facture</button>
   </form>
 </div>
 </div>

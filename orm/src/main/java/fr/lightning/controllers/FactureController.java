@@ -42,12 +42,13 @@ public class FactureController {
 
     @PostMapping(value = "facture")
     public String createFacture(@RequestBody Facture facture) {
+        System.out.println(facture.getRdv());
         Facture facture_to_update = factureDao.getById(facture.getId());
         if (facture_to_update.getStatusFacture().equals("-1")) {
             facture_to_update.setStatusFacture("0");
             facture_to_update.setNbHeure(facture.getNbHeure());
             facture_to_update.setTauxHonoraire(facture.getTauxHonoraire());
-            System.out.println("facture to update : " + facture_to_update.toString());
+            facture_to_update.calculTotal(facture.getNbHeure(), facture.getTauxHonoraire(), facture.getRdv().getType().getPercentAugmentation());
             factureDao.deleteById(facture.getId());
             factureDao.save(facture_to_update);
         } else {

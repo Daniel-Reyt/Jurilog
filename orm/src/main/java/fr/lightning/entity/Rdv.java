@@ -91,14 +91,16 @@ public class Rdv {
     }
 
     //ToString / a update a chaque nouveau champs
+
     @Override
     public String toString() {
         return "Rdv{" +
                 "id=" + id +
-                ", date_rdv='" + date + '\'' +
-                ", heure_rdv='" + heure + '\'' +
-                ", client=" + client.getId() +
-                ", avocat=" + avocat.getId() +
+                ", date='" + date + '\'' +
+                ", heure='" + heure + '\'' +
+                ", client=" + client +
+                ", avocat=" + avocat +
+                ", type=" + type +
                 ", status=" + status +
                 '}';
     }

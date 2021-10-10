@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {NgForm, NgModel} from "@angular/forms";
 import {GetService} from "../service/get.service";
 import {PostService} from "../service/post.service";
 import localeFr from "@angular/common/locales/fr";
@@ -12,12 +12,7 @@ import { registerLocaleData } from "@angular/common";
   styleUrls: ['./facture.component.css']
 })
 export class FactureComponent implements OnInit {
-
-  createFacture!: FormGroup;
-
   id_rdv: any;
-  id_client: any;
-  id_avocat: any;
 
   isCreate: boolean = true;
 
@@ -25,56 +20,49 @@ export class FactureComponent implements OnInit {
   dateRdv = new Date();
 
   facture_id: any;
+  status_facture: any;
 
+  taux: any;
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
-              private fb: FormBuilder,
               private getService: GetService,
               private postService: PostService) { }
 
   ngOnInit(): void {
     this.id_rdv = this.activatedRoute.snapshot.paramMap.get('id_rdv');
+    
     this.checkIfRdvHadFacture();
 
-    this.createFacture = this.fb.group({
-      nb_heure: '',
-      taux_honoraire: ''
-    })
     registerLocaleData(localeFr, "fr");
   }
 
   checkIfRdvHadFacture() {
-    console.log("check")
     if (this.id_rdv == null) {
       this.router.navigate(['/rdv'])
     } else {
       this.getService.getFactureByRdv(this.id_rdv).toPromise().then((res: any) => {
-        console.log(res)
-        this.facture_id = res.facture_id
-          if (res.status_facture.equals("-1")) {
+        this.facture_id = res.id
+        this.status_facture = res.statusFacture
+          if (this.status_facture == "-1") {
             this.isCreate = true
-          } else {
+          } else if (this.status_facture != "-1") {
             this.isCreate = false;
             this.facture = res
             this.dateRdv = this.facture.dateRdv
           }
       }).catch(() => {
+        
       })
     }
   }
 
-  editFacture() {
+  submitFacture() {
+    this.taux = document.getElementsByTagName("input")[0].value;
     this.getService.getRdvById(this.id_rdv).toPromise().then((res: any) => {
-      this.id_client = res.client.id;
-      this.id_avocat = res.avocat.id;
-    })
-    this.postService.postFacture(this.createFacture.controls.taux_honoraire.value, this.id_rdv, this.id_client, this.id_avocat, this.facture_id).toPromise().then((res: any) => {
-      console.log(res)
-      if (res.equals("201")) {
+      this.postService.postFacture(this.taux, res, this.facture_id).toPromise().then((res: any) => {
         this.checkIfRdvHadFacture()
-      } else {
-
-      }
+      })
     })
+
   }
 }

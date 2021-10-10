@@ -44,8 +44,12 @@
         <br>
         client : {{rdv.clientNom}}, {{rdv.clientPrenom}}
         <br>
+        type de rendez-vous : {{rdv.rdvTypeName}}
+        <br>
+        pourcent d'augmentation du prix : {{rdv.rdvTypePercent}} %
+        <br>
         statut facture : {{rdv.statusFacture}}
-        <button class="btn btn-primary col-lg-3" (click)="redirectFacture(rdv)" [hidden]="rdv.statusFacture != 'pas de facture' || rdv.status == 'en attente' || rdv.status == 'refusé'">
+        <button class="btn btn-primary col-lg-3" (click)="redirectFacture(rdv)" [hidden]="id_client != '' || rdv.statusFacture != 'pas de facture' || rdv.status == 'en attente' || rdv.status == 'refusé'">
           créer une facture
         </button>
         <button class="btn btn-primary col-lg-3" (click)="redirectFacture(rdv)" [hidden]="rdv.statusFacture == 'pas de facture' || rdv.status == 'en attente' || rdv.status == 'refusé'">
@@ -82,7 +86,15 @@
       <br>
       <label class="form-label">Avocat :</label>
       <select formControlName="avocatRdv" id="selectAvocat" class="form-select">
+        <option value="" selected disabled>Choisissez un avocat</option>
         <option value="{{avocat.id}}" *ngFor="let avocat of avocats">{{avocat.nom}}, {{avocat.prenom}}</option>
+      </select>
+      <br>
+      <label class="form-label">Type de Rendez-vous :</label>
+      <select formControlName="rdvTypeSelected" id="selectRdvType" class="form-select">
+        <option value="" selected disabled>Choisissez un type de rendez-vous</option>
+        <option value="{{rdvType.id}}" *ngFor="let rdvType of rdvsType">
+          {{rdvType.typeRdvName}} => augmentation de {{rdvType.percentAugmentation}} %</option>
       </select>
       <br>
       <button class="btn btn-primary col-lg-12" (click)="submitRdv()">proposer le rendez vous</button>

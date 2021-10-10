@@ -26,7 +26,6 @@ public class Client {
         this.setPhone(telephone);
         this.setUsername(username);
         this.setPassword(password);
-        this.setType("Client");
     }
     //setters / getters
     public int getId() {

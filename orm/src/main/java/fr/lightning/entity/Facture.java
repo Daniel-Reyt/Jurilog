@@ -76,7 +76,7 @@ public class Facture {
     }
 
     public void calculTotal(int nbHeure, double tauxHonoraire, double percentAugmentation) {
-        this.totalFacture = (nbHeure * tauxHonoraire) * percentAugmentation;
+        this.totalFacture = (nbHeure * tauxHonoraire) + ((nbHeure * tauxHonoraire) * (percentAugmentation / 100));
     }
 
     @Override

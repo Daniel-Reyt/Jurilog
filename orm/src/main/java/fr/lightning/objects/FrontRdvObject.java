@@ -12,6 +12,8 @@ public class FrontRdvObject {
     private String avocatPrenom;
     private String status;
     private String statusFacture;
+    private String rdvTypeName;
+    private double rdvTypePercent;
 
     public FrontRdvObject() {
     }
@@ -28,6 +30,9 @@ public class FrontRdvObject {
         this.setAvocatNom(rdv.getAvocat().getNom());
         this.setAvocatPrenom(rdv.getAvocat().getPrenom());
 
+        this.setRdvTypeName(rdv.getType().getTypeRdvName());
+        this.setRdvTypePercent(rdv.getType().getPercentAugmentation());
+
         switch (rdv.getStatus()) {
             case 0:
                 this.setStatus("en attente");
@@ -41,6 +46,22 @@ public class FrontRdvObject {
             default:
                 break;
         }
+    }
+
+    public String getRdvTypeName() {
+        return rdvTypeName;
+    }
+
+    public void setRdvTypeName(String rdvTypeName) {
+        this.rdvTypeName = rdvTypeName;
+    }
+
+    public double getRdvTypePercent() {
+        return rdvTypePercent;
+    }
+
+    public void setRdvTypePercent(double rdvTypePercent) {
+        this.rdvTypePercent = rdvTypePercent;
     }
 
     public String getStatus() {
@@ -118,13 +139,17 @@ public class FrontRdvObject {
     @Override
     public String toString() {
         return "FrontRdvObject{" +
-                "date='" + date + '\'' +
-                ", heure_rdv='" + heureRdv + '\'' +
-                ", client_nom='" + clientNom + '\'' +
-                ", client_prenom='" + clientPrenom + '\'' +
-                ", avocat_nom='" + avocatNom + '\'' +
-                ", avocat_prenom='" + avocatPrenom + '\'' +
+                "id=" + id +
+                ", date='" + date + '\'' +
+                ", heureRdv='" + heureRdv + '\'' +
+                ", clientNom='" + clientNom + '\'' +
+                ", clientPrenom='" + clientPrenom + '\'' +
+                ", avocatNom='" + avocatNom + '\'' +
+                ", avocatPrenom='" + avocatPrenom + '\'' +
+                ", status='" + status + '\'' +
+                ", statusFacture='" + statusFacture + '\'' +
+                ", rdvTypeName='" + rdvTypeName + '\'' +
+                ", rdvTypePercent=" + rdvTypePercent +
                 '}';
     }
-
 }
