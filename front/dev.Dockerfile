@@ -11,4 +11,4 @@ COPY . .
 RUN npm install
 
 COPY . .
-CMD ["ng", "serve"]
+CMD ["npm", "run", "start"]

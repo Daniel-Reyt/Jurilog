@@ -30,46 +30,54 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it('should get clients', () => {
+  it('should get clients', (done) => {
     http.get("http://localhost:8888/clients").subscribe((res: any) => {
-      expect(res.length).toBe(2)
+      expect(res.length).toBe(2);
+      done()
     })
   });
 
-  it('should get avocats', () => {
+  it('should get avocats', (done) => {
     http.get("http://localhost:8888/avocats").subscribe((res: any) => {
       expect(res.length).toBe(2)
+      done()
     })
   });
-  it('should get rdvs', () => {
+  it('should get rdvs', (done) => {
     http.get("http://localhost:8888/rdvs").subscribe((res: any) => {
       expect(res.length).toBe(3)
+      done()
     })
   });
-  it('should get factures', () => {
+  it('should get factures', (done) => {
     http.get("http://localhost:8888/factures").subscribe((res: any) => {
-      expect(res.length).toBe(2)
+      expect(res.length).toBe(3)
+      done()
     })
   });
 
-  it('should not get client', () => {
+  it('should not get client', (done) => {
     http.get("http://localhost:8888/client/" + 3).subscribe((res: any) => {
       expect(res).toBe(null)
+      done()
     })
   });
-  it('should not get avocat', () => {
+  it('should not get avocat', (done) => {
     http.get("http://localhost:8888/avocat/" + 3).subscribe((res: any) => {
       expect(res).toBe(null)
+      done()
     })
   });
-  it('should not get facture', () => {
-    http.get("http://localhost:8888/facture/" + 3).subscribe((res: any) => {
+  it('should not get facture', (done) => {
+    http.get("http://localhost:8888/facture/" + 4).subscribe((res: any) => {
       expect(res).toBe(null)
+      done()
     })
   });
-  it('should not get rdv', () => {
+  it('should not get rdv', (done) => {
     http.get("http://localhost:8888/rdv/" + 4).subscribe((res: any) => {
       expect(res).toBe(null)
+      done()
     })
   });
 });

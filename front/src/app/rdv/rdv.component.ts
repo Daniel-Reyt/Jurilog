@@ -166,6 +166,11 @@ export class RdvComponent implements OnInit {
             'text': "erreur : votre avocat as déja un rendez-vous cette heure ci",
             'icon': "error"
           })
+        } else {
+          Swal.fire({
+            'text': "Votre rendez-vous as bien étais proposer",
+            'icon': "success"
+          })
         }
       }).catch((err) => {
         console.log(err)
