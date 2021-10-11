@@ -5,25 +5,25 @@
       <div class="col-lg-5">
         client :
         <br>
-        nom : {{facture.clientNom}}
+        nom : {{facture.rdv.client.nom}}
         <br>
-        prenom : {{facture.clientPrenom}}
+        prenom : {{facture.rdv.client.prenom}}
       </div>
       <div class="col-lg-2"></div>
       <div class="col-lg-5">
         avocat :
         <br>
-        nom : {{facture.avocatNom}}
+        nom : {{facture.rdv.avocat.nom}}
         <br>
-        prenom : {{facture.avocatPrenom}}
+        prenom : {{facture.rdv.avocat.prenom}}
       </div>
     </div>
     <div class="row">
-      <p>facture du rendez-vous datant du : {{dateRdv | date:'fullDate'}} à {{facture.heureRdv}} heure</p>
+      <p>facture du rendez-vous datant du : {{facture.rdv.date | date:'fullDate'}} à {{facture.rdv.heure}} heure</p>
     </div>
   </div>
   <div class="body">
-    <p style="margin-left: 10px; margin-top: 10px">Nombre d'heure passée pendant le rendez-vous : {{facture.nbHeureRdv}} heure(s)</p>
+    <p style="margin-left: 10px; margin-top: 10px">Nombre d'heure passée pendant le rendez-vous : {{facture.nbHeure}} heure(s)</p>
     <br>
     <div class="col-12 row">
       <div class="col-lg-8">
