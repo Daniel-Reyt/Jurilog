@@ -41,7 +41,6 @@ export class RdvComponent implements OnInit {
       this.avocats = res
     });
     this.getService.getAllTypeOfRdv().toPromise().then((res: any) => {
-      console.log(res)
       this.rdvsType = res
     });
 
@@ -113,7 +112,6 @@ export class RdvComponent implements OnInit {
 
   getRdvByIdClient() {
       this.getService.getRdvByIdClient(this.id_client).toPromise().then((res: any) => {
-        console.log(res)
         if (res == null) {
           this.rdvs = [];
         } else {
@@ -125,7 +123,6 @@ export class RdvComponent implements OnInit {
 
   getRdvByIdAvocat() {
     this.getService.getRdvByIdAvocat(this.id_avocat).toPromise().then((res: any) => {
-      console.log(res)
       if (res == null) {
         this.rdvs = [];
       } else {
@@ -144,7 +141,6 @@ export class RdvComponent implements OnInit {
       this.purposeRdvForm.controls.dateRdv.value,
       this.purposeRdvForm.controls.heureRdv.value,
       ).toPromise().then((res: any) => {
-        console.log(res)
         if (res.length === 0) {
           this.postService.postRdv(
             this.purposeRdvForm.controls.dateRdv.value,

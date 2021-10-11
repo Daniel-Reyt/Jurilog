@@ -9,6 +9,7 @@ import { RdvComponent } from './rdv/rdv.component';
 import { RegisterAvocatComponent } from './register/register-avocat/register-avocat.component';
 import { RegisterClientComponent } from './register/register-client/register-client.component';
 import {AuthGuard} from "./auth.guard";
+import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
 
 const routes: Routes = [
   {path: '', component: ChooseLoginComponent},
@@ -26,6 +27,7 @@ const routes: Routes = [
 
   {path: 'rdv', component: RdvComponent, canActivate: [AuthGuard]},
 
+  {path: '**', component: FourOhFourComponent}
 ];
 
 @NgModule({
