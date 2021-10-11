@@ -41,6 +41,7 @@ export class FactureComponent implements OnInit {
       this.router.navigate(['/rdv'])
     } else {
       this.getService.getFactureByRdv(this.id_rdv).toPromise().then((res: any) => {
+        console.log(res)
         this.facture_id = res.id
         this.status_facture = res.statusFacture
           if (this.status_facture == "-1") {
