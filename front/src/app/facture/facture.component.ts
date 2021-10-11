@@ -5,6 +5,8 @@ import {GetService} from "../service/get.service";
 import {PostService} from "../service/post.service";
 import localeFr from "@angular/common/locales/fr";
 import { registerLocaleData } from "@angular/common";
+import * as jspdf from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-facture',
@@ -65,5 +67,21 @@ export class FactureComponent implements OnInit {
       })
     })
 
+  }
+
+  PrintFacture(facture: any) {
+    let element = document.getElementById("facture");
+
+    if (element === null) {
+
+    } else {
+      html2canvas(element).then(canvas => {
+        const contentDataURL = canvas.toDataURL('image/png')  
+        let pdf = new jspdf.jsPDF('l', 'px', 'a4'); //Generates PDF in landscape mode
+        //let pdf = new jspdf.jsPDF('p', 'px', 'a4'); //Generates PDF in portrait mode
+        pdf.addImage(contentDataURL, 'PNG', 0, 0, 630.0, 200.0);
+        pdf.save(facture.rdv.client.nom + "-" + facture.rdv.client.prenom + "_" + facture.rdv.avocat.nom + "-" + facture.rdv.avocat.prenom + "_" + facture.rdv.date + ".pdf");   
+      }); 
+    }
   }
 }
