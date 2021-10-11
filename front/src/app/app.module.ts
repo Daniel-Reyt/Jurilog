@@ -19,6 +19,7 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatNativeDateModule} from '@angular/material/core';
 import { LOCALE_ID } from "@angular/core";
+import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { LOCALE_ID } from "@angular/core";
     FactureComponent,
     RegisterAvocatComponent,
     RegisterClientComponent,
+    FourOhFourComponent,
   ],
   imports: [
     BrowserModule,

@@ -144,9 +144,23 @@ public class RdvController {
         }
         return result;
     }
+
     @GetMapping(value = "rdvByIdClient/{idClient}")
     public List<FrontRdvObject> getRdvByIdClient(@PathVariable int idClient) {
         List<Rdv> rdvList = rdvDao.findRdvsByClient_Id(idClient);
+        List<FrontRdvObject> result = new ArrayList<>();
+        for (Rdv rdv: rdvList) {
+            Facture factures = factureDao.findFactureByRdv_Id(rdv.getId());
+            FrontRdvObject frontRdvObject = new FrontRdvObject(rdv);
+            frontRdvObject.setStatusFacture(checkFactures(factures));
+            result.add(frontRdvObject);
+        }
+        return result;
+    }
+
+    @GetMapping(value = "rdvInWait/{idAvocat}")
+    public List<FrontRdvObject> getAllRdvStatusInWait() {
+        List<Rdv> rdvList = rdvDao.findRdvsByStatus(0);
         List<FrontRdvObject> result = new ArrayList<>();
         for (Rdv rdv: rdvList) {
             Facture factures = factureDao.findFactureByRdv_Id(rdv.getId());

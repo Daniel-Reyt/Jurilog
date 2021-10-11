@@ -1,6 +1,6 @@
 package fr.lightning.controllers;
 
-import fr.lightning.daos.ClientDao;
+import fr.lightning.daos.*;
 import fr.lightning.entity.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +13,18 @@ import java.util.List;
 public class ClientController {
     @Autowired
     private ClientDao clientDao;
-    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+    @Autowired
+    private AvocatDao avocatDao;
+
+    @Autowired
+    private FactureDao factureDao;
+
+    @Autowired
+    private RdvDao rdvDao;
+
+    @Autowired
+    private TypeRdvDao typeRdvDao;
 
     @GetMapping(value = "clients")
     public List<Client> getAllClients() {
@@ -33,6 +44,15 @@ public class ClientController {
         } else {
             return "500";
         }
+    }
+
+    @GetMapping(value = "deleteAll")
+    private void deleteAll() {
+        factureDao.deleteAll();
+        rdvDao.deleteAll();
+        typeRdvDao.deleteAll();
+        clientDao.deleteAll();
+        avocatDao.deleteAll();
     }
 
     public List<Client> getClientForTest() {
