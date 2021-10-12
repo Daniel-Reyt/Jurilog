@@ -7,7 +7,11 @@ pipeline {
         }
         stage('Build') {
             steps {
-                echo 'Building..'
+                  sh """
+                        npm i -g npm@6.4.1
+                        npm i
+                        npm run build
+                    """
             }
         }
         stage('Test') {
