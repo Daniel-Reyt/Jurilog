@@ -40,16 +40,14 @@ public class FactureController {
         return factureDao.findFactureByRdv_Id(idRdv);
     }
 
-    @PostMapping(value = "facture")
+    @PutMapping(value = "facture")
     public String createFacture(@RequestBody Facture facture) {
-        System.out.println(facture.getRdv());
         Facture facture_to_update = factureDao.getById(facture.getId());
         if (facture_to_update.getStatusFacture().equals("-1")) {
             facture_to_update.setStatusFacture("0");
             facture_to_update.setNbHeure(facture.getNbHeure());
             facture_to_update.setTauxHonoraire(facture.getTauxHonoraire());
             facture_to_update.calculTotal(facture.getNbHeure(), facture.getTauxHonoraire(), facture.getRdv().getType().getPercentAugmentation());
-            factureDao.deleteById(facture.getId());
             factureDao.save(facture_to_update);
         } else {
             factureDao.save(facture);

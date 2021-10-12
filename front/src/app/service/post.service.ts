@@ -78,7 +78,7 @@ export class PostService {
   }
 
   postFacture(taux_honoraire: any, rdv: any, id_facture: any) {
-    return this.http.post<any>(`${url}facture`, {
+    return this.http.put<any>(`${url}facture`, {
       id: id_facture,
       nbHeure: 1,
       tauxHonoraire: taux_honoraire,
