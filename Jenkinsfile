@@ -17,6 +17,7 @@ pipeline {
                     cd orm/
                     mvn test
 
+                    cd ..
                     cd front/
                     npm i
                     npm run test
