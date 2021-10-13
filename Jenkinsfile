@@ -4,7 +4,11 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building..'
+                sh """
+                    cd front/
+                    npm i
+                    npm run build
+                """
             }
         }
         stage('Test') {
