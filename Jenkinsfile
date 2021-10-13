@@ -16,10 +16,10 @@ pipeline {
                 sh """
                     cd orm/
                     mvn spring-boot:run
-                    
+
                     cd front/
                     npm i
-                    npm run build
+                    npm run test
                 """            
                 }
         }
