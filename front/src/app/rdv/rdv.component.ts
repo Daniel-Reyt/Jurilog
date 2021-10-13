@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {GetService} from "../service/get.service";
 import {PostService} from "../service/post.service";
 import localeFr from "@angular/common/locales/fr";
@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./rdv.component.css']
 })
 export class RdvComponent implements OnInit {
-  selectedOption: any = "Date";
+  selectedOption: any = "statusRdv";
 
   filtreByDate: any;
   filtreByIdRdv: any;
@@ -66,8 +66,13 @@ export class RdvComponent implements OnInit {
     if (this.filtreByDate != null) {
       if (this.id_client != "") {
       this.getService.getRdvByDateAndByIdClient(this.filtreByDate, this.id_client).toPromise().then((res: any) => {
-        if (res == null) {
-          this.getRdvByIdClient();
+        if (res.length == 0) {
+          Swal.fire({
+            'text': "il n'y as pas de rendez-vous avec cet date pour cet id_client",
+            'icon': "error"
+          }).then((res) => {
+            this.getRdvByIdClient();
+          })
         } else {
           this.rdvs = [];
           this.rdvs = res;
@@ -76,7 +81,12 @@ export class RdvComponent implements OnInit {
     } else {
       this.getService.getRdvByDateAndByIdAvocat(this.filtreByDate, this.id_avocat).toPromise().then((res: any) => {
         if (res.length == 0) {
-          this.getRdvByIdAvocat();
+          Swal.fire({
+            'text': "il n'y as pas de rendez-vous avec cet date pour cet id_avocat",
+            'icon': "error"
+          }).then((res) => {
+            this.getRdvByIdAvocat();
+          })          
         } else {
           this.rdvs = [];
           this.rdvs = res
@@ -90,8 +100,13 @@ export class RdvComponent implements OnInit {
     if (this.filtreByIdRdv != null) {
       if (this.id_client != "") {
         this.getService.getRdvByIdAndByIdClient(this.filtreByIdRdv, this.id_client).toPromise().then((res: any) => {
-          if (res.length == 0) {
-            this.getRdvByIdClient();
+            if (res.length == 0) {
+              Swal.fire({
+                'text': "il n'y as pas de rendez-vous avec cet id_rdv pour cet id_client",
+                'icon': "error"
+              }).then((res) => {
+                this.getRdvByIdClient();
+              })
           } else {
             this.rdvs = [];
             this.rdvs = res
@@ -100,7 +115,12 @@ export class RdvComponent implements OnInit {
       } else {
         this.getService.getRdvByIdAndByIdAvocat(this.filtreByIdRdv, this.id_avocat).toPromise().then((res: any) => {
           if (res.length == 0) {
-            this.getRdvByIdAvocat();
+            Swal.fire({
+              'text': "il n'y as pas de rendez-vous avec cet id_rdv pour cet id_avocat",
+              'icon': "error"
+            }).then((res) => {
+              this.getRdvByIdAvocat();
+            })          
           } else {
             this.rdvs = [];
             this.rdvs = res
@@ -112,8 +132,13 @@ export class RdvComponent implements OnInit {
 
   getRdvByIdClient() {
       this.getService.getRdvByIdClient(this.id_client).toPromise().then((res: any) => {
-        if (res == null) {
-          this.rdvs = [];
+        if (res.length == 0) {
+          Swal.fire({
+            'text': "vous n'avez pas de rendez-vous",
+            'icon': "error"
+          }).then((res) => {
+            this.rdvs = [];
+          })
         } else {
           this.rdvs = [];
           this.rdvs = res
@@ -123,8 +148,13 @@ export class RdvComponent implements OnInit {
 
   getRdvByIdAvocat() {
     this.getService.getRdvByIdAvocat(this.id_avocat).toPromise().then((res: any) => {
-      if (res == null) {
-        this.rdvs = [];
+      if (res.length == 0) {
+        Swal.fire({
+          'text': "vous n'avez pas de rendez-vous",
+          'icon': "error"
+        }).then((res) => {
+          this.rdvs = [];
+        })
       } else {
         this.rdvs = [];
         this.rdvs = res
@@ -204,4 +234,87 @@ export class RdvComponent implements OnInit {
     }
   }
 
+  getAllRdvByStatus(status: number) {
+    if (this.id_client != "") {
+      this.getAllRdvByStatusAndClient(status, this.id_client)
+    } else {
+      this.getAllRdvByStatusAndAvocat(status, this.id_avocat)
+    }
+  }
+
+  getAllRdvByStatusAndClient(status: number, id_client: number) {
+    this.getService.getAllRdvByStatusAndClient(status, id_client).toPromise().then((res: any) => {
+      if (res.length == 0) {
+        Swal.fire({
+          'text': "il n'y as pas de rendez-vous avec status",
+          'icon': "error"
+        }).then((res) => {
+          this.rdvs = [];
+        })
+      } else {
+        this.rdvs = [];
+        this.rdvs = res
+      }
+    })
+  }
+
+  getAllRdvByStatusAndAvocat(status: number, id_avocat: number) {
+    this.getService.getAllRdvByStatusAndAvocat(status, id_avocat).toPromise().then((res: any) => {
+      if (res.length == 0) {
+        Swal.fire({
+          'text': "il n'y as pas de rendez-vous avec status",
+          'icon': "error"
+        }).then((res) => {
+          this.rdvs = [];
+        })
+      } else {
+        this.rdvs = [];
+        this.rdvs = res
+      }
+    })
+  }
+
+  getAllRdvByStatusFacture() {
+    if (this.id_client != "") {
+      this.getAllRdvByStatusFacturesAndClient(this.id_client)
+    } else {
+      this.getAllRdvByStatusFacturesAndAvocat(this.id_avocat)
+    }
+  }
+
+  getAllRdvByStatusFacturesAndClient(id_client: string) {
+    this.getService.getRdvByIdClient(id_client).toPromise().then((res: any) => {
+      this.rdvs = [];
+      console.log(res)
+      for (let i = 0; i < res.length; i++) {
+        if (res[i].statusFacture != "pas de facture") {
+          alert('Pas de rendez-vous sans factures')
+        } 
+        if (res[i].statusFacture === "pas de facture") {
+          console.log(res[i].status)
+          this.rdvs.push(res[i]);
+          console.log(res[i])
+        }
+      }
+    })
+  }
+
+  getAllRdvByStatusFacturesAndAvocat(id_avocat: string) {
+    this.getService.getRdvByIdAvocat(id_avocat).toPromise().then((res: any) => {
+      console.log(res)
+      for (let i = 0; i < res.length; i++) {
+        if (res[i].statusFacture != "pas de facture") {
+          Swal.fire({
+            'text': "il n'y as pas de rendez-vous qui n'ont pas de factures",
+            'icon': "error"
+          }).then((res) => {
+            this.rdvs = [];
+          })
+        } else {
+          this.rdvs = [];
+          this.rdvs = res
+        }
+      }
+    })
+  }
 }
