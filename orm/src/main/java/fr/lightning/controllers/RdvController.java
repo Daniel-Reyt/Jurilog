@@ -131,7 +131,7 @@ public class RdvController {
         }
         return result;
     }
-    //
+
     @GetMapping(value = "rdvByIdAvocatAndDateAndHour/{idAvocat}/{date}/{heure}")
     public List<FrontRdvObject> getRdvByIdAvocatAndDateAndHour(@PathVariable int idAvocat, @PathVariable String date, @PathVariable String heure) {
         List<Rdv> rdvList = rdvDao.findRdvsByAvocatIdAndDateEqualsAndHeureEquals(idAvocat, date, heure);
@@ -158,15 +158,60 @@ public class RdvController {
         return result;
     }
 
-    @GetMapping(value = "rdvInWait/{idAvocat}")
-    public List<FrontRdvObject> getAllRdvStatusInWait() {
-        List<Rdv> rdvList = rdvDao.findRdvsByStatus(0);
+    @GetMapping(value = "rdvByStatusRdvAndAvocat/{status}/{idAvocat}")
+    private List<FrontRdvObject> getAllRdvByStatusAndAvocat(@PathVariable int status, @PathVariable int idAvocat) {
+        List<Rdv> rdvList = rdvDao.findRdvsByStatusAndAvocatId(status, idAvocat);
         List<FrontRdvObject> result = new ArrayList<>();
         for (Rdv rdv: rdvList) {
             Facture factures = factureDao.findFactureByRdv_Id(rdv.getId());
             FrontRdvObject frontRdvObject = new FrontRdvObject(rdv);
             frontRdvObject.setStatusFacture(checkFactures(factures));
             result.add(frontRdvObject);
+        }
+        return result;
+    }
+    @GetMapping(value = "rdvByStatusRdvAndClient/{status}/{idClient}")
+    private List<FrontRdvObject> getAllRdvByStatusAndClient(@PathVariable int status, @PathVariable int idClient) {
+        List<Rdv> rdvList = rdvDao.findRdvsByStatusAndClientId(status, idClient);
+        List<FrontRdvObject> result = new ArrayList<>();
+        for (Rdv rdv: rdvList) {
+            Facture factures = factureDao.findFactureByRdv_Id(rdv.getId());
+            FrontRdvObject frontRdvObject = new FrontRdvObject(rdv);
+            frontRdvObject.setStatusFacture(checkFactures(factures));
+            result.add(frontRdvObject);
+        }
+        return result;
+    }
+
+    @GetMapping(value = "rdvByStatusFactureRdvAndAvocat/{idAvocat}")
+    private List<FrontRdvObject> getAllRdvByStatusFactureAndAvocat(@PathVariable int idAvocat) {
+        List<Rdv> rdvList = rdvDao.findRdvsByAvocat_Id(idAvocat);
+        List<FrontRdvObject> result = new ArrayList<>();
+        for (int i = 0; i < rdvList.size(); i++) {
+            Facture factureByRdv = factureDao.findFactureByRdv_Id(rdvList.get(i).getId());
+            if (factureByRdv.getStatusFacture().equals("-1")) {
+                FrontRdvObject frontRdvObject = new FrontRdvObject(rdvList.get(i));
+                frontRdvObject.setStatusFacture(checkFactures(factureByRdv));
+                result.add(frontRdvObject);
+            } else {
+                rdvList.remove(rdvList.get(i));
+            }
+        }
+        return result;
+    }
+    @GetMapping(value = "rdvByStatusFactureRdvAndClient/{idClient}")
+    private List<FrontRdvObject> getAllRdvByStatusFactureAndClient(@PathVariable int idClient) {
+        List<Rdv> rdvList = rdvDao.findRdvsByClient_Id(idClient);
+        List<FrontRdvObject> result = new ArrayList<>();
+        for (int i = 0; i < rdvList.size(); i++) {
+            Facture factureByRdv = factureDao.findFactureByRdv_Id(rdvList.get(i).getId());
+            if (factureByRdv.getStatusFacture().equals("-1")) {
+                FrontRdvObject frontRdvObject = new FrontRdvObject(rdvList.get(i));
+                frontRdvObject.setStatusFacture(checkFactures(factureByRdv));
+                result.add(frontRdvObject);
+            } else {
+                rdvList.remove(rdvList.get(i));
+            }
         }
         return result;
     }
@@ -199,7 +244,6 @@ public class RdvController {
     }
 
     private String checkFactures(Facture factures) {
-        System.out.println(factures.toString());
         String statusFacture ="";
         if (factures != null) {
             if (factures.getStatusFacture().equals("-1")) {

@@ -16,12 +16,30 @@
         <option value="Date">
           par Date
         </option>
+        <option value="statusRdv">
+          par status de rendez-vous
+        </option>
+        <option value="statusFacture">
+          par status de facture
+        </option>
       </select>
     </li>
-    <li class="nav-item"  style="margin-right: 10px; " [hidden]="selectedOption === 'Date'">
+    <li class="nav-item"  style="margin-right: 10px;" [hidden]="selectedOption != 'statusFacture'">
+      <div class="row">
+        <button class="btn col-lg-12 col-sm-12" style="background-color: white;" (click)="getAllRdvByStatusFacture()">Pas de facture</button>
+      </div>
+    </li>
+    <li class="nav-item"  style="margin-right: 10px;" [hidden]="selectedOption != 'statusRdv'">
+      <div class="row">
+        <button class="btn col-lg-4 col-sm-4" style="background-color: white;" (click)="getAllRdvByStatus(0)">En Attente</button>
+        <button class="btn col-lg-4 col-sm-4" style="background-color: white;" (click)="getAllRdvByStatus(1)">Approuvé</button>
+        <button class="btn col-lg-4 col-sm-4" style="background-color: white;" (click)="getAllRdvByStatus(2)">Refusé</button>
+      </div>
+    </li>
+    <li class="nav-item"  style="margin-right: 10px; " [hidden]="selectedOption != 'Id'">
       <input type="number" class="form-control" style="margin-top: 10px; margin-bottom: 10px" id="inputId" [(ngModel)]="filtreByIdRdv" placeholder="Id_Rdv" (change)="getRdvById()">
     </li>
-    <li class="nav-item"  style="margin-right: 10px; " [hidden]="selectedOption === 'Id'">
+    <li class="nav-item"  style="margin-right: 10px; " [hidden]="selectedOption != 'Date'">
       <input type="text" class="form-control" style="margin-top: 10px; margin-bottom: 10px" id="inputDate" [(ngModel)]="filtreByDate" (change)="getRdvByDate()">
     </li>
     <li class="nav-item">
@@ -81,6 +99,7 @@
       <br>
       <label class="form-label">Heure du rendez-vous</label>
       <select formControlName="heureRdv" id="selectHeureRdv" class="form-select">
+        <option value="" selected disabled>Choisissez une heure de rendez-vous</option>
         <option value="{{heure}}" *ngFor="let heure of listeheures">{{heure}} heure</option>
       </select>
       <br>

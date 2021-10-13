@@ -66,4 +66,20 @@ export class GetService {
   getAllTypeOfRdv():any {
     return this.http.get<any>( `${url}typeRdvs`)
   }
+
+  //get rdv by status rdv
+  getAllRdvByStatusAndAvocat(status: number, id_avocat: number):any {
+    return this.http.get<any>(`${url}rdvByStatusRdvAndAvocat/${status}/${id_avocat}`)
+  }
+  getAllRdvByStatusAndClient(status: number, id_client: number):any {
+    return this.http.get<any>(`${url}rdvByStatusRdvAndAvocat/${status}/${id_client}`)
+  }
+
+    //get rdv by status factures = pas de factures
+    getAllRdvByStatusFacturesAndAvocat(id_avocat: number):any {
+      return this.http.get<any>(`${url}rdvByStatusFactureRdvAndAvocat/${id_avocat}`)
+    }
+    getAllRdvByStatusFacturesAndClient(id_client: number):any {
+      return this.http.get<any>(`${url}rdvByStatusFactureRdvAndClient/${id_client}`)
+    }
 }
