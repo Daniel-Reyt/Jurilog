@@ -284,18 +284,16 @@ export class RdvComponent implements OnInit {
 
   getAllRdvByStatusFacturesAndClient(id_client: string) {
     this.getService.getRdvByIdClient(id_client).toPromise().then((res: any) => {
+      this.rdvs = [];
       console.log(res)
       for (let i = 0; i < res.length; i++) {
         if (res[i].statusFacture != "pas de facture") {
-          Swal.fire({
-            'text': "il n'y as pas de rendez-vous qui n'ont pas de factures",
-            'icon': "error"
-          }).then((res) => {
-            this.rdvs = [];
-          })
-        } else {
-          this.rdvs = [];
-          this.rdvs = res
+          alert('Pas de rendez-vous sans factures')
+        } 
+        if (res[i].statusFacture === "pas de facture") {
+          console.log(res[i].status)
+          this.rdvs.push(res[i]);
+          console.log(res[i])
         }
       }
     })
