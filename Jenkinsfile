@@ -8,9 +8,7 @@ pipeline {
         stage('Build') {
             steps {
                   sh """
-                        npm i -g npm@6.4.1
-                        npm i
-                        npm run build
+                        echo 'Testing..'
                     """
             }
         }
