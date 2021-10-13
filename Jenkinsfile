@@ -13,8 +13,15 @@ pipeline {
         }
         stage('Test') {
             steps {
-                echo 'Testing..'
-            }
+                sh """
+                    cd orm/
+                    mvn spring-boot:run
+                    
+                    cd front/
+                    npm i
+                    npm run build
+                """            
+                }
         }
         stage('Deploy') {
             steps {
