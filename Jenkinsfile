@@ -15,7 +15,7 @@ pipeline {
             steps {
                 sh """
                     cd orm/
-                    mvn spring-boot:run
+                    mvn test
 
                     cd front/
                     npm i
