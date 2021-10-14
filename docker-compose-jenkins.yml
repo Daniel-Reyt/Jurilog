@@ -2,7 +2,7 @@ version: '3.1'
 
 services:
 
-  spring-orm-test:
+  spring-orm-jenkins:
     container_name: jurilog-spring-test
     build:
       context: ./orm
