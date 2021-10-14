@@ -82,7 +82,7 @@ describe('AppComponent', () => {
     })
   });
 
-  it('should update and calculate total facture', (done) => {
+  it('should update and calculate total facture', () => {
     var result = (150*1) + ((150*1) * (5/100))
     expect(result).toBe(157.5)
   });

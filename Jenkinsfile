@@ -19,7 +19,7 @@ pipeline {
             steps {
                 sh """
                     cd front/
-                    npm run test
+                    ng test -- --watch=false
                 """            
                 }
         }
