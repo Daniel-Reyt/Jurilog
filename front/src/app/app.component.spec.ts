@@ -46,13 +46,13 @@ describe('AppComponent', () => {
   });
   it('should get rdvs', (done) => {
     http.get("http://localhost:8888/rdvs").subscribe((res: any) => {
-      expect(res.length).toBe(3)
+      expect(res.length).toBe(4)
       done()
     })
   });
   it('should get factures', (done) => {
     http.get("http://localhost:8888/factures").subscribe((res: any) => {
-      expect(res.length).toBe(3)
+      expect(res.length).toBe(4)
       done()
     })
   });
@@ -70,13 +70,13 @@ describe('AppComponent', () => {
     })
   });
   it('should not get facture', (done) => {
-    http.get("http://localhost:8888/facture/" + 4).subscribe((res: any) => {
+    http.get("http://localhost:8888/facture/" + 5).subscribe((res: any) => {
       expect(res).toEqual(null)
       done()
     })
   });
   it('should not get rdv', (done) => {
-    http.get("http://localhost:8888/rdv/" + 4).subscribe((res: any) => {
+    http.get("http://localhost:8888/rdv/" + 5).subscribe((res: any) => {
       expect(res).toEqual(null)
       done()
     })
