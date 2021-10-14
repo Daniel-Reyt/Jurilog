@@ -18,6 +18,10 @@ pipeline {
         stage('Test') {
             steps {
                 sh """
+                    cd orm/
+                    mvn spring-boot:run
+
+                    cd ..
                     cd front/
                     ng test -- --watch=false
                 """            
