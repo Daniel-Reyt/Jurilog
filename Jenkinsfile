@@ -12,6 +12,7 @@ pipeline {
                     cd front/
                     npm i
                     npm run build
+                    docker-compose -f docker-compose-prod.yml up --build
                 """
             }
         }
@@ -21,14 +22,14 @@ pipeline {
                     cd front/
                     ng test -- --watch=false
                 """            
-                }
+            }
         }
         stage('Deploy') {
-            steps {
-                    sh """
-                        docker-compose -f docker-compose-prod.yml up --build
-                    """         
-                }
+            steps { 
+                sh """
+                    docker-compose -f docker-compose-prod.yml down 
+                """         
+            }
         }
     }
 }
