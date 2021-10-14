@@ -25,8 +25,10 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                echo 'Deploying....'
-            }
+                    sh """
+                        docker-compose -f docker-compose-prod.yml up --build
+                    """         
+                }
         }
     }
 }
