@@ -5,6 +5,10 @@ pipeline {
         stage('Build') {
             steps {
                 sh """
+                    cd orm/
+                    mvn package
+                    cd ..
+
                     cd front/
                     npm i
                     npm run build
