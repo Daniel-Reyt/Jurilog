@@ -18,7 +18,8 @@ pipeline {
         stage('Test') {
             steps {
                 sh """
-
+                    cd front/
+                    npm run test
                 """            
                 }
         }
