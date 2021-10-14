@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+    triggers {
+        pollSCM('* * * * *')
+    }
     stages {
         stage('Build') {
             steps {
@@ -29,8 +31,10 @@ pipeline {
         stage('Deploy') {
             steps { 
                 sh """
+                    echo 'stop orm ...'
                     docker-compose -f docker-compose-jenkins.yml down
-                    echo 'Deploy...'
+                    echo 'build prod ...'
+                    docker-compose -f docker-compose-jenkins.yml up -d --build
                 """         
             }
         }
