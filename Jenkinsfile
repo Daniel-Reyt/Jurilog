@@ -21,6 +21,7 @@ pipeline {
                     cd orm/
                     mvn spring-boot:run
 
+
                     cd ..
                     cd front/
                     ng test -- --watch=false
