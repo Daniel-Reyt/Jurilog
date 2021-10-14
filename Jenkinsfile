@@ -30,7 +30,7 @@ pipeline {
             steps { 
                 sh """
                     cd ..
-                    docker-compose -f docker-compose-jenkins.yml down -d --build
+                    docker-compose -f docker-compose-jenkins.yml down
                     echo 'Deploy...'
                 """         
             }
