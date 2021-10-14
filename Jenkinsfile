@@ -12,7 +12,6 @@ pipeline {
                     cd front/
                     npm i
                     npm run build
-                    docker-compose -f docker-compose-prod.yml up --build
                 """
             }
         }
@@ -27,7 +26,7 @@ pipeline {
         stage('Deploy') {
             steps { 
                 sh """
-                    docker-compose -f docker-compose-prod.yml down 
+                    echo 'Deploy...'
                 """         
             }
         }
