@@ -12,7 +12,8 @@ pipeline {
                     cd front/
                     npm i
                     npm run build
-                    ls
+                    
+                    cd ../
                     docker-compose -f docker-compose-prod.yml up --build
                 """
             }
