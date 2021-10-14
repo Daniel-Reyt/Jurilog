@@ -38,13 +38,13 @@ pipeline {
                 """         
             }
         }
-        post {
-            success {
-                script{
-                    slackSend channel: '#Daniel Reyt',
-                            color: 'good',
-                            message: "The pipeline of branch master completed successful"
-                }
+    }
+    post {
+        success {
+            script{
+                slackSend channel: '#Daniel Reyt',
+                        color: 'good',
+                        message: "The pipeline of branch master completed successful"
             }
         }
     }
