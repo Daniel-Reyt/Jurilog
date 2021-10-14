@@ -29,6 +29,7 @@ pipeline {
         stage('Deploy') {
             steps { 
                 sh """
+                    cd ..
                     docker-compose -f docker-compose-jenkins.yml down -d --build
                     echo 'Deploy...'
                 """         
