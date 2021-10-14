@@ -14,7 +14,7 @@ pipeline {
                     npm run build
                     
                     cd ..
-                    docker-compose -f docker-compose-prod.yml up -d --build
+                    docker-compose -f docker-compose-jenkins.yml up -d --build
                 """
             }
         }
@@ -29,6 +29,7 @@ pipeline {
         stage('Deploy') {
             steps { 
                 sh """
+                    docker-compose -f docker-compose-jenkins.yml down -d --build
                     echo 'Deploy...'
                 """         
             }
