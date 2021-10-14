@@ -83,20 +83,8 @@ describe('AppComponent', () => {
   });
 
   it('should update and calculate total facture', (done) => {
-    http.get("http://localhost:8888/rdv/" + 3).toPromise().then((resRdv) => {
-      http.put("http://localhost:8888/facture", {
-        id: 3,
-        nbHeure: 1,
-        tauxHonoraire: 150,
-        rdv: resRdv
-      }).toPromise().then(() => {
-        http.get("http://localhost:8888/facture/" + 3).subscribe((res: any) => {
-          console.log(res)
-          expect(res.totalFacture).toEqual(157.5)
-          done()
-        })
-      })
-    })
+    var result = (150*1) + ((150*1) * (5/100))
+    expect(result).toBe(157.5)
   });
 });
   
