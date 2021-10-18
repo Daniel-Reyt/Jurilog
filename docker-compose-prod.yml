@@ -19,6 +19,6 @@ services:
       context: ./orm
       dockerfile: prod.Dockerfile
     ports:
-      - 8888:8888
+      - 8090:8090
 
 

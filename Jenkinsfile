@@ -31,20 +31,8 @@ pipeline {
         stage('Deploy') {
             steps { 
                 sh """
-                    echo 'stop orm ...'
                     docker-compose -f docker-compose-jenkins.yml down
-                    echo 'build prod ...'
-                    docker-compose -f docker-compose-jenkins.yml up -d --build
                 """         
-            }
-        }
-    }
-    post {
-        success {
-            script{
-                slackSend channel: '#Daniel Reyt',
-                        color: 'good',
-                        message: "The pipeline of branch master completed successful"
             }
         }
     }
