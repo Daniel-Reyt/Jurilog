@@ -17,7 +17,7 @@ pipeline {
                     
                     cd ..
                     docker-compose -f docker-compose-prod.yml down
-                docker-compose -f docker-compose-jenkins.yml up -d --build
+                    docker-compose -f docker-compose-jenkins.yml up -d --build
                 """
             }
         }
