@@ -14,16 +14,14 @@ pipeline {
                     cd front/
                     npm i
                     npm run build
-                    
-                    cd ..
-                    docker-compose -f docker-compose-jenkins.yml up -d --build
                 """
             }
         }
         stage('Test') {
             steps {
                 sh """
-
+                    cd front/
+                    ng test -- --watch=false
                 """            
             }
         }
