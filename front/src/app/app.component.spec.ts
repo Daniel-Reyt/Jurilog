@@ -1,14 +1,13 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { url } from 'src/main';
 import { AppComponent } from './app.component';
 import {NavbarComponent} from "./navbar/navbar.component";
 
 describe('AppComponent', () => {
   let http: HttpClient;
   let clients: [any] = <any>[];
-
+  let url = "http://10.3.1.58:8989/"
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
