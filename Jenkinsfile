@@ -16,8 +16,7 @@ pipeline {
                     npm run build
                     
                     cd ..
-                    docker-compose -f docker-compose-prod.yml down --remove-orphans
-                    docker-compose -f docker-compose-jenkins.yml up -d --build --remove-orphans
+                    docker-compose -f docker-compose-jenkins.yml up -d --build
                 """
             }
         }
@@ -33,7 +32,6 @@ pipeline {
         stage('Deploy') {
             steps { 
                 sh """
-                    docker-compose -f docker-compose-jenkins.yml down
                     docker-compose -f docker-compose-prod.yml up --build
                 """         
             }
