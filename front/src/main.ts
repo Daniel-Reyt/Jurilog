@@ -4,7 +4,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
-export const url = "http://10.3.1.58:8090/"
+export const url = "http://10.3.1.58:8989/"
 
 if (environment.production) {
   enableProdMode();
