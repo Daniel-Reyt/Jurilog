@@ -32,6 +32,7 @@ describe('AppComponent', () => {
 
   it('should get clients', (done) => {
     http.get(`${url}clients`).subscribe((res: any) => {
+      console.log(res)
       expect(res.length).toBe(2);
       done()
     })
