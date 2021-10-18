@@ -8,4 +8,4 @@ services:
       context: ./orm
       dockerfile: jenkins.Dockerfile
     ports:
-      - 9090:8989
+      - 8989:8989
