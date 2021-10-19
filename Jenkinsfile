@@ -20,7 +20,7 @@ pipeline {
         stage('Test') {
             steps {
                 sh """
-                    echo test
+                    cd front/
                     ng test -- --watch=false
                 """            
             }
