@@ -28,7 +28,7 @@ pipeline {
         stage('Deploy') {
             steps { 
                 sh """
-                    ssh stukaboy@10.3.1.55
+                    ssh -T stukaboy@10.3.1.55
                     uha40 
                     docker stop danielrxt321/filrouge:fil_rouge_403_daniel_spring-orm
                     docker stop danielrxt321/filrouge:fil_rouge_403_daniel_angular-front
