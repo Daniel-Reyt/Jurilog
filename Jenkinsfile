@@ -29,10 +29,10 @@ pipeline {
         stage('Deploy') {
             steps { 
                 sh """
-                    ssh nissan@10.3.1.30 
-                    cd daniel/fil_rouge_403_daniel/
-                    docker-compose -f docker-compose-prod.yml down
-                    git pull origin-gitlab master && docker-compose -f docker-compose-prod.yml up -d
+                    ssh stukaboy@10.3.1.55
+                    uha40 
+                    docker stop danielrxt321/filrouge:fil_rouge_403_daniel_spring-orm
+                    docker stop danielrxt321/filrouge:fil_rouge_403_daniel_angular-front
                 """         
             }
         }
