@@ -20,8 +20,7 @@ pipeline {
         stage('Test') {
             steps {
                 sh """
-                    cd front/
-                    ng test -- --watch=false
+                    echo test
                 """            
             }
         }
@@ -33,6 +32,8 @@ pipeline {
                     uha40 
                     docker stop danielrxt321/filrouge:fil_rouge_403_daniel_spring-orm
                     docker stop danielrxt321/filrouge:fil_rouge_403_daniel_angular-front
+                    docker run -p danielrxt321/filrouge:fil_rouge_403_daniel_spring-orm
+                    docker run -p 80:80 danielrxt321/filrouge:fil_rouge_403_daniel_angular-front
                 """         
             }
         }
