@@ -82,4 +82,8 @@ export class GetService {
     getAllRdvByStatusFacturesAndClient(id_client: number):any {
       return this.http.get<any>(`${url}rdvByStatusFactureRdvAndClient/${id_client}`)
     }
+
+    getBalanceByClient(id_client: number): any {
+      return this.http.get<any>(`${url}getBalanceOfClient/${id_client}`)
+    }
 }

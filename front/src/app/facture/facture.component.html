@@ -1,56 +1,64 @@
 <div class="container">
-  <div style="margin-top: 10px" class="card" id="facture" [hidden]="isCreate">
-  <div class="card-header">
-    <div class="row">
-      <div class="col-lg-5">
-        client :
-        <br>
-        nom : {{facture.rdv.client.nom}}
-        <br>
-        prenom : {{facture.rdv.client.prenom}}
+  <div class="row">
+    <div class="col-lg-3" style="margin-top: 10px;" [hidden]="this.id_client === ''">
+      <app-balance></app-balance>
+    </div>
+    <div class="col-lg-9">
+      <div style="margin-top: 10px" class="card" id="facture" [hidden]="isCreate">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-lg-5">
+              client :
+              <br>
+              nom : {{facture.rdv.client.nom}}
+              <br>
+              prenom : {{facture.rdv.client.prenom}}
+            </div>
+            <div class="col-lg-2"></div>
+            <div class="col-lg-5">
+              avocat :
+              <br>
+              nom : {{facture.rdv.avocat.nom}}
+              <br>
+              prenom : {{facture.rdv.avocat.prenom}}
+            </div>
+          </div>
+          <div class="row">
+            <p>facture du rendez-vous datant du : {{facture.rdv.date | date:'fullDate'}} à {{facture.rdv.heure}} heure</p>
+          </div>
+        </div>
+        <div class="body">
+          <p style="margin-left: 10px; margin-top: 10px">Nombre d'heure passée pendant le rendez-vous : {{facture.nbHeure}} heure(s)</p>
+          <br>
+          <div class="col-12 row">
+            <div class="col-lg-8">
+              <p style="margin-left: 10px">Montant honoraire TTC : {{facture.tauxHonoraire}} € / heure</p>
+            </div>
+            <div class="col-lg-8">
+              <p style="margin-left: 10px">
+                Type de Rdv : {{facture.rdv.type.typeRdvName}},
+                avec une augmentation de {{facture.rdv.type.percentAugmentation}} %</p>
+            </div>
+            <div class="col-lg-4 bg-lightGrey">
+              <p>Montant total a payer : {{facture.totalFacture}} €</p>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-secondary col-6" (click)="PrintFacture(facture)">imprimer</button>
+          <button class="btn btn-secondary col-6" (click)="payerFacture(facture)" [hidden]="facture.statusFacture != 0">Payer</button>
+        </div>
       </div>
-      <div class="col-lg-2"></div>
-      <div class="col-lg-5">
-        avocat :
-        <br>
-        nom : {{facture.rdv.avocat.nom}}
-        <br>
-        prenom : {{facture.rdv.avocat.prenom}}
+      
+      <div [hidden]="!isCreate">
+        <h4 class="text-center">Créer une facture</h4>
+        <form class="card" style="padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px">
+          <label class="form-label">taux honoraire du rendez-vous :</label>
+          <input type="number" id="taux" class="form-control" placeholder="merci de renseigner le taux honoraire">
+          <br>
+          <button class="btn btn-primary" (click)="submitFacture()">Submit facture</button>
+        </form>
       </div>
     </div>
-    <div class="row">
-      <p>facture du rendez-vous datant du : {{facture.rdv.date | date:'fullDate'}} à {{facture.rdv.heure}} heure</p>
-    </div>
   </div>
-  <div class="body">
-    <p style="margin-left: 10px; margin-top: 10px">Nombre d'heure passée pendant le rendez-vous : {{facture.nbHeure}} heure(s)</p>
-    <br>
-    <div class="col-12 row">
-      <div class="col-lg-8">
-        <p style="margin-left: 10px">Montant honoraire TTC : {{facture.tauxHonoraire}} € / heure</p>
-      </div>
-      <div class="col-lg-8">
-        <p style="margin-left: 10px">
-          Type de Rdv : {{facture.rdv.type.typeRdvName}},
-          avec une augmentation de {{facture.rdv.type.percentAugmentation}} %</p>
-      </div>
-      <div class="col-lg-4 bg-lightGrey">
-        <p>Montant total a payer : {{facture.totalFacture}} €</p>
-      </div>
-    </div>
-  </div>
-  <div class="card-footer">
-    <button class="btn btn-secondary col-12" (click)="PrintFacture(facture)">imprimer</button>
-  </div>
-</div>
-
-<div [hidden]="!isCreate">
-  <h4 class="text-center">Créer une facture</h4>
-  <form class="card" style="padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px">
-    <label class="form-label">taux honoraire du rendez-vous :</label>
-    <input type="number" id="taux" class="form-control" placeholder="merci de renseigner le taux honoraire">
-    <br>
-    <button class="btn btn-primary" (click)="submitFacture()">Submit facture</button>
-  </form>
-</div>
 </div>

@@ -2,6 +2,7 @@ package fr.lightning.controllers;
 
 import fr.lightning.daos.*;
 import fr.lightning.entity.Client;
+import fr.lightning.objects.BalanceClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

@@ -9,8 +9,19 @@ import {Router} from "@angular/router";
 })
 export class PostService {
 
+
   constructor(private http: HttpClient,
               private router: Router) { }
+
+  postNewBalance(id_client: any, id_balance:number, new_montant: number):any {
+    return this.http.post(`${url}postNewMontant`, {
+      id: id_balance,
+      client: {
+        id: id_client
+      },
+      montant: new_montant
+    })
+  }
 
   postAvocat(nom: String, prenom: String, adresse: String, phone: String, username: String, password: String) {
     this.http.post(`${url}avocat`, {

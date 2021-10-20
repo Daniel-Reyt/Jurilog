@@ -20,6 +20,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatNativeDateModule} from '@angular/material/core';
 import { LOCALE_ID } from "@angular/core";
 import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
+import { BalanceComponent } from './balance/balance.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
     RegisterAvocatComponent,
     RegisterClientComponent,
     FourOhFourComponent,
+    BalanceComponent,
   ],
   imports: [
     BrowserModule,

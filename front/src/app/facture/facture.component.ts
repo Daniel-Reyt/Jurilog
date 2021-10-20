@@ -15,6 +15,7 @@ import html2canvas from 'html2canvas';
 })
 export class FactureComponent implements OnInit {
   id_rdv: any;
+  id_client: any;
 
   isCreate: boolean = true;
 
@@ -32,9 +33,10 @@ export class FactureComponent implements OnInit {
 
   ngOnInit(): void {
     this.id_rdv = this.activatedRoute.snapshot.paramMap.get('id_rdv');
-    
+    this.id_client = localStorage.getItem('id_client')
     this.checkIfRdvHadFacture();
 
+    this.getBalance();
     registerLocaleData(localeFr, "fr");
   }
 
@@ -50,7 +52,8 @@ export class FactureComponent implements OnInit {
             this.isCreate = true
           } else if (this.status_facture != "-1") {
             this.isCreate = false;
-            this.facture = res
+            this.facture = res;
+            console.log(this.facture)
             this.dateRdv = this.facture.dateRdv
           }
       }).catch(() => {
@@ -83,5 +86,28 @@ export class FactureComponent implements OnInit {
         pdf.save(facture.rdv.client.nom + "-" + facture.rdv.client.prenom + "_" + facture.rdv.avocat.nom + "-" + facture.rdv.avocat.prenom + "_" + facture.rdv.date + ".pdf");   
       }); 
     }
+  }
+  balance: any;
+  payerFacture(facture: any) {
+    if (this.balance.montant > this.facture.totalFacture) {
+      this.removeMontant(this.balance.montant, this.facture.totalFacture)
+
+    } else {
+
+    }
+  }
+  
+  getBalance() {
+    this.getService.getBalanceByClient(this.id_client).toPromise().then((res: any) => {
+      this.balance = res
+    })
+  }
+
+  removeMontant(oldMontant:number, montantToRemove: number) {
+    console.log(oldMontant - montantToRemove);
+    const new_montant = oldMontant - montantToRemove
+    this.postService.postNewBalance(this.id_client, this.balance.id, new_montant).toPromise().then((res: any) => {
+      this.getBalance();
+    })
   }
 }

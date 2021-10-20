@@ -1,9 +1,12 @@
+/home/daniel-reyt/Bureau/fil_rouge_4.0.3_daniel/orm/src/main/java/fr/lightning/daos/BalanceDao.java
 /home/daniel-reyt/Bureau/fil_rouge_4.0.3_daniel/orm/src/main/java/fr/lightning/entity/Client.java
 /home/daniel-reyt/Bureau/fil_rouge_4.0.3_daniel/orm/src/main/java/fr/lightning/entity/Rdv.java
 /home/daniel-reyt/Bureau/fil_rouge_4.0.3_daniel/orm/src/main/java/fr/lightning/controllers/ClientController.java
 /home/daniel-reyt/Bureau/fil_rouge_4.0.3_daniel/orm/src/main/java/fr/lightning/controllers/TypeRdvController.java
 /home/daniel-reyt/Bureau/fil_rouge_4.0.3_daniel/orm/src/main/java/fr/lightning/entity/Facture.java
+/home/daniel-reyt/Bureau/fil_rouge_4.0.3_daniel/orm/src/main/java/fr/lightning/entity/Balance.java
 /home/daniel-reyt/Bureau/fil_rouge_4.0.3_daniel/orm/src/main/java/fr/lightning/objects/FrontFactureObject.java
+/home/daniel-reyt/Bureau/fil_rouge_4.0.3_daniel/orm/src/main/java/fr/lightning/objects/BalanceClient.java
 /home/daniel-reyt/Bureau/fil_rouge_4.0.3_daniel/orm/src/main/java/fr/lightning/objects/FrontRdvObject.java
 /home/daniel-reyt/Bureau/fil_rouge_4.0.3_daniel/orm/src/main/java/fr/lightning/controllers/RdvController.java
 /home/daniel-reyt/Bureau/fil_rouge_4.0.3_daniel/orm/src/main/java/fr/lightning/entity/TypeRdv.java
@@ -12,6 +15,7 @@
 /home/daniel-reyt/Bureau/fil_rouge_4.0.3_daniel/orm/src/main/java/fr/lightning/daos/TypeRdvDao.java
 /home/daniel-reyt/Bureau/fil_rouge_4.0.3_daniel/orm/src/main/java/fr/lightning/OrmJurilog.java
 /home/daniel-reyt/Bureau/fil_rouge_4.0.3_daniel/orm/src/main/java/fr/lightning/entity/Avocat.java
+/home/daniel-reyt/Bureau/fil_rouge_4.0.3_daniel/orm/src/main/java/fr/lightning/controllers/BalanceController.java
 /home/daniel-reyt/Bureau/fil_rouge_4.0.3_daniel/orm/src/main/java/fr/lightning/daos/ClientDao.java
 /home/daniel-reyt/Bureau/fil_rouge_4.0.3_daniel/orm/src/main/java/fr/lightning/daos/RdvDao.java
 /home/daniel-reyt/Bureau/fil_rouge_4.0.3_daniel/orm/src/main/java/fr/lightning/controllers/AvocatController.java

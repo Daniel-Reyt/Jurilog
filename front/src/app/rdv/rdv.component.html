@@ -9,7 +9,7 @@
 <div class="collapse bg-dark text-center" id="filtreRdv">
   <ul class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
     <li class="nav-item" style="margin-right: 10px; ">
-      <select [(ngModel)]="selectedOption" class="form-select" style="margin-top: 10px; margin-bottom: 10px" id="select">
+      <select [(ngModel)]="selectedOption" (ngModelChange)="getAllRdvByStatusFacture()" class="form-select" style="margin-top: 10px; margin-bottom: 10px" id="select">
         <option value="Id">
           par Id
         </option>
@@ -20,15 +20,15 @@
           par status de rendez-vous
         </option>
         <option value="statusFacture">
-          par status de facture
+          pas de facture
         </option>
       </select>
     </li>
-    <li class="nav-item"  style="margin-right: 10px;" [hidden]="selectedOption != 'statusFacture'">
+    <!-- <li class="nav-item"  style="margin-right: 10px;" [hidden]="selectedOption != 'statusFacture'">
       <div class="row">
         <button class="btn col-lg-12 col-sm-12" style="background-color: white;" (click)="getAllRdvByStatusFacture()">Pas de facture</button>
       </div>
-    </li>
+    </li> -->
     <li class="nav-item"  style="margin-right: 10px;" [hidden]="selectedOption != 'statusRdv'">
       <div class="row">
         <button class="btn col-lg-4 col-sm-4" style="background-color: white;" (click)="getAllRdvByStatus(0)">En Attente</button>
@@ -49,76 +49,82 @@
 </div>
 
 <div class="container">
-<div style="margin-top: 10px">
   <div class="row">
-    <div class="card col-lg-6" *ngFor="let rdv of rdvs; let i = index">
-      <div class="row card-header">
-        rendez vous le : {{rdv.date | date:'fullDate'}}
-        <br>
-        a : {{rdv.heureRdv}}:00 heure
+    <div class="col-lg-3" style="margin-top: 10px;" [hidden]="this.id_client === ''">
+      <app-balance></app-balance>
+    </div>
+    <div class="col-lg-9">
+      <div style="margin-top: 10px">
+        <div class="row">
+          <div class="card col-lg-6" *ngFor="let rdv of rdvs; let i = index">
+            <div class="row card-header">
+              rendez vous le : {{rdv.date | date:'fullDate'}}
+              <br>
+              a : {{rdv.heureRdv}}:00 heure
+            </div>
+            <div class="card-body">
+              avocat : {{rdv.avocatNom}}, {{rdv.avocatPrenom}}
+              <br>
+              client : {{rdv.clientNom}}, {{rdv.clientPrenom}}
+              <br>
+              type de rendez-vous : {{rdv.rdvTypeName}}
+              <br>
+              pourcent d'augmentation du prix : {{rdv.rdvTypePercent}} %
+              <br>
+              statut facture : {{rdv.statusFacture}}
+              <button class="btn btn-primary col-lg-3" (click)="redirectFacture(rdv)" [hidden]="id_client != '' || rdv.statusFacture != 'pas de facture' || rdv.status == 'en attente' || rdv.status == 'refusé'">
+                créer une facture
+              </button>
+              <button class="btn btn-primary col-lg-3" (click)="redirectFacture(rdv)" [hidden]="rdv.statusFacture == 'pas de facture' || rdv.status == 'en attente' || rdv.status == 'refusé'">
+                voir la facture
+              </button>
+            </div>
+            <div class="row card-footer">
+              <p class="col-lg-4">statut : {{rdv.status}}</p>
+              <div class="col-lg-8" id="actions" [hidden]="id_client !='' || rdv.status != 'en attente'">
+                <button class="btn btn-primary col-lg-3" (click)="validerRdv(rdv)">
+                  valider
+                </button>
+                <button class="btn btn-danger col-lg-3" (click)="refuserRdv(rdv)">
+                  Refuser
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="card-body">
-        avocat : {{rdv.avocatNom}}, {{rdv.avocatPrenom}}
-        <br>
-        client : {{rdv.clientNom}}, {{rdv.clientPrenom}}
-        <br>
-        type de rendez-vous : {{rdv.rdvTypeName}}
-        <br>
-        pourcent d'augmentation du prix : {{rdv.rdvTypePercent}} %
-        <br>
-        statut facture : {{rdv.statusFacture}}
-        <button class="btn btn-primary col-lg-3" (click)="redirectFacture(rdv)" [hidden]="id_client != '' || rdv.statusFacture != 'pas de facture' || rdv.status == 'en attente' || rdv.status == 'refusé'">
-          créer une facture
-        </button>
-        <button class="btn btn-primary col-lg-3" (click)="redirectFacture(rdv)" [hidden]="rdv.statusFacture == 'pas de facture' || rdv.status == 'en attente' || rdv.status == 'refusé'">
-          voir la facture
-        </button>
-      </div>
-      <div class="row card-footer">
-        <p class="col-lg-4">statut : {{rdv.status}}</p>
-        <div class="col-lg-8" id="actions" [hidden]="id_client !='' || rdv.status != 'en attente'">
-          <button class="btn btn-primary col-lg-3" (click)="validerRdv(rdv)">
-            valider
-          </button>
-          <button class="btn btn-danger col-lg-3" (click)="refuserRdv(rdv)">
-            Refuser
-          </button>
+      
+      <div class="row" style="margin-top: 10px" [hidden]="id_client === ''">
+        <div class="col-lg-12 bordered">
+          <form class="form-group" [formGroup]="purposeRdvForm">
+            <h4 class="text-center">Proposer un rendez-vous</h4>
+            <h5 class="bg-lightYellow error" [hidden]="error_heure === ''">{{error_heure}}</h5>
+            <label class="form-label">Date du rendez-vous</label>
+            <input type="date" formControlName="dateRdv" class="form-control">
+            <br>
+            <label class="form-label">Heure du rendez-vous</label>
+            <select formControlName="heureRdv" id="selectHeureRdv" class="form-select">
+              <option value="" selected disabled>Choisissez une heure de rendez-vous</option>
+              <option value="{{heure}}" *ngFor="let heure of listeheures">{{heure}} heure</option>
+            </select>
+            <br>
+            <label class="form-label">Avocat :</label>
+            <select formControlName="avocatRdv" id="selectAvocat" class="form-select">
+              <option value="" selected disabled>Choisissez un avocat</option>
+              <option value="{{avocat.id}}" *ngFor="let avocat of avocats">{{avocat.nom}}, {{avocat.prenom}}</option>
+            </select>
+            <br>
+            <label class="form-label">Type de Rendez-vous :</label>
+            <select formControlName="rdvTypeSelected" id="selectRdvType" class="form-select">
+              <option value="" selected disabled>Choisissez un type de rendez-vous</option>
+              <option value="{{rdvType.id}}" *ngFor="let rdvType of rdvsType">
+                {{rdvType.typeRdvName}} => augmentation de {{rdvType.percentAugmentation}} %</option>
+            </select>
+            <br>
+            <button class="btn btn-primary col-lg-12" (click)="submitRdv()">proposer le rendez vous</button>
+          </form>
         </div>
       </div>
     </div>
   </div>
-</div>
-
-<div class="row" style="margin-top: 10px" [hidden]="id_client === ''">
-  <div class="col-lg-12 bordered">
-    <form class="form-group" [formGroup]="purposeRdvForm">
-      <h4 class="text-center">Proposer un rendez-vous</h4>
-      <h5 class="bg-lightYellow error" [hidden]="error_heure === ''">{{error_heure}}</h5>
-      <label class="form-label">Date du rendez-vous</label>
-      <input type="date" formControlName="dateRdv" class="form-control">
-      <br>
-      <label class="form-label">Heure du rendez-vous</label>
-      <select formControlName="heureRdv" id="selectHeureRdv" class="form-select">
-        <option value="" selected disabled>Choisissez une heure de rendez-vous</option>
-        <option value="{{heure}}" *ngFor="let heure of listeheures">{{heure}} heure</option>
-      </select>
-      <br>
-      <label class="form-label">Avocat :</label>
-      <select formControlName="avocatRdv" id="selectAvocat" class="form-select">
-        <option value="" selected disabled>Choisissez un avocat</option>
-        <option value="{{avocat.id}}" *ngFor="let avocat of avocats">{{avocat.nom}}, {{avocat.prenom}}</option>
-      </select>
-      <br>
-      <label class="form-label">Type de Rendez-vous :</label>
-      <select formControlName="rdvTypeSelected" id="selectRdvType" class="form-select">
-        <option value="" selected disabled>Choisissez un type de rendez-vous</option>
-        <option value="{{rdvType.id}}" *ngFor="let rdvType of rdvsType">
-          {{rdvType.typeRdvName}} => augmentation de {{rdvType.percentAugmentation}} %</option>
-      </select>
-      <br>
-      <button class="btn btn-primary col-lg-12" (click)="submitRdv()">proposer le rendez vous</button>
-    </form>
-  </div>
-</div>
-
 </div>
