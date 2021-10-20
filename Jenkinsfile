@@ -37,6 +37,8 @@ pipeline {
                     cd orm/
                     docker build -f prod.Dockerfile .
 
+                    docker login -u "danielrxt321" -p "dadareyt32" docker.io
+
                     docker image tag fil_rouge_403_daniel_angular-front danielrxt321/filrouge:fil_rouge_403_daniel_angular-front
                     docker push danielrxt321/filrouge:fil_rouge_403_daniel_angular-front
 
