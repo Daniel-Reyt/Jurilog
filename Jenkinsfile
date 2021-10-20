@@ -21,8 +21,7 @@ pipeline {
         stage('Test') {
             steps {
                 sh """
-                    cd front/
-                    ng test -- --watch=false
+
                 """            
             }
         }
@@ -44,6 +43,8 @@ pipeline {
 
                     docker image tag fil_rouge_403_daniel_spring-orm danielrxt321/filrouge:fil_rouge_403_daniel_spring-orm
                     docker push danielrxt321/filrouge:fil_rouge_403_daniel_spring-orm
+
+                    ssh stukaboy@10.3.1.55
                 """         
             }
         }
