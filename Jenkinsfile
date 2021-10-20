@@ -14,7 +14,7 @@ pipeline {
                     cd front/
                     npm i
                     npm run build
-                    
+
                 """
             }
         }
@@ -30,9 +30,13 @@ pipeline {
         stage('Deploy') {
             steps { 
                 sh """
-                    docker-compose -f docker-compose-prod.yml up -d --build
-                    docker-compose -f docker-compose-prod.yml down
+                    cd front/
+                    docker build -f prod.Dockerfile .
 
+                    cd ..
+                    cd orm/
+                    docker build -f prod.Dockerfile .
+                    
                     docker image tag fil_rouge_403_daniel_angular-front danielrxt321/filrouge:fil_rouge_403_daniel_angular-front
                     docker push fil_rouge_403_daniel_angular-front danielrxt321/filrouge:fil_rouge_403_daniel_angular-front
 
