@@ -34,7 +34,7 @@ pipeline {
 
                     docker image tag fil_rouge_403_daniel_angular-front danielrxt321/filrouge:fil_rouge_403_daniel_angular-front
                     docker push fil_rouge_403_daniel_angular-front danielrxt321/filrouge:fil_rouge_403_daniel_angular-front
-                    
+
                     docker image tag fil_rouge_403_daniel_spring-orm danielrxt321/filrouge:fil_rouge_403_daniel_spring-orm
                     docker push fil_rouge_403_daniel_spring-orm danielrxt321/filrouge:fil_rouge_403_daniel_spring-orm
                 """         
