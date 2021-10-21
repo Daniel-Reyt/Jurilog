@@ -1,4 +1,4 @@
-fr/lightning/objects/BalanceClient.class
-fr/lightning/controllers/BalanceController.class
-fr/lightning/daos/BalanceDao.class
-fr/lightning/entity/Balance.class
+fr\lightning\entity\Balance.class
+fr\lightning\daos\BalanceDao.class
+fr\lightning\controllers\BalanceController.class
+fr\lightning\objects\BalanceClient.class
