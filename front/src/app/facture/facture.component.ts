@@ -7,6 +7,7 @@ import localeFr from "@angular/common/locales/fr";
 import { registerLocaleData } from "@angular/common";
 import * as jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-facture',
@@ -26,6 +27,8 @@ export class FactureComponent implements OnInit {
   status_facture: any;
 
   taux: any;
+
+  isPayer: any;
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
               private getService: GetService,
@@ -33,7 +36,9 @@ export class FactureComponent implements OnInit {
 
   ngOnInit(): void {
     this.id_rdv = this.activatedRoute.snapshot.paramMap.get('id_rdv');
-    this.id_client = localStorage.getItem('id_client')
+    this.id_client = localStorage.getItem('id_client');
+    this.getBalance();
+
     this.checkIfRdvHadFacture();
 
     this.getBalance();
@@ -45,7 +50,6 @@ export class FactureComponent implements OnInit {
       this.router.navigate(['/rdv'])
     } else {
       this.getService.getFactureByRdv(this.id_rdv).toPromise().then((res: any) => {
-        console.log(res)
         this.facture_id = res.id
         this.status_facture = res.statusFacture
           if (this.status_facture == "-1") {
@@ -53,7 +57,6 @@ export class FactureComponent implements OnInit {
           } else if (this.status_facture != "-1") {
             this.isCreate = false;
             this.facture = res;
-            console.log(this.facture)
             this.dateRdv = this.facture.dateRdv
           }
       }).catch(() => {
@@ -87,13 +90,52 @@ export class FactureComponent implements OnInit {
       }); 
     }
   }
+
+  //balance 
   balance: any;
   payerFacture(facture: any) {
     if (this.balance.montant > this.facture.totalFacture) {
-      this.removeMontant(this.balance.montant, this.facture.totalFacture)
-
+      this.removeMontant(this.balance.montant, this.facture.totalFacture);
+      this.setStatusToPayer(1);
     } else {
+      Swal.fire({
+        'title': "pas assez de fonds !",
+        'icon': "warning"
+      })
+    }
+  }
+  setStatusToPayer(status: number) {
+    this.getService.getRdvById(this.id_rdv).toPromise().then((res: any) => {
+      this.postService.setStatusFacture(res, this.facture_id, status).toPromise().then((res: any) => {
+        this.checkIfFactureIsPayer();
+      })
+    })
+  }
+  checkIfFactureIsPayer() {
+    if (this.id_rdv == null) {
+      this.router.navigate(['/rdv'])
+    } else {
+      this.getService.getFactureByRdv(this.id_rdv).toPromise().then((res: any) => {
+        this.status_facture = res.statusFacture
+          if (this.status_facture != "-1" || this.status_facture != "1") {
+            Swal.fire({
+              'text': "votre facture as étais payée",
+              'icon': "success"
+            }).then((res) => {
+              this.router.navigate(['/rdv'])
+            })
+          }
+      }).catch(() => {
+        
+      })
+    }
+  }
 
+  isPositive(montant: number) {
+    if (montant > 0) {
+      return true
+    } else {
+      return false;
     }
   }
   
@@ -104,10 +146,16 @@ export class FactureComponent implements OnInit {
   }
 
   removeMontant(oldMontant:number, montantToRemove: number) {
-    console.log(oldMontant - montantToRemove);
     const new_montant = oldMontant - montantToRemove
     this.postService.postNewBalance(this.id_client, this.balance.id, new_montant).toPromise().then((res: any) => {
       this.getBalance();
+    })
+  }
+
+  addMontant(oldMontant:number, montantToAdd: number) {
+    const new_montant = oldMontant + montantToAdd
+    this.postService.postNewBalance(this.id_client, this.balance.id, new_montant).toPromise().then((res: any) => {
+      this.getBalance()
     })
   }
 }

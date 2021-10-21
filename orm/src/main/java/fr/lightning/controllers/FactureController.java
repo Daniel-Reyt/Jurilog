@@ -58,5 +58,16 @@ public class FactureController {
 
         return "201";
     }
+    @PutMapping(value = "setFactureToPayer")
+    public String setFactureToPayer(@RequestBody Facture facture) {
+        Facture facture_to_update = factureDao.getById(facture.getId());
+        facture_to_update.setStatusFacture("1");
+        factureDao.save(facture_to_update);
 
+        if (facture == null) {
+            return "500";
+        }
+
+        return "201";
+    }
 }

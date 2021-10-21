@@ -34,7 +34,6 @@ export class BalanceComponent implements OnInit {
   }
 
   addMontant(oldMontant:number, montantToAdd: number) {
-    console.log(oldMontant + montantToAdd);
     const new_montant = oldMontant + montantToAdd
     this.postSetvice.postNewBalance(this.id_client, this.balance.id, new_montant).toPromise().then((res: any) => {
       this.getBalance()

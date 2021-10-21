@@ -56,7 +56,8 @@ export class RdvComponent implements OnInit {
     this.id_avocat = localStorage.getItem('id_avocat');
 
     if (this.id_client != "") {
-      this.getRdvByIdClient()
+      this.getRdvByIdClient();
+      this.getBalance()
     } else {
       this.getRdvByIdAvocat();
     }
@@ -162,9 +163,6 @@ export class RdvComponent implements OnInit {
     })
   }
   submitRdv() {
-    console.log(this.purposeRdvForm.controls.avocatRdv.value);
-    console.log(this.purposeRdvForm.controls.dateRdv.value);
-    console.log(this.purposeRdvForm.controls.heureRdv.value);
 
     this.getService.getRdvByIdAvocatAndDateAndHour(
       this.purposeRdvForm.controls.avocatRdv.value,
@@ -199,7 +197,7 @@ export class RdvComponent implements OnInit {
         })
       }
     }).catch((err) => {
-      console.log(err)
+
     });
   }
 
@@ -286,12 +284,9 @@ export class RdvComponent implements OnInit {
     if (this.selectedOption === 'statusFacture') {
       this.getService.getRdvByIdClient(id_client).toPromise().then((res: any) => {
         this.rdvs = [];
-        console.log(res)
         for (let i = 0; i < res.length; i++) {
           if (res[i].statusFacture === "pas de facture") {
-            console.log(res[i].status)
             this.rdvs.push(res[i]);
-            console.log(res[i])
           } else if (res[i].statusFacture != "pas de facture") {
 
           }
@@ -309,7 +304,6 @@ export class RdvComponent implements OnInit {
 
   getAllRdvByStatusFacturesAndAvocat(id_avocat: string) {
     this.getService.getRdvByIdAvocat(id_avocat).toPromise().then((res: any) => {
-      console.log(res)
       for (let i = 0; i < res.length; i++) {
         if (res[i].statusFacture != "pas de facture") {
           Swal.fire({
@@ -325,4 +319,27 @@ export class RdvComponent implements OnInit {
       }
     })
   }
+    //balance 
+    balance: any;
+
+    isPositive(montant: number) {
+      if (montant > 0) {
+        return true
+      } else {
+        return false;
+      }
+    }
+    
+    getBalance() {
+      this.getService.getBalanceByClient(this.id_client).toPromise().then((res: any) => {
+        this.balance = res
+      })
+    }
+  
+    addMontant(oldMontant:number, montantToAdd: number) {
+      const new_montant = oldMontant + montantToAdd
+      this.postService.postNewBalance(this.id_client, this.balance.id, new_montant).toPromise().then((res: any) => {
+        this.getBalance()
+      })
+    }
 }

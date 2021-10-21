@@ -25,4 +25,13 @@ public class BalanceController {
             return "500";
         }
     }
+    @PostMapping(value = "newBalance")
+    private String createNewBalance(@RequestBody Balance balance) {
+        balanceDao.save(balance);
+        if (balance != null) {
+            return "201";
+        } else {
+            return "500";
+        }
+    }
 }

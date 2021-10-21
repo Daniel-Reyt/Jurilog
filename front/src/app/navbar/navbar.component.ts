@@ -28,10 +28,8 @@ export class NavbarComponent implements OnInit {
   setCollapseNavBarSmall() {
     if (this.collapseNavBarSmall) {
       this.collapseNavBarSmall = false
-      console.log(this.collapseNavBarSmall)
     } else {
       this.collapseNavBarSmall = true
-      console.log(this.collapseNavBarSmall)
     }
   }
 

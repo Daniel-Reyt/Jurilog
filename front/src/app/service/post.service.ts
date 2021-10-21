@@ -9,9 +9,18 @@ import {Router} from "@angular/router";
 })
 export class PostService {
 
-
   constructor(private http: HttpClient,
               private router: Router) { }
+
+  createNewBalance(id_client: any, id_balance: any, new_montant: number) {
+    return this.http.post(`${url}newBalance`, {
+      id: id_balance,
+      client: {
+        id: id_client
+      },
+      montant: new_montant
+    })
+  }
 
   postNewBalance(id_client: any, id_balance:number, new_montant: number):any {
     return this.http.post(`${url}postNewMontant`, {
@@ -96,4 +105,10 @@ export class PostService {
       rdv: rdv
     })
   }
+  setStatusFacture(rdv: any, id_facture: any, status: number) {
+      return this.http.put<any>(`${url}setFactureToPayer`, {
+        id: id_facture,
+        rdv: rdv,
+      })
+    }
 }
