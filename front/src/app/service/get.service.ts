@@ -86,4 +86,7 @@ export class GetService {
     getBalanceByClient(id_client: number): any {
       return this.http.get<any>(`${url}getBalanceOfClient/${id_client}`)
     }
+    getBalanceByAvocat(id_avocat: number): any {
+      return this.http.get<any>(`${url}getBalanceOfAvocat/${id_avocat}`)
+    }
 }

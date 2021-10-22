@@ -1,21 +1,21 @@
 <div class="container">
   <div class="row">
-    <div class="col-lg-3" style="margin-top: 10px;" [hidden]="this.id_client === ''">
+    <div class="col-lg-3" style="margin-top: 10px;">
       <div class="card">
         <div class="card-header">
-            <h6>Balance du CLient : {{balance.client.nom}}</h6>
+          <h6>Balance<span [hidden]="this.id_client === ''"> du client</span><span [hidden]="this.id_avocat === ''"> de l'avocat</span> : <span [hidden]="this.id_client === ''"> {{client_nom}}</span><span [hidden]="this.id_avocat === ''"> {{avocat_nom}}</span></h6>
         </div>
         <div class="card-body">
-            <p>montant : <span *ngIf="isPositive(balance.montant)">+</span>{{balance.montant}} €</p>
+          <p>montant : <span *ngIf="isPositive(montant)">+</span>{{montant}} €</p>
         </div>
         <div class="card-body">
             actions :
             <div class="row">
-                <button class="col-lg-3 btn btn-primary" (click)="addMontant(balance.montant, 1)">+1 €</button>
+                <button class="col-lg-3 btn btn-primary" (click)="addMontant(montant, 1)">+1 €</button>
                 <div class="col-lg-1"></div>
-                <button class="col-lg-3 btn btn-primary" (click)="addMontant(balance.montant, 10)">+10 €</button>
+                <button class="col-lg-3 btn btn-primary" (click)="addMontant(montant, 10)">+10 €</button>
                 <div class="col-lg-1"></div>
-                <button class="col-lg-4 btn btn-primary" (click)="addMontant(balance.montant, 100)">+100 €</button>
+                <button class="col-lg-4 btn btn-primary" (click)="addMontant(montant, 100)">+100 €</button>
             </div>
         </div>
     </div>
@@ -63,7 +63,7 @@
         </div>
         <div class="card-footer">
           <button class="btn btn-secondary col-6" (click)="PrintFacture(facture)">imprimer</button>
-          <button class="btn btn-secondary col-6" (click)="payerFacture(facture)" [hidden]="facture.statusFacture != 0">Payer</button>
+          <button class="btn btn-secondary col-6" (click)="payerFacture(facture)" [hidden]="this.id_client === '' || facture.statusFacture != 0">Payer</button>
         </div>
       </div>
       

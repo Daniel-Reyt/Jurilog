@@ -17,6 +17,12 @@ import Swal from 'sweetalert2';
 export class FactureComponent implements OnInit {
   id_rdv: any;
   id_client: any;
+  id_avocat: any;
+  montant: any;
+
+  avocat_nom = "";
+  client_nom = "";
+  balance: any;
 
   isCreate: boolean = true;
 
@@ -29,6 +35,7 @@ export class FactureComponent implements OnInit {
   taux: any;
 
   isPayer: any;
+
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
               private getService: GetService,
@@ -37,11 +44,11 @@ export class FactureComponent implements OnInit {
   ngOnInit(): void {
     this.id_rdv = this.activatedRoute.snapshot.paramMap.get('id_rdv');
     this.id_client = localStorage.getItem('id_client');
+    this.id_avocat = localStorage.getItem('id_avocat');
+
     this.getBalance();
 
     this.checkIfRdvHadFacture();
-
-    this.getBalance();
     registerLocaleData(localeFr, "fr");
   }
 
@@ -92,7 +99,6 @@ export class FactureComponent implements OnInit {
   }
 
   //balance 
-  balance: any;
   payerFacture(facture: any) {
     if (this.balance.montant > this.facture.totalFacture) {
       this.removeMontant(this.balance.montant, this.facture.totalFacture);
@@ -140,22 +146,44 @@ export class FactureComponent implements OnInit {
   }
   
   getBalance() {
-    this.getService.getBalanceByClient(this.id_client).toPromise().then((res: any) => {
-      this.balance = res
-    })
+    if (this.id_client != "") {
+      this.getService.getBalanceByClient(this.id_client).toPromise().then((res: any) => {
+        this.balance = res
+        this.client_nom = res.client.nom
+        this.montant  = res.montant
+      })
+    } else if (this.id_avocat != "") {
+      this.getService.getBalanceByAvocat(this.id_avocat).toPromise().then((res: any) => {
+        this.balance = res
+        this.avocat_nom = res.avocat.nom
+        this.montant  = res.montant
+      })
+    }
   }
 
   removeMontant(oldMontant:number, montantToRemove: number) {
     const new_montant = oldMontant - montantToRemove
-    this.postService.postNewBalance(this.id_client, this.balance.id, new_montant).toPromise().then((res: any) => {
-      this.getBalance();
-    })
+    if (this.id_client != "") {
+      this.postService.postNewMontantClient(this.id_client, this.balance.id, new_montant).toPromise().then((res: any) => {
+        this.getBalance();
+      })
+    } else if (this.id_avocat != "") {
+      this.postService.postNewMontantAvocat(this.id_avocat, this.balance.id, new_montant).toPromise().then((res: any) => {
+        this.getBalance();
+      })
+    }
   }
 
   addMontant(oldMontant:number, montantToAdd: number) {
     const new_montant = oldMontant + montantToAdd
-    this.postService.postNewBalance(this.id_client, this.balance.id, new_montant).toPromise().then((res: any) => {
-      this.getBalance()
-    })
+    if (this.id_client != "") {
+      this.postService.postNewMontantClient(this.id_client, this.balance.id, new_montant).toPromise().then((res: any) => {
+        this.getBalance()
+      })
+    } else if (this.id_avocat != "") {
+      this.postService.postNewMontantAvocat(this.id_avocat, this.balance.id, new_montant).toPromise().then((res: any) => {
+        this.getBalance();
+      })
+    }
   }
 }

@@ -31,6 +31,10 @@ export class RdvComponent implements OnInit {
   listeheures: number[] = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
   error_heure: any;
 
+  client_nom = "";
+  avocat_nom = "";
+  montant: any;
+
   constructor(private fb: FormBuilder,
     private router: Router,
     private getService: GetService,
@@ -57,9 +61,10 @@ export class RdvComponent implements OnInit {
 
     if (this.id_client != "") {
       this.getRdvByIdClient();
-      this.getBalance()
-    } else {
+      this.getBalance();
+    } else if (this.id_avocat != "") {
       this.getRdvByIdAvocat();
+      this.getBalance();
     }
   }
 
@@ -73,6 +78,7 @@ export class RdvComponent implements OnInit {
               'icon': "error"
             }).then((res) => {
               this.getRdvByIdClient();
+              this.getBalance()
             })
           } else {
             this.rdvs = [];
@@ -87,6 +93,7 @@ export class RdvComponent implements OnInit {
               'icon': "error"
             }).then((res) => {
               this.getRdvByIdAvocat();
+              this.getBalance()
             })
           } else {
             this.rdvs = [];
@@ -107,6 +114,7 @@ export class RdvComponent implements OnInit {
               'icon': "error"
             }).then((res) => {
               this.getRdvByIdClient();
+              this.getBalance()
             })
           } else {
             this.rdvs = [];
@@ -121,6 +129,7 @@ export class RdvComponent implements OnInit {
               'icon': "error"
             }).then((res) => {
               this.getRdvByIdAvocat();
+              this.getBalance()
             })
           } else {
             this.rdvs = [];
@@ -178,9 +187,12 @@ export class RdvComponent implements OnInit {
           this.purposeRdvForm.controls.rdvTypeSelected.value,
         ).toPromise().then((res) => {
           if (this.id_client != "") {
-            this.getRdvByIdClient()
+            this.getRdvByIdClient();
+            this.getBalance()
           } else {
-            this.getRdvByIdAvocat()
+            this.getRdvByIdAvocat();
+            this.getBalance()
+
           }
         })
         this.error_heure = ""
@@ -204,9 +216,11 @@ export class RdvComponent implements OnInit {
   validerRdv(rdv: any) {
     this.postService.validerRdv(rdv).toPromise().then((res) => {
       if (this.id_client != "") {
-        this.getRdvByIdClient()
+        this.getRdvByIdClient();
+        this.getBalance()
       } else {
-        this.getRdvByIdAvocat()
+        this.getRdvByIdAvocat();
+        this.getBalance()
       }
     })
   }
@@ -214,8 +228,10 @@ export class RdvComponent implements OnInit {
     this.postService.refuserRdv(rdv).toPromise().then((res) => {
       if (this.id_client != "") {
         this.getRdvByIdClient()
+        this.getBalance()
       } else {
         this.getRdvByIdAvocat()
+        this.getBalance()
       }
     })
   }
@@ -226,17 +242,21 @@ export class RdvComponent implements OnInit {
 
   resetFilters() {
     if (this.id_client != "") {
-      this.getRdvByIdClient()
+      this.getRdvByIdClient();
+      this.getBalance()
     } else {
       this.getRdvByIdAvocat()
+      this.getBalance()
     }
   }
 
   getAllRdvByStatus(status: number) {
     if (this.id_client != "") {
-      this.getAllRdvByStatusAndClient(status, this.id_client)
+      this.getAllRdvByStatusAndClient(status, this.id_client);
+      this.getBalance()
     } else {
-      this.getAllRdvByStatusAndAvocat(status, this.id_avocat)
+      this.getAllRdvByStatusAndAvocat(status, this.id_avocat);
+      this.getBalance()
     }
   }
 
@@ -274,9 +294,11 @@ export class RdvComponent implements OnInit {
 
   getAllRdvByStatusFacture() {
     if (this.id_client != "") {
-      this.getAllRdvByStatusFacturesAndClient(this.id_client)
+      this.getAllRdvByStatusFacturesAndClient(this.id_client);
+      this.getBalance()
     } else {
-      this.getAllRdvByStatusFacturesAndAvocat(this.id_avocat)
+      this.getAllRdvByStatusFacturesAndAvocat(this.id_avocat);
+      this.getBalance()
     }
   }
 
@@ -331,15 +353,31 @@ export class RdvComponent implements OnInit {
     }
     
     getBalance() {
-      this.getService.getBalanceByClient(this.id_client).toPromise().then((res: any) => {
-        this.balance = res
-      })
+      if (this.id_client != "") {
+        this.getService.getBalanceByClient(this.id_client).toPromise().then((res: any) => {
+          this.balance = res      
+          this.client_nom = res.client.nom;
+          this.montant  = res.montant
+        })
+      } else {
+        this.getService.getBalanceByAvocat(this.id_avocat).toPromise().then((res: any) => {
+          this.balance = res
+          this.avocat_nom = res.avocat.nom
+          this.montant  = res.montant
+        })
+      }
     }
   
     addMontant(oldMontant:number, montantToAdd: number) {
       const new_montant = oldMontant + montantToAdd
-      this.postService.postNewBalance(this.id_client, this.balance.id, new_montant).toPromise().then((res: any) => {
-        this.getBalance()
-      })
+      if (this.id_client != "") {
+        this.postService.postNewMontantClient(this.id_client, this.balance.id, new_montant).toPromise().then((res: any) => {
+          this.getBalance()
+        })
+      } else {
+        this.postService.postNewMontantAvocat(this.id_avocat, this.balance.id, new_montant).toPromise().then((res: any) => {
+          this.getBalance()
+        })
+      }
     }
 }

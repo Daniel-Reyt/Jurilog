@@ -13,7 +13,26 @@ export class PostService {
               private router: Router) { }
 
   createNewBalance(id_client: any, id_balance: any, new_montant: number) {
-    return this.http.post(`${url}newBalance`, {
+    return this.http.post(`${url}newBalanceClient`, {
+      id: id_balance,
+      client: {
+        id: id_client
+      },
+      montant: new_montant
+    })
+  }  
+  createNewBalanceAvocat(id_avocat: any, id_balance: any, new_montant: number) {
+    return this.http.post(`${url}newBalanceAvocat`, {
+      id: id_balance,
+      avocat: {
+        id: id_avocat
+      },
+      montant: new_montant
+    })
+  }
+
+  postNewMontantClient(id_client: any, id_balance:number, new_montant: number):any {
+    return this.http.post(`${url}postNewMontantClient`, {
       id: id_balance,
       client: {
         id: id_client
@@ -21,17 +40,15 @@ export class PostService {
       montant: new_montant
     })
   }
-
-  postNewBalance(id_client: any, id_balance:number, new_montant: number):any {
-    return this.http.post(`${url}postNewMontant`, {
+  postNewMontantAvocat(id_avocat: any, id_balance:number, new_montant: number):any {
+    return this.http.post(`${url}postNewMontantAvocat`, {
       id: id_balance,
-      client: {
-        id: id_client
+      avocat: {
+        id: id_avocat
       },
       montant: new_montant
     })
   }
-
   postAvocat(nom: String, prenom: String, adresse: String, phone: String, username: String, password: String) {
     this.http.post(`${url}avocat`, {
       nom: nom,

@@ -50,22 +50,22 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-lg-3" style="margin-top: 10px;" [hidden]="this.id_client === ''">
+    <div class="col-lg-3" style="margin-top: 10px;">
       <div class="card">
         <div class="card-header">
-            <h6>Balance du CLient : {{balance.client.nom}}</h6>
+            <h6>Balance<span [hidden]="this.id_client === ''"> du client</span><span [hidden]="this.id_avocat === ''"> de l'avocat</span> : <span [hidden]="this.id_client === ''"> {{client_nom}}</span><span [hidden]="this.id_avocat === ''"> {{avocat_nom}}</span></h6>
         </div>
         <div class="card-body">
-            <p>montant : <span *ngIf="isPositive(balance.montant)">+</span>{{balance.montant}} €</p>
+            <p>montant : <span *ngIf="isPositive(montant)">+</span>{{montant}} €</p>
         </div>
         <div class="card-body">
             actions :
             <div class="row">
-                <button class="col-lg-3 btn btn-primary" (click)="addMontant(balance.montant, 1)">+1 €</button>
+                <button class="col-lg-3 btn btn-primary" (click)="addMontant(montant, 1)">+1 €</button>
                 <div class="col-lg-1"></div>
-                <button class="col-lg-3 btn btn-primary" (click)="addMontant(balance.montant, 10)">+10 €</button>
+                <button class="col-lg-3 btn btn-primary" (click)="addMontant(montant, 10)">+10 €</button>
                 <div class="col-lg-1"></div>
-                <button class="col-lg-4 btn btn-primary" (click)="addMontant(balance.montant, 100)">+100 €</button>
+                <button class="col-lg-4 btn btn-primary" (click)="addMontant(montant, 100)">+100 €</button>
             </div>
         </div>
     </div>
@@ -73,7 +73,7 @@
     <div class="col-lg-9">
       <div style="margin-top: 10px">
         <div class="row">
-          <div class="card col-lg-6" *ngFor="let rdv of rdvs; let i = index">
+          <div class="card" *ngFor="let rdv of rdvs; let i = index">
             <div class="row card-header">
               rendez vous le : {{rdv.date | date:'fullDate'}}
               <br>
@@ -110,38 +110,38 @@
           </div>
         </div>
       </div>
-      
-      <div class="row" style="margin-top: 10px" [hidden]="id_client === ''">
-        <div class="col-lg-12 bordered">
-          <form class="form-group" [formGroup]="purposeRdvForm">
-            <h4 class="text-center">Proposer un rendez-vous</h4>
-            <h5 class="bg-lightYellow error" [hidden]="error_heure === ''">{{error_heure}}</h5>
-            <label class="form-label">Date du rendez-vous</label>
-            <input type="date" formControlName="dateRdv" class="form-control">
-            <br>
-            <label class="form-label">Heure du rendez-vous</label>
-            <select formControlName="heureRdv" id="selectHeureRdv" class="form-select">
-              <option value="" selected disabled>Choisissez une heure de rendez-vous</option>
-              <option value="{{heure}}" *ngFor="let heure of listeheures">{{heure}} heure</option>
-            </select>
-            <br>
-            <label class="form-label">Avocat :</label>
-            <select formControlName="avocatRdv" id="selectAvocat" class="form-select">
-              <option value="" selected disabled>Choisissez un avocat</option>
-              <option value="{{avocat.id}}" *ngFor="let avocat of avocats">{{avocat.nom}}, {{avocat.prenom}}</option>
-            </select>
-            <br>
-            <label class="form-label">Type de Rendez-vous :</label>
-            <select formControlName="rdvTypeSelected" id="selectRdvType" class="form-select">
-              <option value="" selected disabled>Choisissez un type de rendez-vous</option>
-              <option value="{{rdvType.id}}" *ngFor="let rdvType of rdvsType">
-                {{rdvType.typeRdvName}} => augmentation de {{rdvType.percentAugmentation}} %</option>
-            </select>
-            <br>
-            <button class="btn btn-primary col-lg-12" (click)="submitRdv()">proposer le rendez vous</button>
-          </form>
-        </div>
-      </div>
+    </div>
+  </div>
+        
+  <div class="row" style="margin-top: 10px" [hidden]="this.id_client === ''">
+    <div class="col-lg-12 bordered">
+      <form class="form-group" [formGroup]="purposeRdvForm">
+        <h4 class="text-center">Proposer un rendez-vous</h4>
+        <h5 class="bg-lightYellow error" [hidden]="error_heure === ''">{{error_heure}}</h5>
+        <label class="form-label">Date du rendez-vous</label>
+        <input type="date" formControlName="dateRdv" class="form-control">
+        <br>
+        <label class="form-label">Heure du rendez-vous</label>
+        <select formControlName="heureRdv" id="selectHeureRdv" class="form-select">
+          <option value="" selected disabled>Choisissez une heure de rendez-vous</option>
+          <option value="{{heure}}" *ngFor="let heure of listeheures">{{heure}} heure</option>
+        </select>
+        <br>
+        <label class="form-label">Avocat :</label>
+        <select formControlName="avocatRdv" id="selectAvocat" class="form-select">
+          <option value="" selected disabled>Choisissez un avocat</option>
+          <option value="{{avocat.id}}" *ngFor="let avocat of avocats">{{avocat.nom}}, {{avocat.prenom}}</option>
+        </select>
+        <br>
+        <label class="form-label">Type de Rendez-vous :</label>
+        <select formControlName="rdvTypeSelected" id="selectRdvType" class="form-select">
+          <option value="" selected disabled>Choisissez un type de rendez-vous</option>
+          <option value="{{rdvType.id}}" *ngFor="let rdvType of rdvsType">
+            {{rdvType.typeRdvName}} => augmentation de {{rdvType.percentAugmentation}} %</option>
+        </select>
+        <br>
+        <button class="btn btn-primary col-lg-12" (click)="submitRdv()">proposer le rendez vous</button>
+      </form>
     </div>
   </div>
 </div>

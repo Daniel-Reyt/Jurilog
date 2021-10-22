@@ -4,6 +4,7 @@ C:\Users\danie\Desktop\Daniel\dossier\fil_rouge_4.0.3_daniel\orm\src\main\java\f
 C:\Users\danie\Desktop\Daniel\dossier\fil_rouge_4.0.3_daniel\orm\src\main\java\fr\lightning\daos\TypeRdvDao.java
 C:\Users\danie\Desktop\Daniel\dossier\fil_rouge_4.0.3_daniel\orm\src\main\java\fr\lightning\controllers\FactureController.java
 C:\Users\danie\Desktop\Daniel\dossier\fil_rouge_4.0.3_daniel\orm\src\main\java\fr\lightning\daos\BalanceDao.java
+C:\Users\danie\Desktop\Daniel\dossier\fil_rouge_4.0.3_daniel\orm\src\main\java\fr\lightning\entity\BalanceAvocat.java
 C:\Users\danie\Desktop\Daniel\dossier\fil_rouge_4.0.3_daniel\orm\src\main\java\fr\lightning\controllers\ClientController.java
 C:\Users\danie\Desktop\Daniel\dossier\fil_rouge_4.0.3_daniel\orm\src\main\java\fr\lightning\controllers\AvocatController.java
 C:\Users\danie\Desktop\Daniel\dossier\fil_rouge_4.0.3_daniel\orm\src\main\java\fr\lightning\daos\AvocatDao.java
@@ -11,6 +12,7 @@ C:\Users\danie\Desktop\Daniel\dossier\fil_rouge_4.0.3_daniel\orm\src\main\java\f
 C:\Users\danie\Desktop\Daniel\dossier\fil_rouge_4.0.3_daniel\orm\src\main\java\fr\lightning\entity\Rdv.java
 C:\Users\danie\Desktop\Daniel\dossier\fil_rouge_4.0.3_daniel\orm\src\main\java\fr\lightning\entity\TypeRdv.java
 C:\Users\danie\Desktop\Daniel\dossier\fil_rouge_4.0.3_daniel\orm\src\main\java\fr\lightning\entity\Balance.java
+C:\Users\danie\Desktop\Daniel\dossier\fil_rouge_4.0.3_daniel\orm\src\main\java\fr\lightning\daos\BalanceAvocatDao.java
 C:\Users\danie\Desktop\Daniel\dossier\fil_rouge_4.0.3_daniel\orm\src\main\java\fr\lightning\objects\FrontRdvObject.java
 C:\Users\danie\Desktop\Daniel\dossier\fil_rouge_4.0.3_daniel\orm\src\main\java\fr\lightning\daos\FactureDao.java
 C:\Users\danie\Desktop\Daniel\dossier\fil_rouge_4.0.3_daniel\orm\src\main\java\fr\lightning\controllers\RdvController.java
