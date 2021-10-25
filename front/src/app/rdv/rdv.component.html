@@ -50,10 +50,10 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-lg-3" style="margin-top: 10px;">
+    <div class="col-lg-3" style="margin-top: 10px;" [hidden]="this.id_avocat != ''">
       <div class="card">
         <div class="card-header">
-            <h6>Balance<span [hidden]="this.id_client === ''"> du client</span><span [hidden]="this.id_avocat === ''"> de l'avocat</span> : <span [hidden]="this.id_client === ''"> {{client_nom}}</span><span [hidden]="this.id_avocat === ''"> {{avocat_nom}}</span></h6>
+            <h6>Balance<span [hidden]="this.id_client === ''"> du client</span> : <span [hidden]="this.id_client === ''"> {{client_nom}}</span></h6>
         </div>
         <div class="card-body">
             <p>montant : <span *ngIf="isPositive(montant)">+</span>{{montant}} €</p>
