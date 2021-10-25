@@ -21,7 +21,12 @@ pipeline {
         stage('Test') {
             steps {
                 sh """
+                    docker run -p 8989:8989 -d --name spring danielrxt321/filrouge:fil_rouge_403_daniel_spring-orm
 
+                    cd front/
+                    ng test -- --watch=false
+
+                    docker stop spring
                 """            
             }
         }
