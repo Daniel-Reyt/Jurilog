@@ -48,6 +48,9 @@ pipeline {
 
                     docker image tag fil_rouge_403_daniel_spring-orm danielrxt321/filrouge:fil_rouge_403_daniel_spring-orm
                     docker push danielrxt321/filrouge:fil_rouge_403_daniel_spring-orm
+
+                    docker run -p 8989:8989 -d --name spring danielrxt321/filrouge:fil_rouge_403_daniel_spring-orm
+                    docker run -p 80:80 -d --name angular danielrxt321/filrouge:fil_rouge_403_daniel_angular-front
                 """         
             }
         }
