@@ -21,6 +21,7 @@ pipeline {
         stage('Test') {
             steps {
                 sh """
+                    docker rm -f spring
                     docker run -p 8989:8989 -d --name spring danielrxt321/filrouge:fil_rouge_403_daniel_spring-orm
 
                     cd front/
@@ -34,6 +35,9 @@ pipeline {
         stage('Deploy') {
             steps { 
                 sh """
+                    docker rm -f spring
+                    docker rm -f angular
+
                     cd front/
                     docker build -f prod.Dockerfile .
 
