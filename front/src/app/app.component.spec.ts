@@ -8,9 +8,9 @@ describe('AppComponent', () => {
   let http: HttpClient;
   let clients: [any] = <any>[];
   //for DEV
-  //let url = "http://localhost:8989/"
+  let url = "http://localhost:8989/"
   //for PROD
-  let url = "http://10.3.1.58:8989/"
+  //let url = "http://10.3.1.58:8989/"
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
