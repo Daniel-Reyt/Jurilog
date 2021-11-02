@@ -35,6 +35,9 @@ pipeline {
         stage('Deploy') {
             steps { 
                 sh """
+                    docker stop spring
+                    docker stop angular
+
                     docker rm -f spring
                     docker rm -f angular
 
