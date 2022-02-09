@@ -4,13 +4,15 @@ services:
 
   angular-front-dev:
     container_name: jurilog-angular-dev
+    command: "npm run start"
     build:
       context: ./front
-      dockerfile: dev.Dockerfile
+      dockerfile: prod.Dockerfile
     volumes:
       - ./front:/app
+      - /app/node_modules
     ports:
-      - 4200:4200
+      - 300:300
 
   spring-orm-dev:
     container_name: jurilog-spring-dev

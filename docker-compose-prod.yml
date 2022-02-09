@@ -11,7 +11,7 @@ services:
       - ./front:/app
       - /app/node_modules
     ports:
-      - 80:80
+      - 300:300
 
   spring-orm:
     container_name: jurilog-spring-prod

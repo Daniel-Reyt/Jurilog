@@ -11,11 +11,10 @@ COPY . .
 RUN npm install
 
 COPY . .
-CMD ["npm","run","build"]
 
 FROM nginx:stable-alpine
 COPY --from=builder /app/dist/front /usr/share/nginx/html
 RUN rm /etc/nginx/conf.d/default.conf
 COPY nginx.conf /etc/nginx/conf.d/default.conf
-EXPOSE 80
+EXPOSE 300
 CMD ["nginx", "-g", "daemon off;"]
